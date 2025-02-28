@@ -1,0 +1,21 @@
+{
+    "objective": "To uncover potential corporate misconduct and negative events related to the target company. The investigation aims to identify instances where the company is the accused party rather than the victim. The research will focus on legal, financial, and ethical concerns affecting the company's reputation and compliance status.",
+    "key_areas_of_focus": [
+      "Bribery allegations, corruption cases, and improper payments",
+      "Legal cases against the company (not cases filed by the company)",
+      "Fraud or misconduct committed by the company (not fraud against the company)",
+      "Regulatory investigations, fines, and penalties from authorities",
+      "Allegations of unethical business practices or corporate misgovernance",
+      "Financial mismanagement, tax evasion, accounting irregularities, or corporate fraud"
+    ],
+    "query_categories": {
+      "bribery_corruption": "Investigate bribery cases, corruption scandals, and violations of anti-corruption laws.",
+      "legal_issues": "Identify court cases, litigation, and criminal proceedings against the company.",
+      "regulatory_actions": "Examine investigations, fines, and penalties imposed by regulatory authorities.",
+      "management_misconduct": "Research executive misconduct, unethical business practices, and corporate misgovernance.",
+      "corporate_governance": "Analyze board-level disputes, promoter conflicts, and governance failures.",
+      "financial_irregularities": "Look into tax evasion, accounting fraud, financial mismanagement, and loan defaults."
+    },
+    "query_generation_guidelines": "Generate 2-3 specific search queries per category, ensuring that they are well-structured and distinct to capture relevant information. Queries should prioritize cases where the company is the accused party rather than a victim."
+  }
+  

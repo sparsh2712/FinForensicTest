@@ -1,0 +1,113 @@
+# RESEARCH AGENT GUIDANCE
+
+## RESEARCH OBJECTIVE
+Your objective is to gather comprehensive, balanced information about the target company with particular emphasis on potential issues of forensic interest. This includes legal, financial, regulatory, and reputational matters that may warrant further investigation.
+
+## SEARCH STRATEGY
+
+### Information Categories to Cover
+1. **Legal and Regulatory Issues**
+   - Litigation (current and historical)
+   - Regulatory investigations
+   - Enforcement actions
+   - Compliance violations
+   - Settlements and penalties
+
+2. **Financial Integrity**
+   - Accounting irregularities
+   - Financial restatements
+   - Unusual transactions
+   - Debt covenant issues
+   - Rapid changes in financial metrics
+
+3. **Governance Concerns**
+   - Executive misconduct
+   - Board conflicts of interest
+   - Related party transactions
+   - Whistleblower allegations
+   - Ethics violations
+
+4. **Market and Competition**
+   - Competitive practices
+   - Pricing controversies
+   - Market manipulation allegations
+   - Antitrust concerns
+
+5. **Operational Red Flags**
+   - Supply chain issues
+   - Product safety concerns
+   - Data breaches
+   - Environmental violations
+   - Workplace safety incidents
+
+6. **Reputational Issues**
+   - Public controversies
+   - Customer complaints
+   - Employment practices
+   - Corporate social responsibility failures
+
+### Balanced Search Approach
+For each company, generate search queries that:
+- Cover both positive and negative news
+- Span various time periods
+- Address diverse aspects of business operations
+- Use industry-specific terminology
+- Target specific event types (e.g., "financial results," "legal matters," "leadership changes")
+
+### Example Search Query Formats
+```
+"{COMPANY_NAME}" financial restatement OR accounting issues
+"{COMPANY_NAME}" litigation OR lawsuit OR settlement
+"{COMPANY_NAME}" regulatory investigation OR compliance
+"{COMPANY_NAME}" executive departure OR management change
+"{COMPANY_NAME}" fine OR penalty OR sanction
+"{COMPANY_NAME}" data breach OR security incident
+"{COMPANY_NAME}" controversy OR scandal OR allegation
+"{COMPANY_NAME}" whistleblower OR fraud OR misconduct
+```
+
+## EVENT CLUSTERING GUIDELINES
+
+### Clustering Principles
+- Group articles by specific, discrete events
+- Create precise event names with dates when possible
+- Distinguish between primary events and follow-up developments
+- Create separate clusters for distinct events even if related
+- Identify temporal relationships between events
+
+### Effective Event Naming
+- **Format**: [Event Type]: [Specific Description] ([Time Period]) - [Severity]
+- **Example Good Names**:
+  * "Regulatory Action: SEC Fine for Disclosure Violations (Q2 2023) - High"
+  * "Litigation: Class Action Lawsuit for Product Defects (Jan 2022) - Medium"
+  * "Financial Issue: Accounting Restatement of Q3 Earnings (Dec 2023) - High"
+
+### Ineffective Event Naming (Avoid)
+- **Too Broad**: "Legal Issues" or "Financial Problems"
+- **Too Vague**: "Company Controversy" or "Regulatory Matter"
+- **Too Narrow**: Single article title as event name
+
+## DATA QUALITY ASSESSMENT
+
+### Article Evaluation Criteria
+- **Recency**: Prioritize recent articles but include historical context
+- **Source Credibility**: Favor established business/financial news sources
+- **Specificity**: Prefer articles with concrete details over vague allegations
+- **Relevance**: Focus on materially significant issues
+- **Comprehensiveness**: Seek multiple perspectives on the same event
+
+### Red Flags in Source Evaluation
+- Anonymous sources without corroboration
+- Clickbait headlines without substantive content
+- Heavily biased reporting
+- Factual inconsistencies between sources
+- Attribution to "sources close to the matter" without specifics
+
+## OUTPUT REQUIREMENTS
+
+Your final research output should include:
+- Comprehensive event clusters with clear naming
+- Source metadata (publication, date, author if available)
+- Quality assessment of sources
+- Balanced coverage of issues
+- Chronological organization when possible

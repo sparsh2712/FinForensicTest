@@ -1,0 +1,184 @@
+# FORENSIC REPORT STRUCTURE GUIDE
+
+## STANDARD REPORT SECTIONS
+
+### 1. COVER PAGE
+```markdown
+# Forensic News Analysis Report
+## [COMPANY NAME]
+### Report Date: [DATE]
+```
+
+### 2. EXECUTIVE SUMMARY (500-750 words)
+An overview that provides the key information and conclusions from the investigation:
+- Company background (1-2 sentences)
+- Investigation scope and objective (1-2 sentences)
+- Summary of key findings (3-5 bullet points)
+- Overall risk assessment (High/Medium/Low with brief justification)
+- Significant red flags identified (2-3 most critical issues)
+- Limitations of the analysis (1-2 sentences)
+
+### 3. KEY FINDINGS (750-1000 words)
+Prioritized list of 5-8 significant findings:
+```markdown
+## Key Finding 1: [TITLE] - [SEVERITY]
+**Description:** [1-2 sentence explanation]
+**Evidence:** [Key supporting information]
+**Implications:** [Business/legal/financial impact]
+
+## Key Finding 2: [TITLE] - [SEVERITY]
+...
+```
+
+### 4. DETAILED EVENT ANALYSIS (1500-2500 words)
+In-depth analysis of 3-5 most significant events:
+```markdown
+## [EVENT NAME]
+**Date:** [DATE or DATE RANGE]
+**Summary:** [2-3 sentence overview]
+**Key Entities Involved:**
+- [ENTITY 1] - [ROLE]
+- [ENTITY 2] - [ROLE]
+
+**Event Chronology:**
+1. [DATE] - [DEVELOPMENT]
+2. [DATE] - [DEVELOPMENT]
+
+**Evidence Assessment:**
+- [SOURCE 1] - [CREDIBILITY ASSESSMENT]
+- [SOURCE 2] - [CREDIBILITY ASSESSMENT]
+
+**Contradictions and Inconsistencies:**
+- [DESCRIPTION OF ANY CONFLICTING INFORMATION]
+
+**Current Status:** [LATEST DEVELOPMENT]
+
+**Potential Implications:**
+- [IMPLICATION 1]
+- [IMPLICATION 2]
+```
+
+### 5. RISK ASSESSMENT (750-1000 words)
+Structured assessment of key risk areas:
+```markdown
+## Financial Integrity Risk: [HIGH/MEDIUM/LOW]
+**Assessment:** [2-3 sentence explanation]
+**Key Indicators:**
+- [INDICATOR 1]
+- [INDICATOR 2]
+**Potential Impact:** [DESCRIPTION]
+
+## Legal and Regulatory Risk: [HIGH/MEDIUM/LOW]
+...
+
+## Reputational Risk: [HIGH/MEDIUM/LOW]
+...
+
+## Operational Risk: [HIGH/MEDIUM/LOW]
+...
+```
+
+### 6. TIMELINE OF KEY EVENTS (500-750 words)
+Chronological listing of significant events:
+```markdown
+## Timeline
+- **[DATE]** - [EVENT DESCRIPTION]
+- **[DATE]** - [EVENT DESCRIPTION]
+- **[DATE]** - [EVENT DESCRIPTION]
+```
+
+### 7. ENTITY NETWORK ANALYSIS (500-750 words)
+Analysis of key entities and their relationships:
+```markdown
+## Key Individuals
+- **[NAME]** - [ROLE/POSITION]
+  - Involvement: [DESCRIPTION]
+  - Pattern of Behavior: [OBSERVATIONS]
+
+## Key Organizations
+- **[ORGANIZATION]** - [RELATIONSHIP TO COMPANY]
+  - Role: [DESCRIPTION]
+  - Connections: [RELATIONSHIPS TO OTHER ENTITIES]
+```
+
+### 8. RECOMMENDATIONS (500-750 words)
+Specific, actionable recommendations:
+```markdown
+## Immediate Actions
+- [RECOMMENDATION 1]
+- [RECOMMENDATION 2]
+
+## Further Investigation Needed
+- [AREA 1] - [SPECIFIC QUESTIONS TO ADDRESS]
+- [AREA 2] - [SPECIFIC QUESTIONS TO ADDRESS]
+
+## Risk Mitigation Strategies
+- [STRATEGY 1]
+- [STRATEGY 2]
+```
+
+### 9. METHODOLOGY AND LIMITATIONS (500-750 words)
+Description of the analytical approach:
+```markdown
+## Data Sources
+- [SOURCE TYPE 1] - [NUMBER OF SOURCES]
+- [SOURCE TYPE 2] - [NUMBER OF SOURCES]
+
+## Analytical Approach
+- [METHODOLOGY 1]
+- [METHODOLOGY 2]
+
+## Limitations
+- [LIMITATION 1]
+- [LIMITATION 2]
+
+## Potential Biases
+- [BIAS 1]
+- [BIAS 2]
+```
+
+## FORMATTING GUIDELINES
+
+### Headers
+- # H1: Report title and main section headers
+- ## H2: Subsections
+- ### H3: Categories within subsections
+
+### Emphasis
+- **Bold**: Use for key terms, entity names, and important findings
+- *Italic*: Use for source names and publication titles
+- ~~Strikethrough~~: Use to indicate corrected information
+
+### Lists
+- Bullet points: Use for non-ordered lists of findings, features, or characteristics
+- Numbered lists: Use for sequences, steps, or prioritized items
+
+### Tables
+Use tables for:
+- Comparative data
+- Evidence assessment
+- Risk ratings
+
+### Blockquotes
+Use for direct quotations from sources:
+> "Direct quote from source." - Source Name, Publication Date
+
+## WRITING STYLE REQUIREMENTS
+
+### Professional Tone
+- Formal and objective language
+- Third-person perspective
+- Clear, concise sentences
+- Precise terminology
+
+### Evidence Standards
+- Attribution for all significant claims
+- Clear distinction between facts and allegations
+- Qualification of statements based on evidence strength
+- Transparent sourcing
+
+### Visual Structure
+- Consistent formatting throughout
+- Logical progression of information
+- Appropriate use of white space
+- Scannable content with clear sections

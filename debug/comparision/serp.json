@@ -1,0 +1,892 @@
+{
+    "search_metadata":
+    {
+    "id":
+    "67c080aed53e59f5b4d0f4b1",
+    "status":
+    "Success",
+    "json_endpoint":
+    "https://serpapi.com/searches/026f22da2fed9c0d/67c080aed53e59f5b4d0f4b1.json",
+    "created_at":
+    "2025-02-27 15:11:42 UTC",
+    "processed_at":
+    "2025-02-27 15:11:42 UTC",
+    "google_url":
+    "https://www.google.co.in/search?q=%22Motilal+Oswal%22+Scams+OR+Allegations+OR+Controversy&oq=%22Motilal+Oswal%22+Scams+OR+Allegations+OR+Controversy&uule=w+CAIQICIFSW5kaWE&hl=en&gl=in&num=100&tbm=nws&tbs=news&sourceid=chrome&ie=UTF-8",
+    "raw_html_file":
+    "https://serpapi.com/searches/026f22da2fed9c0d/67c080aed53e59f5b4d0f4b1.html",
+    "total_time_taken":
+    1.47
+    },
+    "search_parameters":
+    {
+    "engine":
+    "google",
+    "q":
+    "Motilal Oswal Scams OR Allegations OR Controversy",
+    "location_requested":
+    "India",
+    "location_used":
+    "India",
+    "google_domain":
+    "google.co.in",
+    "hl":
+    "en",
+    "gl":
+    "in",
+    "num":
+    "100",
+    "device":
+    "desktop",
+    "tbm":
+    "nws",
+    "tbs":
+    "news"
+    },
+    "search_information":
+    {
+    "query_displayed":
+    "Motilal Oswal Scams OR Allegations OR Controversy",
+    "total_results":
+    56,
+    "time_taken_displayed":
+    0.28,
+    "news_results_state":
+    "Results for exact spelling"
+    },
+    "news_results":
+    [
+    {
+    "position":
+    1,
+    "link":
+    "https://m.economictimes.com/markets/stocks/news/motilal-oswal-refutes-bribery-allegations/articleshow/117381963.cms",
+    "title":
+    "Motilal Oswal refutes bribery allegations",
+    "source":
+    "The Economic Times",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Financial Services refuted bribery allegations on social media against its asset management unit officials related to its investments.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fb026ddb556dce2189db5fce71b4380b6114e99adcc177b5a.jpeg"
+    },
+    {
+    "position":
+    2,
+    "link":
+    "https://www.moneycontrol.com/news/business/markets/sebi-imposes-rs-7-lakh-fine-on-motilal-oswal-for-various-violations-12924496.html",
+    "title":
+    "SEBI penalises Motilal Oswal Financial Services for lapses related to disclosures, margin reporting",
+    "source":
+    "Moneycontrol",
+    "date":
+    "1 month ago",
+    "snippet":
+    "SEBI has imposed a penalty of Rs 7 lakh on Motilal Oswal Financial Services for alleged lapses related to collecting client margins and incorrect disclosures.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f3d12c5ee842f52cdc0f2fec3e91d288a51718f52e782eb31.jpeg"
+    },
+    {
+    "position":
+    3,
+    "link":
+    "https://www.campaignindia.in/video/spotting-scams-motilal-oswals-takes-a-stand-with-yehconhai/500439",
+    "title":
+    "Spotting scams: Motilal Oswal’s takes a stand with #YehConHai",
+    "source":
+    "Campaign India",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Group has long been a target for scammers looking to exploit its reputation. Through proactive measures and the deployment of...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f2369b0a3fe2c29c3285c47c17af7d462a3f9e39b909ae556.jpeg"
+    },
+    {
+    "position":
+    4,
+    "link":
+    "https://www.afaqs.com/news/advertising/motilal-oswal-financial-services-unveils-yehconhai-campaign-to-combat-investment-scams-8646148",
+    "title":
+    "Motilal Oswal Financial Services unveils #YehConHai campaign to combat scams",
+    "source":
+    "afaqs!",
+    "date":
+    "1 month ago",
+    "snippet":
+    "As part of the campaign, Motilal Oswal Financial Services has introduced channels for investors to verify claims and individuals'...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f1587e56b6468ac4b87c5c41db0c01838bbc24a2c0d332410.jpeg"
+    },
+    {
+    "position":
+    5,
+    "link":
+    "https://www.news18.com/business/markets/kalyan-jewellers-zooms-9-after-motilal-oswal-amc-clarifies-on-bribery-allegations-9194978.html",
+    "title":
+    "Kalyan Jewellers Zooms 9% After Motilal Oswal AMC Clarifies On ‘Bribery’ Allegations",
+    "source":
+    "News18",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Shares of Kalyan Jewellers India surged more than 9% on January 20, reversing a three-day decline, after Motilal Oswal AMC issued a statement refuting rumors.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f3e56b10956f16903c908e14664dce376619ea4b3e0389320.jpeg"
+    },
+    {
+    "position":
+    6,
+    "link":
+    "https://www.thehindu.com/news/national/telangana/secunderabad-woman-loses-165-lakh-in-investment-fraud/article68736828.ece",
+    "title":
+    "Secunderabad woman loses ₹16.5 lakh in investment fraud",
+    "source":
+    "The Hindu",
+    "date":
+    "9 Oct 2024",
+    "snippet":
+    "A 62-year-old woman working from Secunderabad was conned of ₹16.5 lakh in a business and investment fraud using a fake app.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f6cdda09d7927ff5aa494fbf7ff20639dca6ba7cb4755276d.png"
+    },
+    {
+    "position":
+    7,
+    "link":
+    "https://www.business-standard.com/markets/news/motilal-oswal-amc-denies-allegations-of-unethical-practices-as-baseless-125011900447_1.html",
+    "title":
+    "Motilal Oswal AMC denies allegations of unethical practices as baseless",
+    "source":
+    "Business Standard",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company (MO AMC) issued a statement on Sunday, stating that recent allegations of unethical practices against the firm and its...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fab5c5d1cfc83b64c4e0f5f440fc69d581857e4f1dea31be5.jpeg"
+    },
+    {
+    "position":
+    8,
+    "link":
+    "https://www.livemint.com/market/stock-market-news/kalyan-jewellers-share-price-jumps-5-after-motilal-oswal-amc-clarification-on-bribery-allegations-11737343172416.html",
+    "title":
+    "Kalyan Jewellers share price jumps over 7% after Motilal Oswal AMC clarification on ‘bribery’ allegations",
+    "source":
+    "Mint",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers share price jumped over 7% on Monday after asset manager Motilal Oswal AMC issued a clarification on its investments in the jewellery maker.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fb0f95afbbe1c4a9327727707a42173c7901ed31929e61f60.jpeg"
+    },
+    {
+    "position":
+    9,
+    "link":
+    "https://www.financialexpress.com/market/baseless-and-defamatory-motilal-oswal-refutes-bribery-allegations-surrounding-kalyan-jewellers-investment-after-stock-crash-3719739/",
+    "title":
+    "‘Baseless and defamatory’: Motilal Oswal refutes bribery allegations surrounding Kalyan Jewellers investment after stock crash",
+    "source":
+    "Financialexpress",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company (AMC) has issued a strong rebuttal to rumours circulating on social media regarding its investments in Kalyan Jewellers.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f7f4cf260fe97e42bc79698520108fd62898b991b5db13b34.jpeg"
+    },
+    {
+    "position":
+    10,
+    "link":
+    "https://www.ndtvprofit.com/markets/motilal-oswal-amc-denies-social-media-allegations-calls-claims-baseless-malicious",
+    "title":
+    "Motilal Oswal AMC Denies Social Media Allegations, Calls Claims Baseless, Malicious",
+    "source":
+    "NDTV Profit",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company Ltd., recently in the spotlight on social media due to allegations involving Kalyan Jewellers India...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fa1724819b1144b29f26442e12b11043274ff586b35273bce.jpeg"
+    },
+    {
+    "position":
+    11,
+    "link":
+    "https://www.telegraphindia.com/business/motilal-oswal-asset-management-company-denies-foul-play-amid-controversy-over-investment-in-kalyan-jewellers/cid/2078524",
+    "title":
+    "Motilal Oswal denies foul play amid controversy over investment in Kalyan Jewellers",
+    "source":
+    "Telegraph India",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company, which has been the subject of social media speculations with regard to its investment in Kalyan Jewellers, on Sunday...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f52eb84439fd5eeea0825b84f6b588f9ced899812d54d1d55.jpeg"
+    },
+    {
+    "position":
+    12,
+    "link":
+    "https://www.adgully.com/motilal-oswal-group-calls-the-bluff-on-fraudsters-with-yehconhai-155409.html",
+    "title":
+    "Motilal Oswal Group calls the bluff on fraudsters with #YehConHai!",
+    "source":
+    "Adgully.com",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Financial Services has unveiled the #YehConHai campaign—an initiative to expose scam tactics and empower individuals on ways to...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f3ef30511c9b1feb0f55f10925770532c8ca88d2a1fc9c66a.jpeg"
+    },
+    {
+    "position":
+    13,
+    "link":
+    "https://www.moneycontrol.com/news/business/markets/sebi-fines-motilal-oswal-financial-services-rs-5-lakh-for-violating-stock-broker-regulations-12901346.html",
+    "title":
+    "SEBI fines Motilal Oswal Financial Services Rs 5 lakh for violating Stock Broker Regulations",
+    "source":
+    "Moneycontrol",
+    "date":
+    "31 Dec 2024",
+    "snippet":
+    "The market regulator has fined Motilal Oswal Financial Services (MOFSL) Rs 5 lakh for violating various provisions under the Stock Brokers Regulations.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7ffd0b923a5e20d6194eaade7f8ca2656e37381c3cf0c1c43d.jpeg"
+    },
+    {
+    "position":
+    14,
+    "link":
+    "https://m.economictimes.com/markets/stocks/news/kalyan-jewellers-shares-up-9-after-motilal-denies-bribery-allegations/articleshow/117387290.cms",
+    "title":
+    "Kalyan Jewellers shares up 9% after Motilal denies bribery allegations",
+    "source":
+    "The Economic Times",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers share price rose 9.4% after Motilal Oswal AMC denied bribery rumors. The asset manager called the allegations baseless...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fa49cb819ac03efbddf322d6c50565b6df6927f12b3ea580e.png"
+    },
+    {
+    "position":
+    15,
+    "link":
+    "https://www.business-standard.com/markets/news/kalyan-jewellers-jumps-9-after-motilal-oswal-issues-clarification-details-125012000194_1.html",
+    "title":
+    "Kalyan Jewellers jumps 9% as Motilal Oswal AMC denies social media claims",
+    "source":
+    "Business Standard",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Shares of Kalyan Jewellers India jumped 9.3 per cent at Rs 548.65 per share on the BSE in Monday's intraday trade after Motilal Oswal Asset Management Company...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fbe51d9ff33d691f19db50e301ed2fd7bb93b39bdf64b040e.jpeg"
+    },
+    {
+    "position":
+    16,
+    "link":
+    "https://www.moneycontrol.com/news/business/earnings/baseless-and-defamatory-allegations-circulating-on-social-media-says-motilal-oswal-amc-12914051.html",
+    "title":
+    "Baseless and defamatory allegations circulating on social media, says Motilal Oswal AMC",
+    "source":
+    "Moneycontrol",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company, which has been in the news recently following allegations of wrongdoings in the stock of Kalyan...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f0bedf637b10a69da39f25e2bda6abf2426fdeb0d9ccd15fc.jpeg"
+    },
+    {
+    "position":
+    17,
+    "link":
+    "https://www.moneycontrol.com/news/business/markets/motilal-oswal-amc-dials-500-distributors-reiterates-strong-risk-controls-investment-policies-12915037.html",
+    "title":
+    "Motilal Oswal AMC dials over 500 distributors, reiterates strong risk controls amid Kalyan Jewellers row",
+    "source":
+    "Moneycontrol",
+    "date":
+    "1 month ago",
+    "snippet":
+    "The top management of Motilal Oswal AMC got on a call with over 500 distributors to highlight the investment policy and strong risk control measures at the...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f5a633b9c2b05a6bf20b4b561bf393925cea4b87247015ef5.jpeg"
+    },
+    {
+    "position":
+    18,
+    "link":
+    "https://www.moneycontrol.com/news/business/markets/kalyan-jewellers-skyrockets-9-after-motilal-oswal-amc-clarifies-speculation-on-recent-stock-crash-12914387.html",
+    "title":
+    "Kalyan Jewellers skyrockets 9% after Motilal Oswal AMC clarifies speculation on recent stock crash",
+    "source":
+    "Moneycontrol",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Shares of Kalyan Jewellers India skyrocketed over 9 percent on January 20, snapping a three-day losing streak after asset manager Motilal Oswal AMC issued a...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7ff171a7db7a3c137c47c0086b4aaf9a794eea6d63a290514f.jpeg"
+    },
+    {
+    "position":
+    19,
+    "link":
+    "https://www.thehindubusinessline.com/markets/motilal-oswals-clarification-push-kalyan-jewellers-share-price-up-by-86/article69118415.ece",
+    "title":
+    "Motilal Oswal’s clarification pushes Kalyan Jewellers share price up by 8.6%",
+    "source":
+    "The Hindu BusinessLine",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal AMC denies bribery allegations, Kalyan Jewellers shares rise 7% on BSE, revenue grows 41% in Q3.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f4ad078b6bf4cd2cb2c749e7a93235b7c7ce9d6723fb28f3a.jpeg"
+    },
+    {
+    "position":
+    20,
+    "link":
+    "https://www.etnownews.com/companies/dont-fall-prey-to-rumours-leading-asset-manager-firm-motilal-oswals-founder-responds-to-allegations-whats-the-case-article-117374422",
+    "title":
+    "'Don't fall prey to rumours...' - Leading asset manager firm Motilal Oswal's founder responds to allegations - What's the case?",
+    "source":
+    "ET Now",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company (MOAMC) in the official statement has denied allegations against MOAMC and its officials circulating on social media as...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fc1c29e08b172a8329e32fba06612c04ff1076a9bf910e281.png"
+    },
+    {
+    "position":
+    21,
+    "link":
+    "https://www.medianews4u.com/motilal-oswal-group-launches-yehconhai-campaign-to-tackle-fraud/",
+    "title":
+    "Motilal Oswal Group launches #YehConHai Campaign to tackle fraud",
+    "source":
+    "MediaNews4U",
+    "date":
+    "1 month ago",
+    "snippet":
+    "The Motilal Oswal Group, a trusted name in India's financial services landscape, has taken a bold step in the fight against scammers with...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f9367a7a7841a6efae4b7f5e967154a5d9ee169c3ff621a69.jpeg"
+    },
+    {
+    "position":
+    22,
+    "link":
+    "https://www.moneycontrol.com/news/business/stocks/kalyan-jewellers-shares-fall-8-amid-motilal-oswal-bribery-rumours-despite-clarification-12915687.html",
+    "title":
+    "Kalyan Jewellers shares fall 8% amid Motilal Oswal bribery rumours despite clarification",
+    "source":
+    "Moneycontrol",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Viral social media posts falsely claim that Motilal Oswal AMC fund managers were involved in an alleged misconduct against Kalyan Jewellers...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f55f2340948acd82cea2147c4ea14082152ca3582ab73ef23.png"
+    },
+    {
+    "position":
+    23,
+    "link":
+    "https://www.indiantelevision.com/mam/media-and-advertising/ad-campaigns/motilal-oswal-group-fights-fraud-with-%23yehconhai-campaign-250123",
+    "title":
+    "Motilal Oswal Group fights fraud with #YehConHai campaign",
+    "source":
+    "Indian Television Dot Com",
+    "date":
+    "1 month ago",
+    "snippet":
+    "MUMBAI: Fraudsters beware. Motilal Oswal Financial Services (MOFSL) is hitting back hard at scammers with its bold new campaign, #YehConHai.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f52670e52a0ecdc7b05f66a9686542952ff8eadbb244911e6.jpeg"
+    },
+    {
+    "position":
+    24,
+    "link":
+    "https://www.hindustantimes.com/business/sebi-bans-ketan-parekh-again-for-new-front-running-scam-allegations-101735899366508.html",
+    "title":
+    "SEBI bans Ketan Parekh again for new front-running scam allegations",
+    "source":
+    "Hindustan Times",
+    "date":
+    "1 month ago",
+    "snippet":
+    "SEBI has banned former stock broker Ketan Parekh from buying and selling securities again. This time, it is for allegedly front-running trades of a US-based...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fa8c846662089fe8ce897871246d7582433826253849cda52.jpeg"
+    },
+    {
+    "position":
+    25,
+    "link":
+    "https://www.livemint.com/market/stock-market-news/kalyan-jewellers-share-price-to-be-in-focus-tomorrow-as-motilal-amc-clarifies-here-is-why-11737291079528.html",
+    "title":
+    "Kalyan Jewellers share price in focus today after THIS Motilal AMC’s clarification",
+    "source":
+    "Mint",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Stock to watch tomorrow: Mumbai-based asset manager Motilal Oswal Asset Management Company (AMC) issued a clarification on its investments...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7ffb20eced5edaaa63d63cbc4b0f8e57d9ac2c41c2a3dfce5e.jpeg"
+    },
+    {
+    "position":
+    26,
+    "link":
+    "https://www.businessworld.in/article/motilal-oswal-refutes-bribery-claims-kalyan-jewellers-shares-recover-545339",
+    "title":
+    "Motilal Oswal Refutes Bribery Claims, Kalyan Jewellers' Shares Recover",
+    "source":
+    "BW BusinessWorld",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Asset Management Company (MOAMC), a subsidiary of Motilal Oswal Financial Services refuted the allegations that its money managers may have been...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fd8f9e62bf5f4ea5a72eddf3697693f64f64396efda3285af.jpeg"
+    },
+    {
+    "position":
+    27,
+    "link":
+    "https://www.cnbctv18.com/market/stocks/motilal-oswal-financial-services-receives-sebi-warning-for-operational-issues-19437233.htm",
+    "title":
+    "Motilal Oswal Financial Services receives SEBI warning for operational issues",
+    "source":
+    "CNBC TV18",
+    "date":
+    "2 Jul 2024",
+    "snippet":
+    "Motilal Oswal Financial Services Ltd (MOFSL) on Tuesday (July 2) said it has been issued an administrative warning by the Securities and Exchange Board of...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f62313df0640f0f0c923a2afe701f7d9b91e08fedb8b146d0.jpeg"
+    },
+    {
+    "position":
+    28,
+    "link":
+    "https://www.bizzbuzz.news/markets/motilal-oswal-denies-accusations-1349907",
+    "title":
+    "Motilal Oswal Denies Accusations",
+    "source":
+    "BizzBuzz",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Mumbai: Asset manager Motilal Oswal Asset Management Company (MOAMC) on Sunday denied accusations circulating on social media against the...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fb4ea81e64945760bbe62c94efd6affe449a8ee28e3005e3f.jpeg"
+    },
+    {
+    "position":
+    29,
+    "link":
+    "https://www.etnownews.com/markets/kalyan-jewellers-share-price-rebounds-9-after-motilal-oswal-issues-clarification-on-article-117386899",
+    "title":
+    "Kalyan Jewellers share price rebounds 9% after Motilal Oswal issues clarification on...",
+    "source":
+    "ET Now",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers India's shares rose 9.5% on January 20, recovering from a 37% crash from its all-time high of Rs 795.40.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f5899fe6f7de6f8955bb29209de4eff689603e87651284c8a.jpeg"
+    },
+    {
+    "position":
+    30,
+    "link":
+    "https://tradebrains.in/gold-stock-jumps-9-after-motilal-oswal-amc-issues-clarification-on-bribery-allegations/",
+    "title":
+    "Gold stock jumps 9% after Motilal Oswal AMC issues clarification on bribery allegations",
+    "source":
+    "Trade Brains",
+    "date":
+    "1 month ago",
+    "snippet":
+    "The shares of the unique jewellery maker gained up to 9 percent after Motilal Oswal AMC clarified speculation about fund manager misconduct allegations.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fe0beb918b43e6ca6ae44afb849aa283465014a21dcf98610.jpeg"
+    },
+    {
+    "position":
+    31,
+    "link":
+    "https://www.financialexpress.com/market/kalyan-jewellers-jumps-5-after-this-clarification-from-motilal-oswal-3720065/",
+    "title":
+    "Kalyan Jewellers jumps 5% after THIS clarification from Motilal Oswal",
+    "source":
+    "Financialexpress",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers share price today, January 20: Kalyan Jewellers rebounds, jumping 9.5% after Motilal Oswal dismisses bribery rumors.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f6f1005e626cc68176cdd52581252d90a71b38a32f9480dbf.jpeg"
+    },
+    {
+    "position":
+    32,
+    "link":
+    "https://tradebrains.in/whats-happening-with-kalyan-jewellers-a-complete-timeline/",
+    "title":
+    "What’s Happening with Kalyan Jewellers? A Complete Timeline",
+    "source":
+    "Trade Brains",
+    "date":
+    "1 month ago",
+    "snippet":
+    "The news delves into the company's latest developments, including share pledging by promoters and market reactions to bribery allegations.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fc777759bed77632a62ac509e4f00d3ddf252be376142ee5c.jpeg"
+    },
+    {
+    "position":
+    33,
+    "link":
+    "https://www.ndtvprofit.com/markets/kalyan-jewellers-share-price-recovers-after-motilal-oswal-amc-issues-clarification",
+    "title":
+    "Kalyan Jewellers’ Share Price Recovers After Motilal Oswal AMC Issues Clarification",
+    "source":
+    "NDTV Profit",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal AMC responded to allegation that its fund managers were involved in a bribery scheme to artificially inflate the stock price...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fd0fb1a56266553d8b956f085268598c2e3149c76ad340b8f.jpeg"
+    },
+    {
+    "position":
+    34,
+    "link":
+    "https://www.sakshipost.com/news/business/motilal-oswal-rejects-bribery-claims-kalyan-jewellers-stock-surges-9-january-20-369687",
+    "title":
+    "Motilal Oswal Rejects Bribery Claims: Kalyan Jewellers Stock Surges 9% on January 20",
+    "source":
+    "Sakshi Post",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers' stock surged over 9% on January 20, rebounding from a three-day decline after Motilal Oswal AMC denied rumors about its investments in the...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f237afbcd22ee57efcccb0e14fd789293f5eeaa39ea1742cc.jpeg"
+    },
+    {
+    "position":
+    35,
+    "link":
+    "https://www.ndtvprofit.com/business/motilal-oswal-clarifies-on-kalyan-jewellers-rumours-calls-them-baseless-and-defamatory",
+    "title":
+    "Baseless And Defamatory: Motilal Oswal Clarifies On Kalyan Jewellers Rumours",
+    "source":
+    "NDTV Profit",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal Financial Services Ltd. issued a clarification on rumours around its investments in Kalyan Jewellers Ltd. on Sunday.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f420145ee2de1caf8b1de203c6c5a0d8ce8b548eacc23096c.jpeg"
+    },
+    {
+    "position":
+    36,
+    "link":
+    "https://www.equitypandit.com/kalyan-jewellers-shares-skyrocketed-9-as-moamc-refutes-social-media-claims/",
+    "title":
+    "Kalyan Jewellers Shares Skyrocketed 9% as MOAMC Refutes Social Media Claims",
+    "source":
+    "Equitypandit",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Shares of Kalyan Jewellers Ltd skyrocketed 9% on Monday, 20 January, after Motilal Oswal Asset Management Company (MOAMC) issued a statement addressing the...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f43b2d7967de2a10a4f148a5ac17f6e205fd072b8eaddaa05.jpeg"
+    },
+    {
+    "position":
+    37,
+    "link":
+    "https://www.bizzbuzz.news/markets/stock-market/kalyan-jewellers-zooms-9-following-motilal-oswal-amc-clarification-on-bribery-allegations-1349210",
+    "title":
+    "Kalyan Jewellers Zooms 9% Following Motilal Oswal AMC Clarification on ‘Bribery’ Allegations",
+    "source":
+    "BizzBuzz",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Following a 3-day losing streak, shares of Kalyan Jewellers surged by 9% in today's session. This comes after asset manager Motilal Oswal...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f6049f8b503b50a4b068f5f7231f56f95066cee219b5c485a.jpeg"
+    },
+    {
+    "position":
+    38,
+    "link":
+    "https://tradebrains.in/kalyan-jewelers-jumps-13-after-reporting-strong-q3-results-were-bribery-allegation-false/",
+    "title":
+    "Kalyan Jewelers jumps 13% after reporting strong Q3 results; Were bribery allegations false?",
+    "source":
+    "Trade Brains",
+    "date":
+    "4 weeks ago",
+    "snippet":
+    "One of India's leading jewellery retail chains, renowned for its traditional craftsmanship and wide retail presence, has demonstrated...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f5e6af08bd651aae73bf5cf03ae2cd1a2177be2a019e4cbc5.jpeg"
+    },
+    {
+    "position":
+    39,
+    "link":
+    "https://www.ibtimes.co.in/motilal-oswal-denies-accusations-circulating-social-media-calls-them-baseless-878255",
+    "title":
+    "Motilal Oswal denies accusations circulating on social media, calls them 'baseless'",
+    "source":
+    "IBTimes India",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Asset manager Motilal Oswal Asset Management Company (MOAMC) on Sunday denied accusations circulating on social media against the company and its officials.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f42fe4efd4870e2cd67faf1430def6ea17a12d8845bf1497a.jpeg"
+    },
+    {
+    "position":
+    40,
+    "link":
+    "https://www.msn.com/en-in/sports/other/motilal-oswal-clarifies-on-speculation-around-kalyan-jewellers-after-stock-crash/ar-AA1xsmyJ",
+    "title":
+    "Motilal Oswal clarifies on speculation around Kalyan Jewellers after stock crash",
+    "source":
+    "MSN",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal AMC responded to rumors about bribery allegations related to its investments in Kalyan Jewellers, calling them baseless, malicious",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f61246511fe0f20287251836e470099279792ddf29ed61f3b.jpeg"
+    },
+    {
+    "position":
+    41,
+    "link":
+    "https://theafricalogistics.com/kalyan-jewellers-shares-drop-8-amid-motilal-oswal-bribery-rumours/",
+    "title":
+    "Kalyan Jewellers Shares Drop 8% Amid Motilal Oswal Bribery Rumours",
+    "source":
+    "theafricalogistics.com",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers' stock experienced a dramatic 8% drop following rumors linking the company to bribery allegations involving Motilal Oswal...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fc7fbd3b2da447e849c8829b63b05c7292caaebab771109e1.jpeg"
+    },
+    {
+    "position":
+    42,
+    "link":
+    "https://ldccbank.com/kalyan-jewellers-shares-surge-7-following-motilal-oswal-amc-clarification/",
+    "title":
+    "Kalyan Jewellers Shares Surge 7% Following Motilal Oswal AMC Clarification!",
+    "source":
+    "ldccbank",
+    "date":
+    "1 month ago",
+    "snippet":
+    "The share price of Kalyan Jewellers surged more than 7% on Monday after asset manager Motilal Oswal AMC clarified its holdings in the jewelry manufacturer.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f214abf03f9ce97ca154774ebeffb2e446cbd73205b1469a8.jpeg"
+    },
+    {
+    "position":
+    43,
+    "link":
+    "https://m.economictimes.com/markets/stocks/news/sebi-imposes-rs-25-lakh-fine-on-motilal-oswal-financial-services/articleshow/91267661.cms",
+    "title":
+    "Sebi imposes Rs 25 lakh fine on Motilal Oswal Financial Services",
+    "source":
+    "The Economic Times",
+    "date":
+    "2 May 2022",
+    "snippet":
+    "The order comes after Securities and Exchange Board of India (Sebi) conducted a comprehensive inspection of Motilal Oswal Financial Services...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f61e398862480951a16908838d9b4e0ae018b2528475becf6.jpeg"
+    },
+    {
+    "position":
+    44,
+    "link":
+    "https://www.livehindustan.com/business/kalyan-jewellers-share-rallied-over-9-percent-motilal-oswal-amc-issued-statement-on-recent-social-media-allegations-201737353035012.html",
+    "title":
+    "9% चढ़े कल्याण ज्वैलर्स के शेयर, घूसखोरी के आरोपों पर मोतीलाल ओसवाल AMC ने दी सफाई",
+    "source":
+    "Hindustan",
+    "date":
+    "1 month ago",
+    "snippet":
+    "पिछले दो हफ्ते में 33% से ज्यादा लुढ़कने के बाद कल्याण ज्वैलर्स के शेयर सोमवार को 9% से अधिक की तेजी के साथ 548.95 रुपये पर पहुंच गए हैं। मोतीलाल ओसवाल एसेट मैनेजमेंट कंपनी की सफाई के बाद शेयरों में...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f876cfd50faf3aa3443e50f736d1d353c009337a7346f9265.jpeg"
+    },
+    {
+    "position":
+    45,
+    "link":
+    "https://hindi.moneycontrol.com/news/markets/kalyan-jewellers-share-baseless-and-defamatory-allegations-circulating-on-social-media-says-motilal-oswal-amc-1951747.html",
+    "title":
+    "Kalyan Jewellers से जुड़े आरोपों पर Motilal Oswal AMC ने दी सफाई, कहा- बदनाम करने की कोशिश",
+    "source":
+    "Moneycontrol Hindi",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal AMC का यह बयान सोशल मीडिया पर फैली अफवाहों के जवाब में आया है, जिसमें दावा किया गया था कि मोतीलाल ओसवाल एसेट मैनेजमेंट कंपनी (MOAMC) के फंड मैनेजर्स को कल्याण ज्वैलर्स में शेयर...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f5220bafc429a2f72efd4cfeec607ec68db8d0766f9d1c422.jpeg"
+    },
+    {
+    "position":
+    46,
+    "link":
+    "https://hindi.economictimes.com/markets/share-bazaar/motilal-oswal-gave-clarification-regarding-kalyan-jewellers-called-the-allegations-baseless-after-stock-crash/articleshow/117372342.cms",
+    "title":
+    "स्टॉक क्रैश के बाद कल्याण ज्वैलर्स को लेकर मोतीलाल ओसवाल ने सफाई दी, आरोपों को बताया बेबुनियाद",
+    "source":
+    "The Economic Times Hindi",
+    "date":
+    "1 month ago",
+    "snippet":
+    "मनी मैनेजर्स की ओर से कल्याण ज्वैलर्स के शेयर खरीदने के लिए रिश्वत वाले मामले में मोतीलाल ओसवाल एएमसी ने रविवार को अपने एक बयान जारी किया है, जिसमें उसने सभी आरोपों को बेबुनियाद बताया है.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f445d9e592daa44fcf121b7eaa6d22995e824c4b6bae07a27.jpeg"
+    },
+    {
+    "position":
+    47,
+    "link":
+    "https://www.indiatv.in/paisa/business/big-news-for-investors-of-motilal-oswal-funds-the-company-gave-this-answer-on-the-allegations-of-bribery-2025-01-20-1106719",
+    "title":
+    "मोतीलाल ओसवाल के निवेशकों के लिए बड़ी खबर, कंपनी ने रिश्वत के आरोपों पर दिया ये जवाब",
+    "source":
+    "India TV Hindi",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Motilal Oswal के फंड्स में निवेश करने वाले लोगों के लिए एक बड़ी खबर आई है। अभी हाल ही में कल्याण ज्वैलर्स के शेयरों से जुड़े आरोपों के बाद सोशल मीडिया पर चर्चा में आई मोतीलाल ओसवाल एसेट मैनेजमेंट...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f6639291b340e19da89bb714da8d96019c93134c35b268515.jpeg"
+    },
+    {
+    "position":
+    48,
+    "link":
+    "https://www.timesnowhindi.com/business/kalyan-jewellers-share-price-jumps-amid-motilal-oswal-denies-bribery-allegations-article-117384814",
+    "title":
+    "Kalyan Jewelers shares: सफाई के बाद 7 फीसदी उछला कल्याण ज्वेलर्स शेयर, मोतीलाल ओसवाल ने रिश्वतखोरी के आरोपों क",
+    "source":
+    "Times Now Navbharat",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Why Kalyan Jewelers shares jumped: सोमवार को कल्याण ज्वेलर्स के शेयर की कीमत में 7% से ज्यादा की तेजी देखी गई। यह उछाल तब आया, जब मोतीलाल ओसवाल एसेट मैनेजमेंट कंपनी (AMC) ने सोशल...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f408bdf01a0705612e0ba16f818e698066f01218ec7051b1e.jpeg"
+    },
+    {
+    "position":
+    49,
+    "link":
+    "https://tamil.goodreturns.in/market-update/kalyan-jewellers-stock-price-may-jump-amid-motilal-oswal-denies-bribery-allegations-057707.html",
+    "title":
+    "கல்யாண் ஜூவல்லர்ஸ் பங்கு விலை இன்று உயருமா..? மோதிலால் ஒஸ்வால் கொடுத்த விளக்கம்..!!",
+    "source":
+    "Goodreturns Tamil",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers stock price may jump amid Motilal Oswal Denies Bribery Allegations.",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7fe13c3990a3d2a28a937a147149b9c6bbb2132edb7739294c.jpeg"
+    },
+    {
+    "position":
+    50,
+    "link":
+    "https://marathi.indiatimes.com/business/share-bazaar/kalyan-jewellers-stock-price-hit-an-all-time-high-after-motilal-oswal-amc-clarification-on-bribery-allegations/articleshow/117385645.cms",
+    "title":
+    "आधी कोट्यवधींचे नुकसान, आता शेअर खरेदीची लूट, कोणी विकत नाही; गुंतवणूक करणारे लवकरच ​बनू शकणार धनवान",
+    "source":
+    "Maharashtra Times",
+    "date":
+    "1 month ago",
+    "snippet":
+    "Kalyan Jewellers Share Price Today: लाचखोरीच्या आरोपांवर मोतीलाल ओसवाल एएमसीने स्पष्टीकरण दिल्यानंतर कल्याण ज्वेलर्सच्या शेअर्समध्ये सोमवारी, आठवड्याच्या पहिल्या व्यापार दिवशी,...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f7b70ceee63dfcf6b20ecc0952bc39fb4990d160e2971c0ec.jpeg"
+    },
+    {
+    "position":
+    51,
+    "link":
+    "https://www.businesstoday.in/markets/company-stock/story/nsel-scam-sebi-declares-motilal-oswal-iifl-not-fit-and-proper-commodity-derivatives-172642-2019-02-23",
+    "title":
+    "NSEL Scam: SEBI declares Motilal Oswal, IIFL 'not fit and proper' as commodity derivative brokers",
+    "source":
+    "Business Today",
+    "date":
+    "23 Feb 2019",
+    "snippet":
+    "Motilal Oswal Commodities and India Infoline Commodities are not fit and proper entities to be granted registration to operate as...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f9d6054a5d81d4323cb3e583d9c0053e600a183b593fed82f.jpeg"
+    },
+    {
+    "position":
+    52,
+    "link":
+    "https://www.business-standard.com/article/companies/my-mother-is-being-misled-by-mischievous-folks-around-her-pankaj-oswal-116040900671_1.html",
+    "title":
+    "My mother is being misled by mischievous folks around her: Pankaj Oswal",
+    "source":
+    "Business Standard",
+    "date":
+    "9 Apr 2016",
+    "snippet":
+    "A bitter succession battle has broken out in the Oswal family after the death of Abhey Kumar Oswal last month. Allegations and counter...",
+    "thumbnail":
+    "https://serpapi.com/searches/67c080aed53e59f5b4d0f4b1/images/a6401845ab593b7f79e364dec3e448094c18a925818db6e174414f8fd7cc91c9.jpeg"
+    }
+    ]
+    }
