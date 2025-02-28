@@ -97,51 +97,93 @@ def evaluate_research_quality(company: str, industry: str, research_results: Dic
             "recommendations": {"default recommendation": "Continue with available research while addressing technical issues."}
         }
 
-def identify_research_gaps(company: str,industry: str,event: str,analysis_results: Dict, previous_research_plans: List[Dict]) -> Dict[str, str]:
+def identify_research_gaps(company: str, industry: str, event_name: str, 
+                           event_data: List[Dict], previous_research_plans: List[Dict]) -> Dict[str, str]:
     """
-    Evaluate the completeness of an event's research and analysis. Identify if there are gaps in the story,
-    missing facts, or areas requiring further research.
+    Evaluate the completeness of an event's research and analysis.
+    Identify if there are gaps in the story, missing facts, or areas requiring further research.
+    
+    Args:
+        company: The company being analyzed
+        industry: The industry of the company
+        event_name: The name of the event being analyzed
+        event_data: The collected insights about the event
+        previous_research_plans: Previously executed research plans
+        
+    Returns:
+        A dictionary of gap topics and descriptions, or empty dict if no gaps
     """
-    
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
-    
-    system_prompt = (
-        "You are an expert corporate intelligence analyst. Your task is to assess whether the provided event "
-        "and its analysis present a complete and well-supported account of the situation. You should determine:\n\n"
-        "1. COMPLETENESS – Does the event description and analysis provide all essential details? Are key elements "
-        "such as the entity responsible, the individuals involved, and critical context fully covered?\n"
-        "2. FACT GAPS – Are there any missing or unclear facts that are necessary to understand the event properly? "
-        "If so, identify them.\n"
-        "3. REDUNDANCY CHECK – If a fact gap exists, check whether it has already been addressed in previous research "
-        "plans. If it has, DO NOT request it again.\n\n"
-        "### RESPONSE FORMAT\n"
-        "- If the event and analysis are complete, return an empty JSON object: {}\n"
-        "- If gaps exist, return a dictionary where:\n"
-        "  - Keys represent the missing topics (e.g., 'Entity Responsible', 'Key Witness', 'Financial Impact').\n"
-        "  - Values provide a brief description of the missing details.\n\n"
-        "Be concise and only request information IF it is truly necessary to complete the story."
-    )
-    
-    input_message = (
-        f"Company: {company}\n"
-        f"Industry: {industry}\n"
-        f"Event: {event}\n"
-        f"Event Analysis: {json.dumps(analysis_results)}\n"
-        f"Previous Research Plans: {json.dumps(previous_research_plans)}\n"
-        f"\nAssess whether the event is fully understood and identify any necessary research gaps."
-    )
-    
-    messages = [
-        ("system", system_prompt),
-        ("human", input_message)
-    ]
-    
     try:
+        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+        
+        system_prompt = (
+            "You are an expert corporate intelligence analyst. Your task is to assess whether the provided event "
+            "and its analysis present a complete and well-supported account of the situation. You should determine:\n\n"
+            "1. COMPLETENESS – Does the event description and analysis provide all essential details? Are key elements "
+            "such as the entity responsible, the individuals involved, and critical context fully covered?\n"
+            "2. FACT GAPS – Are there any missing or unclear facts that are necessary to understand the event properly? "
+            "If so, identify them.\n"
+            "3. REDUNDANCY CHECK – If a fact gap exists, check whether it has already been addressed in previous research "
+            "plans. If it has, DO NOT request it again.\n\n"
+            "### RESPONSE FORMAT\n"
+            "- If the event and analysis are complete, return an empty JSON object: {}\n"
+            "- If gaps exist, return a dictionary where:\n"
+            "  - Keys represent the missing topics (e.g., 'Entity Responsible', 'Key Witness', 'Financial Impact').\n"
+            "  - Values provide a brief description of the missing details.\n\n"
+            "Be concise and only request information IF it is truly necessary to complete the story."
+        )
+        
+        # Extract previous queries to check for redundancy
+        previous_queries = []
+        for plan in previous_research_plans:
+            query_cats = plan.get("query_categories", {})
+            for cat, desc in query_cats.items():
+                previous_queries.append(f"{cat}: {desc}")
+        
+        input_message = (
+            f"Company: {company}\n"
+            f"Industry: {industry}\n"
+            f"Event: {event_name}\n"
+            f"Event Analysis: {json.dumps(event_data)}\n"
+            f"Previous Research Plans: {json.dumps(previous_queries)}\n"
+            f"\nAssess whether the event is fully understood and identify any necessary research gaps."
+        )
+        
+        messages = [
+            ("system", system_prompt),
+            ("human", input_message)
+        ]
+        
         response = llm.invoke(messages)
-        gaps = json.loads(response.content.replace("```json", "").replace("```", "").strip())
-        return gaps if isinstance(gaps, dict) else {}
+        response_content = response.content.strip()
+        
+        # Extract JSON content
+        if "```json" in response_content:
+            json_content = response_content.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_content:
+            json_content = response_content.split("```")[1].strip()
+        else:
+            json_content = response_content
+            
+        gaps = json.loads(json_content)
+        
+        # Validate and return
+        if isinstance(gaps, dict):
+            if gaps:
+                print(f"[Meta Agent] Found {len(gaps)} research gaps for event '{event_name}'")
+                for topic, description in gaps.items():
+                    print(f"  - {topic}: {description}")
+            else:
+                print(f"[Meta Agent] No research gaps found for event '{event_name}'")
+            return gaps
+        else:
+            print(f"[Meta Agent] Invalid response format for event '{event_name}', expected dict but got {type(gaps)}")
+            return {}
+            
     except Exception as e:
         print(f"[Meta Agent] Error in identifying research gaps: {e}")
+        import traceback
+        print(traceback.format_exc())
         return {}
 
 def create_research_plan(company: str, research_gaps: Union[List[Dict], Dict], previous_plans: List[Dict] = None) -> Dict:
@@ -327,118 +369,153 @@ def meta_agent(state: Dict) -> Dict:
     Supports multiple iterations between research and analysis.
     """
     print("[Meta Agent] Received state:", state)
-    research_threshold = 5
-    max_iterations = 3
+    
+    # Initialize tracking variables if not present
     if "meta_iteration" not in state:
         state["meta_iteration"] = 0
+    if "search_history" not in state:
+        state["search_history"] = []
+    if "event_research_iterations" not in state:
+        state["event_research_iterations"] = {}
     
-    company = state.get("company", "")
-    if not company:
-        print("[Meta Agent] ERROR: 'company' key is missing!")
-        return {**state, "goto": "END", "error": "Company name is missing"}
+    # Set limits
+    research_threshold = 6  # Minimum quality score to proceed to analysis
+    max_iterations = 3      # Maximum overall iterations
+    max_event_iterations = 2  # Maximum iterations per event
     
-    industry = state.get("industry", "Unknown")
-    research_results = state.get("research_results", {})
-    analysis_results = state.get("analysis_results", {})
-    previous_queries = state.get("search_history", [])
-    curr_quality_assessment = state.get("quality_assessment", {})
-
+    # Increment iteration counter
     state["meta_iteration"] += 1
     current_iteration = state["meta_iteration"]
     print(f"[Meta Agent] Starting iteration {current_iteration}/{max_iterations}")
     
-    # STEP 1: Initial Research 
+    # Extract key information from state
+    company = state.get("company", "")
+    industry = state.get("industry", "Unknown")
+    research_results = state.get("research_results", {})
+    analysis_results = state.get("analysis_results", {})
+    previous_research_plans = state.get("research_plan", [])
+    
+    # Validation - Company name is required
+    if not company:
+        print("[Meta Agent] ERROR: 'company' key is missing!")
+        return {**state, "goto": "END", "error": "Company name is missing"}
+    
+    # STEP 1: Initial Research Phase - Load preliminary guidelines and start research
     if not research_results and current_iteration == 1:
         print("[Meta Agent] Starting preliminary research...")
-        preliminary_guidelines = load_preliminary_research_guidelines(company, industry)
-        state["research_plan"] = [preliminary_guidelines]
-        state["search_type"] = "google_news"
-        state["return_type"] = "clustered"
-        print(f"[Meta Agent] Loaded preliminary research guidelines")
-        return {**state, "goto": "research_agent"}
+        try:
+            preliminary_guidelines = load_preliminary_research_guidelines(company, industry)
+            state["research_plan"] = [preliminary_guidelines]
+            state["search_type"] = "google_news"
+            state["return_type"] = "clustered"
+            print(f"[Meta Agent] Loaded preliminary research guidelines")
+            return {**state, "goto": "research_agent"}
+        except Exception as e:
+            print(f"[Meta Agent] Error loading preliminary guidelines: {e}")
+            # Fallback to basic research
+            basic_plan = {
+                "objective": f"Investigate potential issues related to {company}",
+                "key_areas_of_focus": ["Legal issues", "Financial concerns", "Regulatory actions"],
+                "query_categories": {"general": "Investigate potential issues"},
+                "query_generation_guidelines": "Focus on negative news and regulatory concerns"
+            }
+            state["research_plan"] = [basic_plan]
+            state["search_type"] = "google_news"
+            state["return_type"] = "clustered"
+            return {**state, "goto": "research_agent"}
     
-    # STEP 2: Evaluate research quality & reiterate if need be
-    print("[Meta Agent] Evaluating research quality...")
-    if curr_quality_assessment.get("overall_score", 0) < 6:
-        # STEP 2.1: Evaluating research quality
+    # STEP 2: Research Quality Evaluation
+    if research_results and (not state.get("quality_assessment") or 
+                            state.get("quality_assessment", {}).get("overall_score", 0) < research_threshold):
+        print("[Meta Agent] Evaluating research quality...")
         quality_assessment = evaluate_research_quality(company, industry, research_results)
         state["quality_assessment"] = quality_assessment
-    
+        
         print(f"[Meta Agent] Research quality score: {quality_assessment.get('overall_score', 0)}/10")
         print(f"[Meta Agent] Assessment: {quality_assessment.get('assessment', 'N/A')}")
-    
-        # STEP 2.2: Check if sufficient research for analysis
-        if quality_assessment.get('overall_score', 0) < research_threshold:
-            new_research_plan = create_research_plan(company, )
         
+        # Check if additional research is needed
+        if quality_assessment.get('overall_score', 0) < research_threshold and current_iteration < max_iterations:
+            print("[Meta Agent] Research quality below threshold. Generating targeted research plan...")
+            # Generate targeted research plan based on quality assessment recommendations
+            research_gaps = quality_assessment.get('recommendations', {})
+            if research_gaps:
+                research_plan = create_research_plan(company, research_gaps, previous_research_plans)
+                state["research_plan"].append(research_plan)
+                print(f"[Meta Agent] Generated new research plan: {research_plan.get('objective', 'No objective')}")
+                return {**state, "goto": "research_agent"}
     
-    # Check if research is insufficient in quantity
-    if len(research_results) < 3:
-        print("[Meta Agent] Insufficient research quantity. Expanding research scope...")
-        
-        if current_iteration < max_iterations:
-            # Generate a broader research plan
-            expanded_queries = [
-                f"{company} business overview",
-                f"{company} financials",
-                f"{company} management team",
-                f"{company} regulatory issues",
-                f"{company} recent news",
-                f"{company} industry {industry}"
-            ]
-            state["research_plan"] = expanded_queries
-            return {**state, "goto": "research_agent"}
-        else:
-            print("[Meta Agent] Max iterations reached with insufficient research. Proceeding with limited data.")
-    
-    # Check if research quality is insufficient
-    if quality_assessment.get('overall_score', 0) < research_threshold:
-        print("[Meta Agent] Research quality below threshold. Targeting specific gaps...")
-        
-        if current_iteration < max_iterations:
-            # Generate targeted research plan based on recommendations
-            gaps = quality_assessment.get('recommendations', [])
-            state["research_plan"] = gaps
-            print(f"[Meta Agent] More research required in: {gaps}")
-            return {**state, "goto": "research_agent"}
-        else:
-            print("[Meta Agent] Max iterations reached. Proceeding with suboptimal research quality.")
-    
-    # STEP 4: First Analysis Phase (if no analysis exists yet)
-    if not analysis_results:
-        print("[Meta Agent] Research quality sufficient. Generating analysis guidance...")
+    # STEP 3: Move to Analysis when research is sufficient
+    if (state.get("quality_assessment", {}).get("overall_score", 0) >= research_threshold or 
+        current_iteration >= max_iterations) and not analysis_results:
+        print("[Meta Agent] Research quality sufficient or max iterations reached. Moving to analysis phase...")
+        # Generate analysis guidance for the analyst agent
         analysis_guidance = generate_analysis_guidance(company, research_results)
         state["analysis_guidance"] = analysis_guidance
         print(f"[Meta Agent] Generated analysis guidance with {len(analysis_guidance.get('focus_areas', []))} focus areas")
         return {**state, "goto": "analyst_agent"}
     
-    # STEP 5: Post-Analysis Evaluation (enters here after analyst has processed)
-    print("[Meta Agent] Evaluating analysis completeness...")
-    analysis_evaluation = evaluate_analysis_completeness(company, industry, research_results, analysis_results)
-    state["analysis_evaluation"] = analysis_evaluation
-    
-    completeness_score = analysis_evaluation.get("completeness_score", 5)
-    print(f"[Meta Agent] Analysis completeness score: {completeness_score}/10")
-    
-    # STEP 6: Check if additional research is needed based on analysis
-    if completeness_score < 7 and current_iteration < max_iterations:
-        print("[Meta Agent] Analysis reveals information gaps. Conducting targeted research...")
-        research_recommendations = analysis_evaluation.get("research_recommendations", [])
+    # STEP 4: Post-Analysis Research Gap Identification (after analyst agent has run)
+    if analysis_results and current_iteration < max_iterations:
+        print("[Meta Agent] Analysis completed. Identifying research gaps in events...")
         
-        if research_recommendations:
-            state["research_plan"] = research_recommendations
-            print(f"[Meta Agent] Additional research required: {research_recommendations}")
-            return {**state, "goto": "research_agent"}
+        # Get event-specific research gaps
+        all_event_gaps = {}
+        for event_name, event_data in analysis_results.get("forensic_insights", {}).items():
+            # Skip events that have already reached max research iterations
+            current_event_iterations = state["event_research_iterations"].get(event_name, 0)
+            if current_event_iterations >= max_event_iterations:
+                print(f"[Meta Agent] Skipping event '{event_name}' - reached max iterations ({max_event_iterations})")
+                continue
+                
+            # Identify gaps for this specific event
+            event_gaps = identify_research_gaps(
+                company, 
+                industry,
+                event_name, 
+                event_data, 
+                previous_research_plans
+            )
+            
+            if event_gaps:
+                all_event_gaps[event_name] = event_gaps
+                print(f"[Meta Agent] Identified {len(event_gaps)} research gaps for event: {event_name}")
+        
+        # If we have gaps, create targeted research plans
+        if all_event_gaps:
+            targeted_plans = []
+            for event_name, gaps in all_event_gaps.items():
+                event_plan = create_research_plan(
+                    company, 
+                    gaps, 
+                    previous_research_plans
+                )
+                
+                # Track research iterations for this event
+                if event_name not in state["event_research_iterations"]:
+                    state["event_research_iterations"][event_name] = 0
+                state["event_research_iterations"][event_name] += 1
+                
+                # Store the event name in the plan for tracking
+                event_plan["event_name"] = event_name
+                targeted_plans.append(event_plan)
+            
+            if targeted_plans:
+                state["research_plan"].extend(targeted_plans)
+                print(f"[Meta Agent] Created {len(targeted_plans)} targeted research plans for events with gaps")
+                return {**state, "goto": "research_agent"}
     
-    # STEP 7: Final Analysis (if needed)
-    if "final_analysis" not in state and current_iteration < max_iterations:
-        print("[Meta Agent] Conducting final analysis with complete research...")
+    # STEP 5: Final Analysis - Run one more analysis pass if we've done additional research
+    if analysis_results and state.get("additional_research_completed") and not state.get("final_analysis_completed"):
+        print("[Meta Agent] Additional research completed. Running final analysis...")
         state["final_analysis_requested"] = True
+        state["final_analysis_completed"] = True
         return {**state, "goto": "analyst_agent"}
     
-    # STEP 8: Complete process
-    print(f"[Meta Agent] Process complete after {current_iteration} iterations.")
-    print(f"[Meta Agent] Final research quality: {quality_assessment.get('overall_score', 0)}/10")
-    print(f"[Meta Agent] Final analysis completeness: {completeness_score}/10")
+    # STEP 6: Complete the process - move to final report generation
+    print(f"[Meta Agent] Process complete after {current_iteration} iterations")
+    final_quality = state.get("quality_assessment", {}).get("overall_score", 0)
+    print(f"[Meta Agent] Final research quality: {final_quality}/10")
     
-    return {**state, "goto": "END", "status": "complete"}
+    # Move to final report generation
+    return {**state, "goto": "meta_agent_final", "status": "complete"}

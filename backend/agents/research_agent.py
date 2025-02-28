@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def generate_queries(company: str, industry: str, research_plan: Dict, query_history: list[Dict[str: List[str]]]) -> Dict[str, List[str]]:
+def generate_queries(company: str, industry: str, research_plan: Dict, query_history: List[Dict[str, List]]) -> Dict[str, List[str]]:
     """
     Generate search queries based on a research plan given by the meta agent, research plans can be basic research guidelines or hyper specific questions.
     """
@@ -539,180 +539,172 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
 
 def research_agent(state: Dict) -> Dict:
     """
-    Enhanced research agent with improved error handling, especially for SerpAPI responses.
+    Enhanced research agent that handles both preliminary and targeted research.
+    Prevents duplicate queries and efficiently processes search results.
     """
     print("[Research Agent] Received state:", state)
+    
+    # Extract key information from state
     company = state.get("company", "")
     industry = state.get("industry", "Unknown")
-    curr_research_plan = state.get("research_plan")[-1]
-    previous_queries = state.get("search_history", [])
+    research_plans = state.get("research_plan", [])
+    search_history = state.get("search_history", [])
+    current_results = state.get("research_results", {})
     search_type = state.get("search_type", "google_search")
-    return_type = state.get("rerturn_type", "clustered")
-
-
-    output_dir = "/Users/sparsh/Desktop/FinForensic/debug/checkpoints"
-    os.makedirs(output_dir, exist_ok=True)
-    unique_articles_output_file = os.path.join(output_dir, f"{company}_all_unique_articles.json")
-    grouped_output_file = os.path.join(output_dir, f"{company}_grouped_articles.json")
-    curr_queries = []
-
+    return_type = state.get("return_type", "clustered")
+    
+    # Validation - Company name and research plan are required
     if not company:
         print("[Research Agent] ERROR: Missing company name")
         return {**state, "goto": "meta_agent", "error": "Missing company name"}
+        
+    if not research_plans:
+        print("[Research Agent] ERROR: No research plan provided")
+        return {**state, "goto": "meta_agent", "error": "No research plan provided"}
     
-    print(f"[Research Agent] Beginning targeted research for {company} (Industry: {industry})")
+    # Get the most recent research plan
+    current_plan = research_plans[-1]
+    print(f"[Research Agent] Processing research plan: {current_plan.get('objective', 'No objective specified')}")
     
-    # if not os.path.exists(unique_articles_output_file):
-    query_categories = generate_queries(company, industry, curr_research_plan, previous_queries)
-    # query_categories = generate_targeted_queries(company, industry)
+    # Check if this is an event-specific targeted research plan
+    target_event = current_plan.get("event_name", None)
+    if target_event:
+        print(f"[Research Agent] This is a targeted research plan for event: {target_event}")
     
+    # Set up output tracking
     all_articles = []
+    executed_queries = []
     
+    # Generate search queries based on the research plan
+    query_categories = generate_queries(company, industry, current_plan, search_history)
+    
+    # Execute searches and collect results
     for category, queries in query_categories.items():
         print(f"[Research Agent] Processing category: {category}")
-        curr_queries.extend(queries)
         for query in queries:
+            # Skip duplicate queries that have been executed before
+            if query in [q for sublist in search_history for q in sublist]:
+                print(f"[Research Agent] Skipping duplicate query: {query}")
+                continue
+            
             print(f"[Research Agent] Executing search query: {query}")
+            executed_queries.append(query)
+            
+            # Set up the search parameters
             params = {
-                    "engine": "google",
-                    "q": query,
-                    "location": "India",
-                    "google_domain": "google.co.in",
-                    "gl": "in",
-                    "hl": "en",
-                    "safe": "off", 
-                    "num": "100", 
-                    "output": "json"
-                }
+                "engine": "google",
+                "q": query,
+                "location": "India",
+                "google_domain": "google.co.in",
+                "gl": "in",
+                "hl": "en",
+                "safe": "off", 
+                "num": "100", 
+                "output": "json"
+            }
             if search_type == "google_news":
                 params["tbm"] = "nws"
             
             try:
+                # Execute the search
                 serp = SerpAPIWrapper(params=params)
                 raw_output = serp.run(query)
-
-                print(f"[DIAGNOSTIC] Raw output type immediately after serp.run(): {type(raw_output)}")
-                if isinstance(raw_output, list) and len(raw_output) > 0:
-                    print(f"[DIAGNOSTIC] First item keys: {list(raw_output[0].keys()) if isinstance(raw_output[0], dict) else 'Not a dict'}")
                 
-                print(f"[Research Agent] SerpAPI returned data of type: {type(raw_output)}")
-                if isinstance(raw_output, str) and len(raw_output) > 200:
-                    print(f"[Research Agent] First 200 chars of response: {raw_output[:200]}")
-                elif isinstance(raw_output, dict):
-                    print(f"[Research Agent] Response keys: {list(raw_output.keys())}")
-                elif isinstance(raw_output, list):
-                    print(f"[Research Agent] Response is a list with {len(raw_output)} items")
-                
-                
+                # Process the results
                 articles = parse_serp_results(raw_output, category)
                 all_articles.extend(articles)
                 
+                # Add a delay to avoid rate limiting
                 time.sleep(1)
             except Exception as e:
                 print(f"[Research Agent] Error executing query '{query}': {e}")
                 import traceback
                 print(traceback.format_exc())
-
+    
+    # Update search history with the executed queries
+    search_history.append(executed_queries)
+    state["search_history"] = search_history
+    
     print(f"[Research Agent] Collected {len(all_articles)} total articles across all categories")
-
-
+    
+    # Handle empty results with a fallback query
     if not all_articles:
         print("[Research Agent] No articles found with targeted queries. Trying fallback query.")
         try:
             fallback_query = f'"{company}" negative news'
-            params = {
-                "engine": "google",
-                "q": fallback_query,
-                "num": "100",
-                "location": "India",
-                "google_domain": "google.co.in",
-                "gl": "in"
-            }
-            
-            serp = SerpAPIWrapper(params=params)
-            raw_output = serp.run(fallback_query)
-            fallback_articles = parse_serp_results(raw_output, "general")
-            all_articles.extend(fallback_articles)
-            print(f"[Research Agent] Fallback query returned {len(fallback_articles)} articles")
+            if fallback_query not in [q for sublist in search_history for q in sublist]:
+                params = {
+                    "engine": "google",
+                    "q": fallback_query,
+                    "num": "100",
+                    "location": "India",
+                    "google_domain": "google.co.in",
+                    "gl": "in"
+                }
+                
+                search_history[-1].append(fallback_query)
+                serp = SerpAPIWrapper(params=params)
+                raw_output = serp.run(fallback_query)
+                fallback_articles = parse_serp_results(raw_output, "general")
+                all_articles.extend(fallback_articles)
+                print(f"[Research Agent] Fallback query returned {len(fallback_articles)} articles")
         except Exception as e:
             print(f"[Research Agent] Error with fallback query: {e}")
-
+    
+    # Deduplicate articles by URL
     unique_articles = []
     seen_urls = set()
-    
     for article in all_articles:
         if article["link"] not in seen_urls:
             seen_urls.add(article["link"])
             unique_articles.append(article)
-
-    with open(unique_articles_output_file, "w") as f:
-        json.dump(unique_articles, f, indent=4)
-
-    print(f"[Research Agent] Saved unique articles to {unique_articles_output_file}")
+    
     print(f"[Research Agent] Deduplicated to {len(unique_articles)} unique articles")
     
-    if not unique_articles:
-        print("[Research Agent] ERROR: No articles found after all attempts")
-        return {**state, "goto": "meta_agent", "error": "No articles found"} ######## Handle this
-    
-    if len(unique_articles) <= 3:
-        print("[Research Agent] Small number of articles, using simplified grouping")
-        grouped_results = {}
-        for i, article in enumerate(unique_articles):
-            event_name = category
-            grouped_results[event_name] = {
-                "articles": [article],
-                "importance_score": 50,
-                "article_count": i
-            }
-    else:
-        # if not os.path.exists(grouped_output_file):
-        if return_type == "clustered":
-            grouped_results = group_results(company, unique_articles, industry)
-            with open(grouped_output_file, "w") as f:
-                json.dump(grouped_results, f, indent=4)
-        else:
-            simplified_articles = []
-            for i, article in enumerate(unique_articles):
-                simplified_articles.append({
-                    "index": i,
-                    "title": article["title"],
-                    "snippet": article.get("snippet", ""),
-                    "date": article.get("date", "Unknown date"),
-                    "source": article.get("source", "Unknown source"),
-                    "category": article.get("category", "general")
-                })
+    # Process results based on whether this is targeted research for a specific event
+    if target_event and return_type == "clustered":
+        # For targeted event research, add new articles to the existing event
+        if target_event in current_results:
+            existing_articles = current_results[target_event]
+            existing_urls = {article["link"] for article in existing_articles}
             
-            state["research_results"] = simplified_articles
-            state["search_history"] = previous_queries.extend(curr_queries)
-            print(f"[Research Agent] Returning unclustered search results for research_plan: {curr_research_plan}")
-            return {**state, "goto": "meta_agent"}        
-    
-    sorted_events = sorted(
-        grouped_results.items(), 
-        key=lambda x: x[1]["importance_score"], 
-        reverse=True
-    )
-    
-    print(f"[Research Agent] Identified and ranked {len(grouped_results)} distinct events")
-    
-    final_results = {}
-    for event_name, event_data in sorted_events:
-        final_results[event_name] = event_data["articles"]
-    
-    event_metadata = {
-        event_name: {
-            "importance_score": event_data["importance_score"],
-            "article_count": event_data["article_count"],
-            "is_quarterly_report": any(a.get("is_quarterly_report", False) for a in event_data["articles"])
-        }
-        for event_name, event_data in grouped_results.items()
-    }
-    
-
-    state["research_results"] = final_results
-    state["event_metadata"] = event_metadata
-    state["search_history"] = previous_queries.extend(curr_queries)
-    print("[Research Agent] Updated state with research results and event metadata")
+            # Only add new articles that aren't already in this event
+            new_articles = [a for a in unique_articles if a["link"] not in existing_urls]
+            current_results[target_event].extend(new_articles)
+            
+            print(f"[Research Agent] Added {len(new_articles)} new articles to event: {target_event}")
+        else:
+            # Create a new event entry if it doesn't exist
+            current_results[target_event] = unique_articles
+            print(f"[Research Agent] Created new event '{target_event}' with {len(unique_articles)} articles")
+        
+        # Signal to meta_agent that we completed additional research
+        state["additional_research_completed"] = True
+    else:
+        # For general research, cluster results into events
+        if return_type == "clustered" and unique_articles:
+            # Group articles into events
+            grouped_results = group_results(company, unique_articles, industry)
+            
+            # Extract article lists and metadata
+            final_results = {}
+            event_metadata = {}
+            
+            for event_name, event_data in grouped_results.items():
+                final_results[event_name] = event_data["articles"]
+                event_metadata[event_name] = {
+                    "importance_score": event_data["importance_score"],
+                    "article_count": event_data["article_count"],
+                    "is_quarterly_report": any(a.get("is_quarterly_report", False) for a in event_data["articles"])
+                }
+            
+            # Update state with the grouped results
+            state["research_results"] = final_results
+            state["event_metadata"] = event_metadata
+            print(f"[Research Agent] Grouped articles into {len(final_results)} distinct events")
+        elif return_type != "clustered":
+            # Return unclustered results if requested
+            state["research_results"] = unique_articles
+            print(f"[Research Agent] Returning {len(unique_articles)} unclustered articles")
     
     return {**state, "goto": "meta_agent"}
