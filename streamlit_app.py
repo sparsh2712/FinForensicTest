@@ -14,7 +14,7 @@ from langgraph.graph import END
 
 # Import your existing system
 from backend.core.news_forensic import NewsForensicSystem
-# from backend.utils.pdf_generator import convert_markdown_to_pdf
+from backend.utils.pdf_generator import convert_markdown_to_pdf
 
 # Configure the page
 st.set_page_config(
@@ -278,7 +278,7 @@ def run_analysis(company, industry):
             
             # Generate PDF for download
             pdf_path = os.path.join("markdowns", f"{company.replace(' ', '_')}_latest.pdf")
-            # convert_markdown_to_pdf(markdown_path, pdf_path)
+            convert_markdown_to_pdf(markdown_path, pdf_path)
             
             # Notify completion
             st.session_state.messages.append({
@@ -486,15 +486,15 @@ with report_col:
                 temp_md.write(st.session_state.report.encode('utf-8'))
             
             temp_pdf_path = temp_md_path.replace('.md', '.pdf')
-            # convert_markdown_to_pdf(temp_md_path, temp_pdf_path)
+            convert_markdown_to_pdf(temp_md_path, temp_pdf_path)
             
             # Display PDF
-            # display_pdf(temp_pdf_path)
+            display_pdf(temp_pdf_path)
             
             # Download link
             company = company_name if company_name else "report"
             download_filename = f"{company.replace(' ', '_')}_report.pdf"
-            # st.markdown(get_pdf_download_link(temp_pdf_path, download_filename), unsafe_allow_html=True)
+            st.markdown(get_pdf_download_link(temp_pdf_path, download_filename), unsafe_allow_html=True)
             
             # Clean up temp files
             try:
