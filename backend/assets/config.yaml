@@ -1,0 +1,31 @@
+Announcements:
+  from_date: "01-01-2023"
+  to_date: "31-12-2023"
+  max_results: 50
+  category: "results"
+
+AnnXBRL:
+  from_date: "01-01-2023"
+  to_date: "31-12-2023"
+  type: "announcements"
+  max_results: 50
+
+AnnualReports:
+  max_results: 20
+  year: "2023-24"
+
+BussinessSustainabilitiyReport:
+  max_results: 20
+  year: "2023"
+
+BoardMeetings:
+  from_date: "01-01-2023"
+  to_date: "31-12-2023"
+  max_results: 30
+  purpose: "results"
+
+CorporateActions:
+  from_date: "01-01-2023"
+  to_date: "31-12-2023"
+  max_results: 30
+  action_type: "dividend"
