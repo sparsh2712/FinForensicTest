@@ -2,6 +2,8 @@ import requests
 import json
 import brotli
 import yaml
+import os
+from typing import Dict
 from urllib.parse import quote
 from tenacity import retry, stop_after_attempt, wait_exponential
 
@@ -184,16 +186,14 @@ class NSETool:
     def _process_corporate_actions(self, params, schema):
         return self._process_stream("CorporateActions", params, schema)
     
-    def get(self, streams=None, params=None):
-        if params is None:
-            params = {}
+    def get(self, streams=None, stream_params=None):
+        if stream_params is None:
+            stream_params = {}
             
         if streams is None:
-            # Get data from all streams
             streams = list(self.stream_processors.keys())
             
         if isinstance(streams, str):
-            # Convert single stream to list
             streams = [streams]
             
         result = {}
@@ -203,8 +203,54 @@ class NSETool:
                 try:
                     schema = self._get_schema(stream)
                     processor = self.stream_processors[stream]
+                    params = stream_params.get(stream, {})
                     result[stream] = processor(params, schema)
                 except Exception:
                     result[stream] = []
                     
         return result
+
+def corporate_agent(state: Dict) -> Dict:
+    print("[Corporate Agent] Starting corporate data collection process...")
+    
+    company = state.get("company")
+    symbol = state.get("company_symbol", company)
+    
+    if not company:
+        print("[Corporate Agent] ERROR: Company name is missing!")
+        return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": "Company name is required"}
+    
+    params_path = "assets/params.yaml"
+    
+    try:
+        with open(params_path, "r") as f:
+            yaml_params = yaml.safe_load(f)
+    except Exception as e:
+        print(f"[Corporate Agent] ERROR: Failed to load params file: {e}")
+        return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": f"Failed to load params file: {e}"}
+    
+    config = {
+        "company": company,
+        "symbol": symbol
+    }
+    
+    try:
+        nse_tool = NSETool(config)
+        
+        streams = ["Announcements", "AnnXBRL", "AnnualReports", "BussinessSustainabilitiyReport", "BoardMeetings", "CorporateActions"]
+        
+        corporate_results = nse_tool.get(streams, yaml_params)
+        nse_tool.close()
+        
+        state["corporate_results"] = corporate_results
+        state["corporate_status"] = "DONE"
+        
+        print(f"[Corporate Agent] Corporate data collection complete for {company}.")
+        
+    except Exception as e:
+        print(f"[Corporate Agent] ERROR during corporate data collection: {e}")
+        import traceback
+        print(traceback.format_exc())
+        return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": f"Error during corporate data collection: {str(e)}"}
+    
+    return {**state, "goto": "meta_agent"}
