@@ -13,6 +13,9 @@ from threading import Lock
 import traceback
 import queue
 
+# from backend.utils.llm_provider import LLMProviderManager
+from backend.utils.prompt_manager import PromptManager
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -101,6 +104,9 @@ class ProcessingStats:
 processing_stats = ProcessingStats()
 
 progress_queue = queue.Queue()
+
+# llm_provider = LLMProviderManager()
+prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
 
 def fetch_article_content(url: str, max_retries: int = 3, timeout: int = 30) -> Tuple[Optional[str], Optional[dict]]:
     """
@@ -191,82 +197,37 @@ def extract_forensic_insights(company: str, title: str, content: str, event_name
     try:
         llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
         
-        extract_system_prompt = """
-        You are a Forensic Content Extraction Specialist. Your task is to extract ONLY forensically-relevant 
-        information about the specified company from the provided document. 
-        
-        Focus EXCLUSIVELY on content related to:
-        1. Potential fraud, misrepresentation, or financial irregularities
-        2. Legal issues (lawsuits, regulatory actions, investigations, penalties)
-        3. Ethical breaches (misconduct, conflicts of interest)
-        4. Whistleblower allegations
-        5. Accounting irregularities or financial restatements
-        6. Unusual transactions or suspicious patterns
-        7. Governance issues or leadership improprieties
-        8. Material omissions or misleading statements
-        
-        STRICT RULES:
-        - DO NOT extract standard financial metrics unless they suggest irregularities
-        - DO NOT extract routine analyst ratings unless they point to specific forensic concerns
-        - DO NOT extract general market information unless related to suspicious activity
-        - DO NOT extract general company news unless it suggests impropriety
-        
-        If you find relevant forensic content, extract it verbatim without summarizing.
-        If you find NO forensically-relevant content, return EXACTLY: "NO_FORENSIC_CONTENT"
-        """
-        
-        extract_prompt = f"""
-        Company: {company}
-        Article Title: {title}
-        Event Category: {event_name}
-        
-        Document Content:
-        {content[:25000]}  # Limit content size
-        
-        Extract ONLY the forensically-relevant portions about {company}.
-        """
+        variables = {
+            "company": company,
+            "title": title,
+            "event_name": event_name,
+            "content": content
+        }
+
+        system_prompt, human_prompt  = prompt_manager.get_prompt("analyst_agent", "forensic_insights_extract", variables)
         
         messages = [
-            ("system", extract_system_prompt),
-            ("human", extract_prompt)
+            ("system", system_prompt),
+            ("human", human_prompt)
         ]
         
         response = llm.invoke(messages)
         extracted_content = response.content.strip()
-        
+
         if extracted_content == "NO_FORENSIC_CONTENT":
             progress_queue.put(f"No forensic content found in article: {title}")
             return None
-            
-        analysis_system_prompt = """
-        You are a Forensic Financial Analyst specializing in detecting corporate irregularities and misconduct.
         
-        Analyze the provided excerpt (which has already been filtered for forensic relevance) and extract the following specific insights:
-        
-        1. ALLEGATIONS: What specific allegations or issues are mentioned? Be precise.
-        2. ENTITIES: What individuals, organizations, or authorities are involved?
-        3. TIMELINE: When did the alleged events occur? Extract specific dates.
-        4. MAGNITUDE: What is the financial or operational impact? Extract specific figures.
-        5. EVIDENCE: What evidence is cited to support the allegations?
-        6. RESPONSE: How has the company responded to the allegations?
-        7. STATUS: What is the current status of any investigation, litigation, or regulatory action?
-        8. CREDIBILITY: How credible are the allegations based on the source and supporting evidence?
-        
-        Format your response as a JSON object with these fields. If any field has no information, use "Unknown".
-        """
-        
-        analysis_prompt = f"""
-        Company: {company}
-        Forensically-relevant excerpt:
-        
-        {extracted_content}
-        
-        Analyze this excerpt and extract the specific forensic insights as structured JSON.
-        """
+        variables = {
+            "company": company,
+            "extracted_content": extracted_content
+        }
+
+        system_prompt, human_prompt = prompt_manager.get_prompt("analyst_agent", "forensic_insights_analysis", variables)
         
         messages = [
-            ("system", analysis_system_prompt),
-            ("human", analysis_prompt)
+            ("system", system_prompt),
+            ("human", human_prompt)
         ]
         
         analysis_response = llm.invoke(messages)
@@ -342,28 +303,9 @@ def synthesize_event_insights(company: str, event_name: str, insights_list: List
     if not insights_list or len(insights_list) == 0:
         return None
         
-    progress_queue.put(f"Synthesizing {len(insights_list)} insights for event: {event_name}")
-        
+    progress_queue.put(f"Synthesizing {len(insights_list)} insights for event: {event_name}")  
     try:
         llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
-        
-        system_prompt = """
-        You are a Forensic Intelligence Synthesizer specializing in corporate investigations. Your task is to analyze
-        multiple pieces of information about the same event and create a comprehensive forensic assessment.
-        
-        Synthesize the information using these guidelines:
-        
-        1. CROSS-VALIDATION: Compare facts across sources, noting agreements and contradictions
-        2. TIMELINE RECONSTRUCTION: Build a chronological sequence of events with precise dates
-        3. ENTITY MAPPING: Identify key entities and their roles/relationships
-        4. EVIDENCE ASSESSMENT: Evaluate the quality and consistency of evidence
-        5. SEVERITY ASSESSMENT: Assess the potential business and legal impact
-        6. CREDIBILITY SCORE: Rate the overall credibility of the allegations (1-10)
-        7. RED FLAGS: Identify specific red flags that warrant further investigation
-        
-        Return a detailed JSON object with these sections, plus a "narrative" field containing a coherent summary
-        of your findings written in a formal forensic analysis style.
-        """
         
         simplified_insights = []
         for insight in insights_list:
@@ -373,20 +315,17 @@ def synthesize_event_insights(company: str, event_name: str, insights_list: List
                     simplified[key] = value[:1000] + "... [truncated]"
             simplified_insights.append(simplified)
         
-        input_message = f"""
-        Company: {company}
-        Event: {event_name}
-        Number of Sources: {len(simplified_insights)}
-        
-        Source Insights:
-        {json.dumps(simplified_insights, indent=2)}
-        
-        Synthesize these insights into a comprehensive forensic assessment.
-        """
+        variables = {
+        "company": company,
+        "event_name": event_name,
+        "num_sources": len(simplified_insights),
+        "insights": json.dumps(simplified_insights, indent=2)
+        }
+        system_prompt, human_prompt = prompt_manager.get_prompt("analyst_agent", "event_insight", variables) 
         
         messages = [
             ("system", system_prompt),
-            ("human", input_message)
+            ("human", human_prompt)
         ]
         
         response = llm.invoke(messages)
@@ -428,44 +367,6 @@ def generate_company_analysis(company: str, events_synthesis: Dict, guidance: Di
     try:
         llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
         
-        system_prompt = """
-        You are a Forensic Financial Analyst producing a comprehensive report on potential corporate misconduct.
-        
-        Based on the synthesized event analyses, create a comprehensive forensic assessment of the company that includes:
-        
-        1. EXECUTIVE SUMMARY: A concise overview of key findings (2-3 paragraphs)
-        
-        2. RISK ASSESSMENT:
-           - Financial Integrity Risk (High/Medium/Low with justification)
-           - Legal/Regulatory Risk (High/Medium/Low with justification)
-           - Reputational Risk (High/Medium/Low with justification)
-           - Operational Risk (High/Medium/Low with justification)
-        
-        3. KEY PATTERNS:
-           - Identify recurring behaviors or issues across events
-           - Note any progression or escalation in behaviors
-           - Identify systemic vs. isolated issues
-        
-        4. CRITICAL ENTITIES:
-           - Key individuals implicated across multiple events
-           - Their roles and patterns of behavior
-        
-        5. RED FLAGS:
-           - Prioritized list of the most significant concerns
-           - Areas requiring immediate further investigation
-        
-        6. TIMELINE:
-           - Chronological reconstruction of significant events
-        
-        7. FORENSIC ASSESSMENT:
-           - Overall forensic opinion on financial integrity
-           - Assessment of potential fraud indicators
-           - Evaluation of disclosure and transparency
-        
-        Return a detailed JSON object with these sections, plus a "report_markdown" field containing a professional
-        forensic report in markdown format.
-        """
-        
         simplified_events = {}
         for event_name, event_data in events_synthesis.items():
             event_copy = event_data.copy()
@@ -477,22 +378,17 @@ def generate_company_analysis(company: str, events_synthesis: Dict, guidance: Di
         if guidance:
             simplified_guidance = {k: v for k, v in guidance.items() if k in ["focus_areas", "priorities", "red_flags"]}
         
-        input_message = f"""
-        Company: {company}
-        Number of Analyzed Events: {len(simplified_events)}
-        
-        Event Syntheses:
-        {json.dumps(simplified_events, indent=2)}
-        
-        Analysis Guidance (if available):
-        {json.dumps(simplified_guidance, indent=2) if simplified_guidance else "No specific guidance provided"}
-        
-        Generate a comprehensive forensic assessment of {company}.
-        """
+        variables = {
+            "company": company,
+            "num_events": len(simplified_events),
+            "event_syntheses": json.dumps(simplified_events, indent=2),
+            "guidance": json.dumps(simplified_guidance, indent=2) if simplified_guidance else "No specific guidance provided"
+        }
+        system_prompt, human_prompt = prompt_manager.get_prompt("analyst_agent", "event_insight", variables) 
         
         messages = [
             ("system", system_prompt),
-            ("human", input_message)
+            ("human", human_prompt)
         ]
         
         response = llm.invoke(messages)

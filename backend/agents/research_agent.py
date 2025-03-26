@@ -8,8 +8,10 @@ from datetime import datetime
 import traceback
 import os
 from dotenv import load_dotenv
+from backend.utils.prompt_manager import PromptManager
 load_dotenv()
 
+prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
 
 def generate_queries(company: str, industry: str, research_plan: Dict, query_history: List[Dict[str, List]]) -> Dict[str, List[str]]:
     """
@@ -18,50 +20,17 @@ def generate_queries(company: str, industry: str, research_plan: Dict, query_his
     try:
         llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7)
 
-        system_prompt = (
-            "You are an advanced research assistant specializing in forensic and investigative analysis. "
-            "Your task is to generate precise and diverse search queries based on a given research plan. "
-            "These queries should help uncover relevant information about a company while ensuring that redundant or similar queries are not generated.\n\n"
-
-            "### Instructions:\n"
-            "1. Read the provided research plan carefully. It contains detailed objectives, key focus areas, and specific categories for which queries should be generated.\n"
-            "2. Review the list of previously generated queries to ensure that new queries are distinct and do not repeat past attempts. "
-            "Generating queries that are too similar can lead to redundant search results.\n"
-            "3. Construct well-formed and effective search queries using appropriate search operators and keywords. "
-            "Each query should be structured to maximize relevant results and align with the research plan.\n"
-            "4. Prioritize identifying new angles of investigation rather than rephrasing existing queries.\n"
-            "5. Follow the exact categories specified in the research plan and generate queries strictly within those categories.\n"
-            "6. If the research plan is broad, generate a diverse set of queries covering different aspects of the investigation.\n"
-            "7. If the research plan is highly specific, ensure that the generated queries align with the detailed instructions while maintaining uniqueness.\n\n"
-
-            "### Output Format:\n"
-            "Return the generated queries as a JSON object where:\n"
-            "- The keys match the exact research categories specified in the research plan.\n"
-            "- The values are lists of well-structured search queries.\n\n"
-
-            "### Constraints:\n"
-            "- Ensure that each generated query is meaningfully different from previous queries.\n"
-            "- Avoid minor rewordings or trivial variations of past queries.\n"
-            "- Queries should be optimized to capture new and relevant information about the company.\n\n"
-
-            "Your role is to enhance the depth of the investigation by formulating well-structured, non-redundant, and insightful search queries "
-            "strictly based on the provided research plan."
-        )
-
-        input_message = (
-            f"Company: {company}\n"
-            f"Industry: {industry}\n\n"
-            f"Research Plan:\n{json.dumps(research_plan, indent=4)}\n\n"
-            f"Previously Generated Queries:\n{json.dumps(query_history, indent=4)}\n\n"
-            f"Generate new targeted search queries strictly following the research plan. "
-            f"Ensure that the queries are meaningfully different from the previously generated ones "
-            f"to avoid redundancy while capturing new and relevant information about {company}."
-        )
-
+        variables = {
+            "company": company,
+            "industry": industry,
+            "research_plan": json.dumps(research_plan, indent=4),
+            "query_history": json.dumps(query_history, indent=4), 
+        }
+        system_prompt, human_prompt = prompt_manager.get_prompt("research_agent", "generate_queries", variables)
 
         messages = [
             ("system", system_prompt),
-            ("human", input_message)
+            ("human", human_prompt)
         ]
         response = llm.invoke(messages)
 
@@ -84,170 +53,6 @@ def generate_queries(company: str, industry: str, research_plan: Dict, query_his
         print(traceback.format_exc())
         return {f"{research_plan['objective']}": f"{research_plan['objective']}"}
 
-def generate_targeted_queries(company: str, industry: str) -> Dict[str, List[str]]:
-    """
-    Generate targeted search queries with a focus on negative events and legal issues,
-    organized by category.
-    """
-    try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.1)
-        
-        system_prompt = (
-            "You are an expert forensic investigator specializing in corporate misconduct research. "
-            "Generate targeted search queries to uncover potential issues for a given company, focusing on negative events. "
-            "Prioritize cases where the company is the accused party, not the victim.\n\n"
-            
-            "Key areas of focus:\n"
-            "1. Bribery allegations, corruption cases, and improper payments\n"
-            "2. Legal cases against the company (not cases filed by the company)\n"
-            "3. Fraud or misconduct committed by the company (not fraud against the company)\n"
-            "4. Regulatory investigations, fines, and penalties from authorities\n"
-            "5. Allegations of unethical business practices or corporate misgovernance\n"
-            "6. Financial mismanagement, tax evasion, accounting irregularities, or corporate fraud\n\n"
-            
-            "Generate search queries in the following categories:\n"
-            "- 'bribery_corruption': Bribery cases, corruption scandals, and violations of anti-corruption laws\n"
-            "- 'legal_issues': Court cases, litigation, and criminal proceedings against the company\n"
-            "- 'regulatory_actions': Investigations, fines, and penalties from regulators\n"
-            "- 'management_misconduct': Executive misconduct, unethical business practices, and corporate misgovernance\n"
-            "- 'corporate_governance': Board-level disputes, promoter conflicts, and governance failures\n"
-            "- 'financial_irregularities': Tax evasion, accounting fraud, financial mismanagement, and loan defaults\n\n"
-            
-            "For each category, generate 2-3 specific search queries using proper search operators. "
-            "Return the output as a JSON object where the keys are category names and the values are lists of query strings. "
-            "Ensure the queries are precise and capture events where the company is the accused party."
-        )
-        
-        input_message = (
-            f"Company: {company}\n"
-            f"Industry: {industry}\n\n"
-            f"Generate targeted search queries to discover potential misconduct or issues at {company}."
-        )
-        
-        messages = [
-            ("system", system_prompt),
-            ("human", input_message)
-        ]
-        
-        response = llm.invoke(messages)
-        print(f"RAW RESPONSE: {response.content}")
-        response_content = response.content.strip()
-        
-        if "```json" in response_content:
-            json_content = response_content.split("```json")[1].split("```")[0].strip()
-        elif "```" in response_content:
-            json_content = response_content.split("```")[1].strip()
-        else:
-            json_content = response_content
-        
-        query_categories = json.loads(json_content)
-        
-        for category, queries in query_categories.items():
-            query_categories[category] = [
-                q if company.lower() in q.lower() else f'"{company}" {q}' 
-                for q in queries
-            ]
-        
-        print(f"[Research Agent] Generated {sum(len(v) for v in query_categories.values())} queries across {len(query_categories)} categories")
-        return query_categories
-        
-    except Exception as e:
-        print(f"[Research Agent] Error in query generation: {e}")
-        print(traceback.format_exc())
-        
-        return {
-            "bribery_corruption": [
-                f'"{company}" bribery OR corruption OR "illegal payments"'
-            ],
-            "legal_issues": [
-                f'"{company}" lawsuit OR litigation OR "court case against"',
-                f'"{company}" "legal dispute" OR "case filed against"',
-                f'"{company}" "consumer complaint" OR "business malpractice case"'
-            ],
-            "regulatory_actions": [
-                f'"{company}" "regulatory investigation" OR "penalty imposed" OR "license cancelled"',
-                f'"{company}" "non-compliance" OR "violation of regulations" OR "fraudulent practices"',
-                f'"{company}" "government action" OR "breach of business laws" OR "policy violation"'
-            ],
-            "management_misconduct": [
-                f'"{company}" "executive scandal" OR "CEO misconduct" OR "ethics breach"',
-                f'"{company}" "sexual harassment allegation" OR "workplace misconduct" OR "unfair treatment"',
-                f'"{company}" "misuse of company funds" OR "conflict of interest" OR "leadership controversy"'
-            ],
-            "corporate_governance": [
-                f'"{company}" "boardroom conflict" OR "director dispute" OR "corporate governance failure"',
-                f'"{company}" "investor concerns" OR "mismanagement" OR "lack of transparency"',
-                f'"{company}" "insider dealings" OR "governance irregularities" OR "business ethics issues"'
-            ],
-            "financial_irregularities": [
-                f'"{company}" "accounting fraud" OR "misrepresentation of financials"',
-                f'"{company}" "loan default" OR "bad debt" OR "non-performing asset"',
-                f'"{company}" "fund diversion" OR "tax evasion" OR "financial mismanagement"'
-            ],
-            "general": [
-                f'"{company}" scandal OR controversy OR "negative news"',
-                f'"{company}" "allegations" OR "business criticism" OR "customer complaints"',
-                f'"{company}" "labour unrest" OR "public backlash" OR "boycott calls"'
-            ]
-        }
-    
-def generate_missing_data_queries(company, data_requirements):
-    """
-    Generate optimized Google search query to find specific missing company data.
-    """
-    try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
-        
-        system_prompt = (
-            "You are an expert data researcher specializing in finding specific business information. "
-            "Your task is to create ONE highly optimized Google search query that will help locate "
-            "precise missing data about a company. The query should:\n\n"
-            "1. Use quotes for exact phrases and terms that must appear together\n"
-            "2. Use OR/AND operators appropriately to expand or narrow results\n"
-            "3. Use intext: operator when relevant to ensure specific terms appear in the content\n"
-            "4. Focus on specific keywords related to the data required\n"
-            "5. Include industry-specific terminology when appropriate\n"
-            "6. Include year or date information if time-relevant\n\n"
-            
-            "DO NOT use site:, filetype:, or intitle: operators in your query.\n\n"
-            
-            "Based on the data requirements text, determine:\n"
-            "- The specific type of company information needed (financial metrics, personnel, strategies, etc.)\n"
-            "- The time period relevance (current, historical, specific year)\n"
-            "- The level of detail required (high-level overview vs. specific metrics)\n\n"
-            
-            "Return ONLY the search query string itself, without explanation or additional text."
-        )
-        
-        input_message = (
-            f"Company: {company}\n\n"
-            f"Data Requirements: {data_requirements}\n\n"
-            f"Generate ONE precise Google search query to find this specific information."
-        )
-        
-        messages = [
-            ("system", system_prompt),
-            ("human", input_message)
-        ]
-        
-        response = llm.invoke(messages)
-        query = response.content.strip()
-        
-        if "```" in query:
-            query = query.split("```")[1].strip() if len(query.split("```")) > 1 else query.replace("```", "").strip()
-        
-        if company.lower() not in query.lower():
-            if not query.startswith('"'):
-                query = f'"{company}" {query}'
-        
-        print(f"[Data Retrieval Agent] Generated search query for {company}: {query}")
-        return query
-        
-    except Exception as e:
-        print(f"[Data Retrieval Agent] Error in query generation: {e}")
-        print(traceback.format_exc())
-        
-        return None
 
 def is_quarterly_report_article(title: str, snippet: str = "") -> bool:
     """
@@ -401,35 +206,6 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
     if other_articles:
         try:
             llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
-            
-            system_prompt = (
-                "You are an expert in analyzing and clustering news articles related to corporate misconduct, regulatory actions, and financial fraud in India. "
-                "Your task is to group articles into distinct event clusters representing specific incidents, regulatory investigations, lawsuits, financial scams, bribery cases, or other forensically relevant matters.\n\n"
-
-                "IMPORTANT GUIDELINES:\n"
-                "1. Prioritize negative events where the company is accused of wrongdoing.\n"
-                "2. Give special attention to lawsuits and regulatory actions AGAINST the company (not by the company).\n"
-                "3. Focus on fraud, bribery, and financial irregularities COMMITTED BY the company (not against it).\n"
-                "4. Distinguish between different lawsuits, regulatory actions, and financial penalties.\n"
-                "5. Consider the timeframe of events while clustering. If a company has faced multiple penalties, bribery allegations, or lawsuits over different periods, treat them as separate events.\n"
-                "6. Ensure that clustered articles refer to the same incident, avoiding broad generalizations.\n"
-                "7. Create specific event names with dates and severity levels (High/Medium/Low).\n\n"
-
-                "EVENT NAMING FORMAT:\n"
-                "[Event Type]: [Specific Description] ([Date/Timeframe if available]) - [Severity if known]\n\n"
-
-                "Example event names:\n"
-                "- 'Fraud Investigation: SEBI Probe into Insider Trading (March 2023) - High'\n"
-                "- 'Regulatory Fine: RBI Penalizes Bank for KYC Violations (2021) - Medium'\n"
-                "- 'ED Raid: Money Laundering Investigation Against XYZ Group (July 2023) - High'\n"
-                "- 'CBI Investigation: Corruption and Bribery Case in Infrastructure Project (2020) - High'\n"
-                "- 'Bribery Scandal: Allegations Against XYZ Corp for Government Contract (Q4 2022) - High'\n\n"
-
-                "Return a JSON object where:\n"
-                "- Each key is a precise event name following the format above.\n"
-                "- Each value is a list of INTEGER indices from the article list.\n"
-            )
-
 
             simplified_articles = []
             for i, article in enumerate(other_articles):
@@ -442,16 +218,17 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
                     "category": article.get("category", "general")
                 })
 
-            input_message = (
-                f"Company: {company}\n"
-                f"Industry: {industry if industry else 'Unknown'}\n"
-                f"Articles to analyze: {json.dumps(simplified_articles)}\n\n"
-                f"Group these articles about {company} into distinct event clusters, focusing on negative events, lawsuits against the company, and potential misconduct."
-            )
+            variables = {
+                "company": company,
+                "industry": industry,
+                "simplified_articles": json.dumps(simplified_articles)
+            }
 
+            system_prompt, human_prompt = prompt_manager.get_prompt("research_agent", "group_results", variables)
+        
             messages = [
                 ("system", system_prompt),
-                ("human", input_message)
+                ("human", human_prompt)
             ]
 
             response = llm.invoke(messages)

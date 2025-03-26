@@ -7,6 +7,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import END
 from dotenv import load_dotenv
 load_dotenv()
+from backend.utils.prompt_manager import PromptManager
+
+prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
 
 def select_top_events(events: Dict, event_metadata: Dict, max_detailed_events: int = 6) -> Tuple[List[str], List[str]]:
     """
@@ -37,35 +40,26 @@ def generate_detailed_event_section(company: str, event_name: str, event_data: L
     Generate a detailed analysis section for a high-priority event.
     """
     print(f"[Meta Agent Final] Generating detailed analysis for event: {event_name}")
-    
-    prompt = f"""
-    You are a forensic financial analyst creating a detailed analysis of a significant event related to {company}.
-    
-    EVENT: {event_name}
-    
-    Based on the articles provided, create a comprehensive analysis of this event that includes:
-    
-    1. BACKGROUND: Context and explanation of what happened (2-3 paragraphs)
-    2. KEY FACTS: The established facts about the event
-    3. IMPLICATIONS: Financial, legal, and reputational implications for the company
-    4. TIMELINE: Chronological sequence of developments
-    5. ANALYSIS: Your expert assessment of the situation, including inferences about what this suggests
-       about the company, connections to other events, and potential future developments
-    
-    ARTICLES:
-    {json.dumps([{
+
+    articles = json.dumps([{
         "title": a.get("title", ""),
         "source": a.get("source", "Unknown"),
         "date": a.get("date", "Unknown"),
         "snippet": a.get("snippet", "")
-    } for a in event_data], indent=2)}
-    
-    Format your response as a Markdown section with appropriate headers and structure.
-    Focus on providing insightful analysis beyond just summarizing the facts.
-    """
-    
+    } for a in event_data], indent=2)
+
+    variables = {
+        "event_name": event_name,
+        "company": company,
+        "articles": articles
+    }
+    system_prompt, human_prompt = prompt_manager.get_prompt("meta_agent_final", "detailed_event_section", variables)
+    messages = [
+        ("system", system_prompt),
+        ("human", human_prompt)
+    ]
     try:
-        response = llm.invoke(prompt)
+        response = llm.invoke(messages)
         detailed_section = response.content.strip()
         return f"## {event_name}\n\n{detailed_section}\n\n"
     except Exception as e:
@@ -99,22 +93,17 @@ def generate_other_events_section(company: str, events: Dict, event_metadata: Di
             "articles": article_summaries
         })
     
-    prompt = f"""
-    You are a forensic financial analyst creating a summary section for additional events related to {company}.
-    
-    Generate concise summaries for the following events that didn't warrant full detailed analysis.
-    For each event, write a single paragraph (3-5 sentences) that captures the key information.
-    Include any financial, legal, or reputational implications when relevant.
-    
-    EVENTS:
-    {json.dumps(event_summaries, indent=2)}
-    
-    Format your response as a Markdown section with each event as a subsection.
-    Keep the analysis concise but informative.
-    """
-    
+    variable = {
+        "company": company,
+        "events": json.dumps(event_summaries, indent=2)
+    }
+    system_prompt, human_prompt = prompt_manager.get_prompt("meta_agent_final", "other_event_section", variable)
+    messages = [
+        ("system", system_prompt),
+        ("human", human_prompt)
+    ]
     try:
-        response = llm.invoke(prompt)
+        response = llm.invoke(messages)
         other_events_section = response.content.strip()
         return f"# Other Notable Events\n\n{other_events_section}\n\n"
     except Exception as e:
@@ -135,27 +124,20 @@ def generate_executive_summary(company: str, top_events: List[str], all_events: 
             "importance_score": metadata.get("importance_score", 0),
             "is_quarterly_report": metadata.get("is_quarterly_report", False)
         })
-    
-    prompt = f"""
-    You are a forensic financial analyst creating an executive summary for a comprehensive report on {company}.
-    
-    Based on the events identified in our investigation, create a concise executive summary that:
-    
-    1. Introduces the purpose and scope of the analysis (1 paragraph)
-    2. Highlights the most significant findings, focusing on potential issues of concern (1-2 paragraphs)
-    3. Provides an overall assessment of the company's situation based on these events (1 paragraph)
-    4. Notes any patterns or trends across multiple events (1 paragraph)
-    
-    Most significant events:
-    {json.dumps(top_event_info, indent=2)}
-    
-    Total events found: {len(all_events)}
-    
-    Format your response as a markdown section. Be objective but insightful.
-    """
+
+    variable = {
+        "company": company,
+        "top_event_info": json.dumps(top_event_info, indent=2),
+        "total_events": len(all_events)
+    }
+    system_prompt, human_prompt = prompt_manager.get_prompt("meta_agent_final", "executive_summary", variable)
+    messages = [
+        ("system", system_prompt),
+        ("human", human_prompt)
+    ]
     
     try:
-        response = llm.invoke(prompt)
+        response = llm.invoke(messages)
         summary = response.content.strip()
         return f"# Executive Summary\n\n{summary}\n\n"
     except Exception as e:
@@ -214,48 +196,38 @@ def meta_agent_final(state: Dict) -> Dict:
             report_sections.append(other_events_section)
         
         if len(top_events) > 1:
-            pattern_prompt = f"""
-            You are a forensic pattern analyst specializing in corporate behavior. For {company}, analyze the 
-            following events and identify patterns, connections, and potential underlying issues:
-            
-            EVENTS:
-            {json.dumps([{
+            events = json.dumps([{
                 "name": event,
                 "importance": event_metadata.get(event, {}).get("importance_score", 0)
-            } for event in top_events], indent=2)}
-            
-            Create a "Pattern Recognition" section that:
-            1. Identifies recurring themes or issues
-            2. Highlights connections between seemingly unrelated events
-            3. Draws inferences about potential systemic issues
-            4. Notes any temporal patterns (escalation, de-escalation)
-            
-            Focus on providing insight rather than just summarizing. What might these events collectively tell us?
-            """
-            
+            } for event in top_events], indent=2)
+
+            variables = {
+                "company": company,
+                "events": events
+            }
+            system_prompt, human_prompt = prompt_manager.get_prompt("meta_agent_final", "pattern_analysis", variables)
+            messages = [
+                ("system", system_prompt),
+                ("human", human_prompt)
+            ]
             try:
-                response = llm.invoke(pattern_prompt)
+                response = llm.invoke(messages)
                 pattern_section = response.content.strip()
                 report_sections.append(f"# Pattern Recognition\n\n{pattern_section}\n\n")
             except Exception as e:
                 print(f"[Meta Agent Final] Error generating pattern section: {e}")
         
-        recommendations_prompt = f"""
-        You are a forensic financial consultant providing recommendations based on a corporate investigation of {company}.
-        
-        Based on the events identified, particularly:
-        {json.dumps([event for event in top_events], indent=2)}
-        
-        Provide 5-7 specific, actionable recommendations for:
-        1. Further investigation into specific issues
-        2. Due diligence considerations
-        3. Risk mitigation strategies
-        
-        Each recommendation should be concrete and specific to the findings. Do not include generic boilerplate recommendations.
-        """
-        
+        variables = {
+            "company": company,
+            "top_events": json.dumps([event for event in top_events], indent=2)
+        }
+        system_prompt, human_prompt = prompt_manager.get_prompt("meta_agent_final", "recommendation", variables)
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
         try:
-            response = llm.invoke(recommendations_prompt)
+            response = llm.invoke(messages)
             recommendations = response.content.strip()
             report_sections.append(f"# Recommendations\n\n{recommendations}\n\n")
         except Exception as e:

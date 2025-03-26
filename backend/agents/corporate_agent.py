@@ -1,263 +1,210 @@
-import json
-import os
-import time
-import logging
-import yaml
-from typing import Dict, List, Any, Optional
 import requests
+import json
+import brotli
+import yaml
+from urllib.parse import quote
+from tenacity import retry, stop_after_attempt, wait_exponential
 
-logger = logging.getLogger("corporate_agent")
+class NSETool:
+    def __init__(self, config):
+        self.config = config
+        self.config.setdefault("base_url", "https://www.nseindia.com")
+        self.config.setdefault("refresh_interval", 25)
+        self.config.setdefault("config_path", "assets/nse_config.yaml")
+        self.config.setdefault("headers_path", "assets/headers.yaml")
+        self.config.setdefault("cookie_path", "assets/cookies.yaml")
+        self.config.setdefault("schema_path", "assets/nse_schema.yaml")
+        self.config.setdefault("use_hardcoded_cookies", False)
+        self.config.setdefault("domain", "nseindia.com")
+        
+        self.data_config = self._load_yaml(self.config["config_path"])
+        self.headers = self._load_yaml(self.config["headers_path"])
+        self.cookies = self._load_yaml(self.config["cookie_path"]) if self.config["use_hardcoded_cookies"] else None
+        self.session = None
+        self.fallback_referer = "https://www.nseindia.com/companies-listing/corporate-filings-board-meetings"
+        self.stream_processors = {
+            "Announcements": self._process_announcements,
+            "AnnXBRL": self._process_ann_xbrl,
+            "AnnualReports": self._process_annual_reports,
+            "BussinessSustainabilitiyReport": self._process_esg_reports,
+            "BoardMeetings": self._process_board_meetings,
+            "CorporateActions": self._process_corporate_actions,
+        }
+        self._create_new_session()
+    
+    def _load_yaml(self, path):
+        with open(path, "r") as f:
+            return yaml.safe_load(f)
+    
+    def _create_new_session(self):
+        self.session = requests.Session()
+        self.session.headers.update(self.headers)
+        
+        if self.config["use_hardcoded_cookies"]:
+            for name, value in self.cookies.items():
+                self.session.cookies.set(name, value, domain=self.config["domain"])
+        else:
+            self.session.get(self.config["base_url"])
+            filings_url = f"{self.config['base_url']}/companies-listing/corporate-filings-announcements"
+            self.session.get(filings_url)
+            self.cookies = self.session.cookies.get_dict()
+            
+        return self.session
 
-class NSEToolSimple:
-    """Simplified version of NSE Tool for corporate data fetching"""
-    
-    def __init__(self, config: Dict[str, Any] = None):
-        self.config = config or {}
-        self.base_url = self.config.get("base_url", "https://www.nseindia.com")
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-        }
-        self.company = config.get("company", "")
-        self.symbol = config.get("symbol", "")
-    
-    def fetch_data(self, stream_type: str, params: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Fetch data from NSE for a specific stream type"""
-        params = params or {}
+    @retry(
+        stop=stop_after_attempt(3), 
+        wait=wait_exponential(multiplier=1, min=2, max=10))
+    def _refresh_session(self, referer):
+        if self.session is None:
+            self._create_new_session()
         
-        # Add company/symbol to params if not present
-        if "symbol" in params and not params["symbol"] and self.symbol:
-            params["symbol"] = self.symbol
-            
-        if "company" in params and not params["company"] and self.company:
-            params["company"] = self.company
-            
-        # Mock API endpoints based on stream type
-        endpoints = {
-            "BoardMeetings": "/api/corporates/boardmeeting",
-            "Announcements": "/api/corporates/announcements",
-            "CorporateActions": "/api/corporates/corporate-actions",
-            "AnnualReports": "/api/corporates/annual-reports",
-            "FinancialResults": "/api/corporates/financial-results"
-        }
+        headers = self.headers.copy()
+        headers["Referer"] = referer
         
-        endpoint = endpoints.get(stream_type)
-        if not endpoint:
-            logger.warning(f"Unknown stream type: {stream_type}")
+        self.session.get(referer, headers=headers, timeout=10)
+            
+        if not self.config["use_hardcoded_cookies"]:
+            self.cookies = self.session.cookies.get_dict()
+    
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
+    def make_request(self, url, referer):
+        self._refresh_session(referer)
+        
+        response = self.session.get(url, headers=self.headers, timeout=60)
+        response.raise_for_status()
+        
+        content = response.content
+        if not content:
+            return None
+
+        if 'br' in response.headers.get('Content-Encoding', ''):
+            decompressed_content = brotli.decompress(content)
+            json_text = decompressed_content.decode('utf-8')
+            return json.loads(json_text)
+        else:
+            return response.json()
+
+    def fetch_data_from_nse(self, stream, input_params):
+        stream_config = self.data_config.get(stream)
+        if not stream_config:
             return []
+        
+        params = stream_config.get('params', {}).copy() 
+        if "issuer" in params:
+            params["issuer"] = self.config["company"]
+        if "symbol" in params:
+            params["symbol"] = self.config["symbol"]
+        params.update(input_params)
+
+        url = self._construct_url(stream_config.get("endpoint"), params)
+        result = self.make_request(url, stream_config.get("referer", self.fallback_referer))
+        
+        if result:
+            max_results = input_params.get("max_results", 20)
             
-        # For demo purposes, we'll return mock data instead of making actual API calls
-        mock_data = self._get_mock_data(stream_type)
-        
-        # Simulate API delay
-        time.sleep(0.5)
-        
-        return mock_data
-    
-    def _get_mock_data(self, stream_type: str) -> List[Dict[str, Any]]:
-        """Get mock data for a stream type"""
-        company = self.company
-        
-        if stream_type == "BoardMeetings":
-            return [
-                {"meetingDate": "2024-02-15", "purpose": "Financial Results", "company": company},
-                {"meetingDate": "2024-01-05", "purpose": "Fund Raising", "company": company}
-            ]
-        elif stream_type == "Announcements":
-            return [
-                {"announcementDate": "2024-03-10", "subject": "Quarterly Results", "company": company},
-                {"announcementDate": "2024-02-20", "subject": "New Product Launch", "company": company}
-            ]
-        elif stream_type == "CorporateActions":
-            return [
-                {"exDate": "2024-02-28", "purpose": "Dividend", "company": company},
-                {"exDate": "2023-11-15", "purpose": "Bonus", "company": company}
-            ]
-        elif stream_type == "AnnualReports":
-            return [
-                {"year": "2023", "reportLink": "#", "company": company},
-                {"year": "2022", "reportLink": "#", "company": company}
-            ]
-        elif stream_type == "FinancialResults":
-            return [
-                {"period": "Q4 2023", "revenue": "1000 Cr", "profit": "100 Cr", "company": company},
-                {"period": "Q3 2023", "revenue": "950 Cr", "profit": "90 Cr", "company": company}
-            ]
+            if isinstance(result, list):
+                data_list = result
+                if max_results and len(data_list) > max_results:
+                    data_list = data_list[:max_results]
+                return data_list
+            elif isinstance(result, dict):
+                data_list = result.get("data", result)
+                if isinstance(data_list, list):
+                    if max_results and len(data_list) > max_results:
+                        data_list = data_list[:max_results]
+                    return data_list
+                else:
+                    return [result]
+            return [result]
         else:
             return []
 
-def load_governance_data(company: str, symbol: str = None) -> Dict[str, Any]:
-    """Load corporate governance data"""
-    # In a real implementation, this would load from a database or API
-    # For demo purposes, we'll return mock data
+    def _construct_url(self, endpoint, params):
+        filtered_params = {k: v for k, v in params.items() if v is not None and v != ""}
+        
+        base_url = f"{self.config['base_url']}/api/{endpoint}"
+        
+        if filtered_params:
+            query_parts = []
+            for key, value in filtered_params.items():
+                encoded_value = quote(str(value))
+                query_parts.append(f"{key}={encoded_value}")
+            
+            query_string = "&".join(query_parts)
+            return f"{base_url}?{query_string}"
+        
+        return base_url
     
-    return {
-        "board_composition": {
-            "independent_directors": 5,
-            "executive_directors": 3,
-            "women_directors": 2,
-            "board_size": 8
-        },
-        "committees": {
-            "audit_committee": {"size": 3, "independent": 3},
-            "nomination_committee": {"size": 3, "independent": 2},
-            "risk_committee": {"size": 3, "independent": 2}
-        },
-        "compliance": {
-            "sebi_compliance": "Compliant",
-            "listing_compliance": "Compliant",
-            "fema_compliance": "Compliant"
-        },
-        "key_metrics": {
-            "promoter_holding": "45%",
-            "institutional_holding": "35%",
-            "public_holding": "20%"
-        }
-    }
+    def close(self):
+        if self.session:
+            self.session.close()
 
-def get_company_symbol(company_name: str) -> str:
-    """Get company symbol from name (simplified)"""
-    # In a real implementation, this would query a database or API
-    # For demonstration, we'll use a simplified approach
+    def _filter_on_schema(self, data, schema):
+        if not data or not isinstance(data, list):
+            return []
+        return [{new_key: entry[old_key] for new_key, old_key in schema.items() if old_key in entry} for entry in data]
     
-    # Sample symbol mapping
-    symbol_map = {
-        "Reliance Industries": "RELIANCE",
-        "Tata Consultancy Services": "TCS",
-        "HDFC Bank": "HDFCBANK",
-        "Infosys": "INFY",
-        "ITC": "ITC",
-        "Bharti Airtel": "BHARTIARTL",
-        "Hindustan Unilever": "HINDUNILVR"
-    }
+    def _get_schema(self, stream_name):
+        schema_data = self._load_yaml(self.config["schema_path"])
+        return schema_data.get(stream_name, {})
     
-    # Try exact match
-    if company_name in symbol_map:
-        return symbol_map[company_name]
+    def _process_stream(self, stream, params, schema):
+        data = self.fetch_data_from_nse(stream, params)
+        filtered_data = self._filter_on_schema(data, schema)
+        return filtered_data
     
-    # Try partial match
-    for name, symbol in symbol_map.items():
-        if name.lower() in company_name.lower() or company_name.lower() in name.lower():
-            return symbol
+    def _process_announcements(self, params, schema):
+        return self._process_stream("Announcements", params, schema)
     
-    # Return a capitalized version of the company name as fallback
-    return company_name.upper().replace(" ", "")[:10]
-
-def get_default_stream_config() -> Dict[str, Dict[str, Any]]:
-    """Get default stream configuration"""
-    return {
-        "BoardMeetings": {
-            "active": True,
-            "input_params": {"from_date": "01-01-2023", "to_date": "31-12-2023"}
-        },
-        "Announcements": {
-            "active": True,
-            "input_params": {"from_date": "01-01-2023", "to_date": "31-12-2023"}
-        },
-        "CorporateActions": {
-            "active": True,
-            "input_params": {"from_date": "01-01-2023", "to_date": "31-12-2023"}
-        },
-        "AnnualReports": {
-            "active": True,
-            "input_params": {}
-        },
-        "FinancialResults": {
-            "active": True,
-            "input_params": {"from_date": "01-01-2023", "to_date": "31-12-2023"}
-        }
-    }
-
-def corporate_agent(state: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Simplified corporate agent that collects corporate governance data.
+    def _process_ann_xbrl(self, params, schema):
+        data = self.fetch_data_from_nse("AnnXBRL", params)
+        filtered_data = self._filter_on_schema(data, schema)
+        for entry in filtered_data:
+            app_id = entry.get("appId")
+            if app_id:
+                entry["details"] = self._get_announcement_details(app_id, params)
+        return filtered_data
     
-    Args:
-        state: The current state dictionary containing:
-            - company: Company name
-            - corporate_streams: List of stream types to collect
-            - corporate_symbol: Optional company symbol
+    def _get_announcement_details(self, appId, params):
+        try:
+            data = self.fetch_data_from_nse("AnnXBRLDetails", {"appId": appId, "type": params.get("type", "announcements")})
+            return data[0] if data else {}
+        except:
+            return {}
     
-    Returns:
-        Updated state containing corporate data and next routing information
-    """
-    logger.info(f"Starting corporate agent for {state.get('company')}")
+    def _process_annual_reports(self, params, schema):
+        return self._process_stream("AnnualReports", params, schema)
     
-    try:
-        company = state.get("company", "")
-        if not company:
-            logger.error("Company name is missing!")
-            return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": "Company name is missing"}
+    def _process_esg_reports(self, params, schema):
+        return self._process_stream("BussinessSustainabilitiyReport", params, schema)
+    
+    def _process_board_meetings(self, params, schema):
+        return self._process_stream("BoardMeetings", params, schema)
+    
+    def _process_corporate_actions(self, params, schema):
+        return self._process_stream("CorporateActions", params, schema)
+    
+    def get(self, streams=None, params=None):
+        if params is None:
+            params = {}
+            
+        if streams is None:
+            # Get data from all streams
+            streams = list(self.stream_processors.keys())
+            
+        if isinstance(streams, str):
+            # Convert single stream to list
+            streams = [streams]
+            
+        result = {}
         
-        # Get the company symbol if not provided
-        symbol = state.get("corporate_symbol")
-        if not symbol:
-            symbol = get_company_symbol(company)
-            state["corporate_symbol"] = symbol
-        
-        logger.info(f"Using symbol {symbol} for company {company}")
-        
-        # Create an NSE tool instance with company info
-        nse_config = {"company": company, "symbol": symbol}
-        nse_tool = NSEToolSimple(nse_config)
-        
-        # Get the stream configuration
-        stream_config = state.get("corporate_stream_config", get_default_stream_config())
-        
-        # Collect data from each active stream
-        corporate_data = {}
-        for stream_name, stream_info in stream_config.items():
-            if stream_info.get("active", False):
-                logger.info(f"Collecting data for stream: {stream_name}")
+        for stream in streams:
+            if stream in self.stream_processors:
                 try:
-                    stream_data = nse_tool.fetch_data(
-                        stream_name, 
-                        stream_info.get("input_params", {})
-                    )
-                    corporate_data[stream_name] = stream_data
-                    logger.info(f"Collected {len(stream_data)} items from {stream_name}")
-                except Exception as e:
-                    logger.error(f"Error collecting data for stream {stream_name}: {str(e)}")
-                    corporate_data[stream_name] = []
-        
-        # Load corporate governance data
-        governance_data = load_governance_data(company, symbol)
-        
-        # Prepare the results
-        corporate_results = {
-            "success": True,
-            "company": company,
-            "symbol": symbol,
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-            "governance": governance_data,
-            "data": corporate_data,
-            "summary": {
-                "total_streams": len(stream_config),
-                "stream_counts": {stream: len(data) for stream, data in corporate_data.items()}
-            }
-        }
-        
-        # Update state with results
-        state["corporate_results"] = corporate_results
-        state["corporate_status"] = "DONE"
-        
-        # If synchronous_pipeline is set, use the next_agent value, otherwise go to meta_agent
-        goto = "meta_agent"
-        if state.get("synchronous_pipeline", False):
-            goto = state.get("next_agent", "meta_agent")
-        
-        logger.info(f"Corporate agent completed successfully for {company}")
-        return {**state, "goto": goto}
-    
-    except Exception as e:
-        logger.error(f"Error in corporate agent: {str(e)}")
-        return {
-            **state,
-            "goto": "meta_agent",
-            "corporate_status": "ERROR",
-            "error": f"Error in corporate agent: {str(e)}"
-        }
+                    schema = self._get_schema(stream)
+                    processor = self.stream_processors[stream]
+                    result[stream] = processor(params, schema)
+                except Exception:
+                    result[stream] = []
+                    
+        return result
