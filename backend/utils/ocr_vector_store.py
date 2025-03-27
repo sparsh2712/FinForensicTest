@@ -26,7 +26,7 @@ class OCRVectorStore:
         
         self.embedding_provider = GeminiEmbeddingProvider(
             api_key=google_api_key,
-            dimension=768
+            dimension=3072
         )
         
         # Log the actual values being used

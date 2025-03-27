@@ -7,7 +7,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 load_dotenv()
 
-def load_preset_queries(preset_file: str = "assets/preset_queries.yaml") -> List[str]:
+def load_preset_queries(preset_file: str = "/Users/sparsh/Desktop/FinForensicTest/backend/assets/preset_queries.yaml") -> List[str]:
     """
     Load preset queries from a YAML file
     """
@@ -19,11 +19,18 @@ def load_preset_queries(preset_file: str = "assets/preset_queries.yaml") -> List
         print(f"[Corporate Meta Writer Agent] Error loading preset queries: {e}")
         # Return some default queries as fallback
         return [
-            "What are the key financial highlights?",
-            "Describe the company's business model",
-            "What risks does the company face?",
-            "What is the company's growth strategy?"
+            "What are the company’s key sustainability goals and targets?",
+            "How does the company measure and report its ESG performance?",
+            "What initiatives has the company taken to reduce its environmental impact?",
+            "How does the company manage risks related to climate change and resource scarcity?",
+            "What policies does the company have in place for ethical governance and compliance?",
+            "How does the company ensure diversity, equity, and inclusion in its workforce?",
+            "What are the company’s commitments to responsible sourcing and supply chain sustainability?",
+            "How does the company engage with stakeholders on ESG issues?",
+            "What frameworks or standards does the company follow for ESG reporting?",
+            "How does the company integrate ESG considerations into its long-term business strategy?"
         ]
+
 
 def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str, List[Dict]]:
     """
@@ -286,16 +293,21 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
         {json.dumps(corporate_summary, indent=2)}
         
         Generate a comprehensive corporate analysis report with these sections:
-        
+
         1. Executive Summary
+        2. Key Personel
         2. Business Overview
-        3. Financial Performance Analysis
-        4. Key Statements from Management
-        5. Risk Factors
-        6. Corporate Actions and Events
-        7. Future Outlook
-        8. Recommendation
+        3. Review Of Document Analysis Results 
+        4. Major Announcements made over the last Year 
+        5. Summary of last 4 Conference Calls
+        6. Major Governance Concerns
         
+        
+        Key personel should have the details of board memebers,various comitees and their members. (NSE Corporate data)
+        Review Of Document Analysis Results should contain a comprehensive detail based on document analysis result which retrieves information from the ESG Report of the company
+        Major Announcemenrs made over the last year should contain the 10 most important announcements and details of it. (NSE Corporate Data)
+        Summary of last 4 conference calls should have a section elabborating each conference call and then an overall summary. 
+
         Format the report in Markdown. Make it detailed, insightful, and professional.
         """
         

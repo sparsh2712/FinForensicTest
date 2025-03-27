@@ -10,7 +10,7 @@ load_dotenv()
 
 class GeminiEmbeddingProvider:
     def __init__(self, api_key: str = None, model_name: str = "gemini-embedding-exp-03-07", 
-                 dimension: Optional[int] = 768):
+                 dimension: Optional[int] = 3072):
         self.api_key = api_key or os.environ.get("GOOGLE_API_KEY")
         self.model_name = model_name
         self.embedding_dimension = dimension

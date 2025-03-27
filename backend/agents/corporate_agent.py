@@ -248,18 +248,21 @@ class NSETool:
         return self._process_stream("CorporateActions", params, schema)
     
     def get(self, streams=None, stream_params=None):
+        """
+        Retrieve data from specified streams with improved error handling for Key Personnel data.
+        """
         if stream_params is None:
             stream_params = {}
-            
+                
         if streams is None:
             streams = list(self.stream_processors.keys())
-            
+                
         if isinstance(streams, str):
             streams = [streams]
-            
+                
         logger.info(f"Retrieving data for streams: {streams}")
         result = {}
-        
+            
         for stream in streams:
             if stream in self.stream_processors:
                 try:
@@ -272,7 +275,48 @@ class NSETool:
                 except Exception as e:
                     logger.error(f"Error processing stream {stream}: {e}")
                     result[stream] = []
-                    
+        
+        # Properly load the JSON file with error handling
+        try:
+            logger.info("Attempting to load Key Personnel data")
+            json_path = "/Users/sparsh/Desktop/FinForensicTest/backend/assets/corporate_governance.json"
+            
+            # Check if file exists
+            if not os.path.exists(json_path):
+                logger.error(f"Key Personnel file not found at: {json_path}")
+                result["Key_Personnel"] = {"error": "File not found"}
+                return result
+                
+            # Open and parse the JSON file
+            with open(json_path, 'r') as f:
+                key_personnel_dict = json.load(f)
+            
+            # Get company symbol and validate
+            company_symbol = self.config.get("symbol")
+            if not company_symbol:
+                logger.error("Company symbol is missing")
+                result["Key_Personnel"] = {"error": "Company symbol missing"}
+                return result
+                
+            # Get data for this company
+            personnel_data = key_personnel_dict.get(company_symbol)
+            
+            # Handle missing data case
+            if personnel_data is None:
+                logger.warning(f"No Key Personnel data found for symbol: {company_symbol}")
+                result["Key_Personnel"] = {"board_of_directors": [], "communities": {}}
+            else:
+                result["Key_Personnel"] = personnel_data
+                
+            logger.info(f"Successfully added Key Personnel data for {company_symbol}")
+            
+        except Exception as e:
+            logger.error(f"Error loading Key Personnel data: {e}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            # Provide an empty structure to avoid NoneType errors
+            result["Key_Personnel"] = {"board_of_directors": [], "communities": {}}
+        
         return result
 
 def corporate_agent(state: Dict) -> Dict:
