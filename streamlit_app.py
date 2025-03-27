@@ -3,7 +3,6 @@ import time
 import os
 import base64
 import re
-import logging
 from datetime import datetime
 import tempfile
 from pathlib import Path
@@ -17,7 +16,7 @@ from backend.core.news_forensic import NewsForensicSystem
 from backend.core.corporate_governance_workflow import CorporateGovernanceSystem
 from backend.utils.pdf_generator import convert_markdown_to_pdf
 
-# Configure the page
+# Configure the page with dark theme
 st.set_page_config(
     page_title="Financial Analysis System",
     page_icon="📊",
@@ -38,28 +37,6 @@ if "cg_system" not in st.session_state:
     st.session_state.cg_system = None
 if "analysis_running" not in st.session_state:
     st.session_state.analysis_running = False
-if "progress" not in st.session_state:
-    st.session_state.progress = 0
-if "current_iteration" not in st.session_state:
-    st.session_state.current_iteration = 0
-if "max_iterations" not in st.session_state:
-    st.session_state.max_iterations = 20
-if "current_goto" not in st.session_state:
-    st.session_state.current_goto = ""
-if "logs" not in st.session_state:
-    st.session_state.logs = []
-if "active_agent" not in st.session_state:
-    st.session_state.active_agent = None
-if "agent_messages" not in st.session_state:
-    st.session_state.agent_messages = {
-        "Meta Agent": "",
-        "Research Agent": "",
-        "Analyst Agent": "",
-        "RAG Agent": "",
-        "YouTube Agent": "",
-        "Corporate Agent": "",
-        "Corporate Meta Writer Agent": ""
-    }
 if "report_type" not in st.session_state:
     st.session_state.report_type = "news_forensic"
 if "company_symbol" not in st.session_state:
@@ -81,573 +58,308 @@ def get_pdf_download_link(pdf_path, filename):
     b64 = base64.b64encode(pdf_bytes).decode('utf-8')
     return f'<a href="data:application/pdf;base64,{b64}" download="{filename}" class="download-btn">Download PDF Report</a>'
 
-def update_log(message):
-    """Add a log message and update the display"""
-    if "logs" in st.session_state:
-        st.session_state.logs.append(message)
-        
-        # Parse the message to update agent status
-        patterns = [
-            (r"\[Meta Agent\] (.*)", "Meta Agent"),
-            (r"\[Research Agent\] (.*)", "Research Agent"),
-            (r"\[Analyst Agent\] (.*)", "Analyst Agent"),
-            (r"\[RAG Agent\] (.*)", "RAG Agent"),
-            (r"\[YouTube Agent\] (.*)", "YouTube Agent"),
-            (r"\[Corporate Agent\] (.*)", "Corporate Agent"),
-            (r"\[Corporate Meta Writer Agent\] (.*)", "Corporate Meta Writer Agent")
-        ]
-        
-        for pattern, agent_name in patterns:
-            match = re.search(pattern, message)
-            if match:
-                agent_message = match.group(1)
-                st.session_state.active_agent = agent_name
-                st.session_state.agent_messages[agent_name] = agent_message
-                break
-
-def display_agent_status():
-    """Display the current status of each agent"""
-    if st.session_state.report_type == "news_forensic":
-        agents = ["Meta Agent", "Research Agent", "Analyst Agent"]
-    else:
-        agents = ["RAG Agent", "YouTube Agent", "Corporate Agent", "Corporate Meta Writer Agent"]
-    
-    cols = st.columns(len(agents))
-    
-    for i, agent_name in enumerate(agents):
-        with cols[i]:
-            is_active = st.session_state.active_agent == agent_name
-            status_color = "#4CAF50" if is_active else "#9E9E9E"
-            status_text = "Active" if is_active else "Waiting"
-            message = st.session_state.agent_messages.get(agent_name, "")
-            
-            st.markdown(f"""
-            <div class="agent-card" style="border-top: 4px solid {status_color};">
-                <h3>{agent_name}</h3>
-                <div class="agent-status" style="color: {status_color};">
-                    {status_text}
-                </div>
-                <div class="agent-message">
-                    {message}
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-def display_logs():
-    """Display the logs with styling based on agent"""
-    if not st.session_state.logs:
-        return
-    
-    with st.expander("Analysis Logs", expanded=True):
-        for log in st.session_state.logs[-15:]:  # Show last 15 logs
-            if st.session_state.report_type == "news_forensic":
-                if "[Meta Agent]" in log:
-                    st.markdown(f'<div class="log-entry meta-agent">{log}</div>', unsafe_allow_html=True)
-                elif "[Research Agent]" in log:
-                    st.markdown(f'<div class="log-entry research-agent">{log}</div>', unsafe_allow_html=True)
-                elif "[Analyst Agent]" in log:
-                    st.markdown(f'<div class="log-entry analyst-agent">{log}</div>', unsafe_allow_html=True)
-                else:
-                    st.markdown(f'<div class="log-entry">{log}</div>', unsafe_allow_html=True)
-            else:
-                if "[RAG Agent]" in log:
-                    st.markdown(f'<div class="log-entry rag-agent">{log}</div>', unsafe_allow_html=True)
-                elif "[YouTube Agent]" in log:
-                    st.markdown(f'<div class="log-entry youtube-agent">{log}</div>', unsafe_allow_html=True)
-                elif "[Corporate Agent]" in log:
-                    st.markdown(f'<div class="log-entry corporate-agent">{log}</div>', unsafe_allow_html=True)
-                elif "[Corporate Meta Writer Agent]" in log:
-                    st.markdown(f'<div class="log-entry corporate-meta-writer-agent">{log}</div>', unsafe_allow_html=True)
-                else:
-                    st.markdown(f'<div class="log-entry">{log}</div>', unsafe_allow_html=True)
-
 def run_analysis(company, industry):
     """Run the news forensic analysis"""
     st.session_state.system = NewsForensicSystem()
     st.session_state.analysis_running = True
-    st.session_state.progress = 0
     st.session_state.logs = []
-    st.session_state.active_agent = None
-    st.session_state.agent_messages = {
-        "Meta Agent": "",
-        "Research Agent": "",
-        "Analyst Agent": ""
-    }
     
-    # Set up a progress bar
-    progress_bar = st.progress(0)
-    status_text = st.empty()
-    
-    # Create containers for dynamic content
-    agent_status_container = st.empty()
-    logs_container = st.empty()
-    
-    # Add initial message
-    st.session_state.messages.append({"role": "user", "content": f"Analyze {company}"})
-    st.session_state.messages.append({
-        "role": "assistant", 
-        "content": f"Starting news forensic analysis for {company}. This may take a few minutes..."
-    })
-    
-    try:
-        # Create a custom log handler to capture logs
-        class StreamHandler(logging.StreamHandler):
-            def emit(self, record):
-                log_entry = self.format(record)
-                update_log(log_entry)
-                
-        # Add our custom handler to the logger
-        logger = logging.getLogger("news_forensic")
-        handler = StreamHandler()
-        handler.setFormatter(logging.Formatter('%(message)s'))
-        logger.addHandler(handler)
-        
-        # Initialize the system
-        system = st.session_state.system
-        graph = system.build_graph()
-        
-        initial_state = {
-            "company": company,
-            "industry": industry,
-            "research_results": {},
-            "analysis_results": {},
-            "analyst_status": "",
-            "final_report": "",
-            "report_sections": [],
-            "start_time": datetime.now().isoformat(),
-            "iterations": 0
-        }
-        
-        # Create the checkpoint saver
-        checkpoint_saver = MemorySaver()
-        system.app = system.graph.compile(checkpointer=checkpoint_saver)
-        
-        system._save_state_snapshot(initial_state, "initial")
-        
-        update_log(f"[System] Starting analysis for {company}")
-        
-        current_state = system.app.invoke(
-            initial_state,
-            config={"configurable": {"thread_id": f"{company}_{datetime.now().strftime('%Y%m%d%H%M%S')}"}}
-        )
-        
-        iteration = 0
-        max_iterations = 20
-        
-        while current_state.get("goto") != END and iteration < max_iterations:
-            iteration += 1
-            progress = min(iteration / max_iterations, 1.0)
-            
-            # Update progress
-            progress_bar.progress(progress)
-            st.session_state.progress = progress
-            st.session_state.current_iteration = iteration
-            st.session_state.max_iterations = max_iterations
-            st.session_state.current_goto = current_state.get("goto", "processing")
-            
-            # Update status text
-            status_text.text(f"Iteration {iteration}/{max_iterations}: {st.session_state.current_goto}")
-            
-            # Update agent status display
-            with agent_status_container:
-                display_agent_status()
-            
-            # Update logs display
-            with logs_container:
-                display_logs()
-            
-            # Add important updates to chat
-            # Check for significant logs to update the chat
-            recent_logs = st.session_state.logs[-5:] if st.session_state.logs else []
-            significant_updates = [
-                log for log in recent_logs if any(
-                    marker in log for marker in [
-                        "quality score", 
-                        "Executing search query", 
-                        "Generating report", 
-                        "Analysis complete"
-                    ]
-                )
-            ]
-            
-            if significant_updates:
-                st.session_state.messages.append({
-                    "role": "assistant", 
-                    "content": significant_updates[-1]
-                })
-            elif iteration % 5 == 0:
-                st.session_state.messages.append({
-                    "role": "assistant", 
-                    "content": f"Analysis in progress ({int(progress*100)}% complete)..."
-                })
-            
-            current_state["iterations"] = iteration
-            
-            time.sleep(0.1)
-            st.experimental_rerun()
-            
-            current_state = system.app.invoke(
-                current_state,
-                config={"configurable": {"thread_id": f"{company}_{datetime.now().strftime('%Y%m%d%H%M%S')}"}}
-            )
-        
-        if iteration >= max_iterations and current_state.get("goto") != END:
-            current_state["warning"] = f"Analysis terminated after reaching maximum iterations ({max_iterations})"
-            current_state["goto"] = END
-        
-        system._save_state_snapshot(current_state, "final")
-        system._save_final_report(current_state)
-        system.final_state = current_state
-        
-        # Get path to markdown file
-        report_filename = f"{company.replace(' ', '_')}_latest.md"
-        markdown_path = os.path.join("markdowns", report_filename)
-        
-        if os.path.exists(markdown_path):
-            with open(markdown_path, "r", encoding="utf-8") as f:
-                st.session_state.report = f.read()
-            
-            # Generate PDF for download
-            pdf_path = os.path.join("markdowns", f"{company.replace(' ', '_')}_latest.pdf")
-            convert_markdown_to_pdf(markdown_path, pdf_path)
-            
-            # Notify completion
-            st.session_state.messages.append({
-                "role": "assistant", 
-                "content": f"✅ News forensic analysis complete! The report for {company} is now available."
-            })
-            
-            # Final progress update
-            progress_bar.progress(1.0)
-            status_text.text("Analysis complete!")
-        else:
-            st.session_state.messages.append({
-                "role": "assistant", 
-                "content": f"❌ Analysis finished but no report was generated. Please check the logs for errors."
-            })
-    
-    except Exception as e:
-        import traceback
-        error_trace = traceback.format_exc()
+    # Create a spinner for loading
+    with st.spinner(f"Analyzing news for {company}. This may take a few minutes..."):
+        # Add initial message
+        st.session_state.messages.append({"role": "user", "content": f"Analyze {company}"})
         st.session_state.messages.append({
             "role": "assistant", 
-            "content": f"❌ Error during analysis: {str(e)}"
+            "content": f"Starting news forensic analysis for {company}. Please wait..."
         })
-        st.error(error_trace)
-    
-    finally:
-        st.session_state.analysis_running = False
-        # Remove our custom handler
-        for handler in logger.handlers[:]:
-            if isinstance(handler, StreamHandler):
-                logger.removeHandler(handler)
+        
+        try:
+            # Initialize and run the system in one shot
+            system = st.session_state.system
+            
+            # Execute the analysis as a single-shot process
+            result = system.run(company, industry, max_iterations=10)
+            
+            # Get path to markdown file
+            report_filename = f"{company.replace(' ', '_')}_latest.md"
+            markdown_path = os.path.join("markdowns", report_filename)
+            
+            if os.path.exists(markdown_path):
+                with open(markdown_path, "r", encoding="utf-8") as f:
+                    st.session_state.report = f.read()
+                
+                # Generate PDF for download
+                pdf_path = os.path.join("markdowns", f"{company.replace(' ', '_')}_latest.pdf")
+                convert_markdown_to_pdf(markdown_path, pdf_path)
+                
+                # Notify completion
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": f"✅ News forensic analysis complete for {company}."
+                })
+            else:
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": f"❌ Analysis finished but no report was generated. Please check the logs for errors."
+                })
+        
+        except Exception as e:
+            import traceback
+            error_trace = traceback.format_exc()
+            st.session_state.messages.append({
+                "role": "assistant", 
+                "content": f"❌ Error during analysis: {str(e)}"
+            })
+            st.error(error_trace)
+        
+        finally:
+            st.session_state.analysis_running = False
 
 def run_corporate_governance(company, company_symbol, pdf_path):
     """Run the corporate governance analysis"""
     st.session_state.cg_system = CorporateGovernanceSystem()
     st.session_state.analysis_running = True
-    st.session_state.progress = 0
     st.session_state.logs = []
-    st.session_state.active_agent = None
-    st.session_state.agent_messages = {
-        "RAG Agent": "",
-        "YouTube Agent": "",
-        "Corporate Agent": "",
-        "Corporate Meta Writer Agent": ""
-    }
     
-    # Set up a progress bar
-    progress_bar = st.progress(0)
-    status_text = st.empty()
-    
-    # Create containers for dynamic content
-    agent_status_container = st.empty()
-    logs_container = st.empty()
-    
-    # Add initial message
-    st.session_state.messages.append({"role": "user", "content": f"Analyze corporate governance for {company} ({company_symbol})"})
-    st.session_state.messages.append({
-        "role": "assistant", 
-        "content": f"Starting corporate governance analysis for {company}. This may take a few minutes..."
-    })
-    
-    try:
-        # Create a custom log handler to capture logs
-        class StreamHandler(logging.StreamHandler):
-            def emit(self, record):
-                log_entry = self.format(record)
-                update_log(log_entry)
-                
-        # Add our custom handler to the logger
-        logger = logging.getLogger("corporate_governance")
-        handler = StreamHandler()
-        handler.setFormatter(logging.Formatter('%(message)s'))
-        logger.addHandler(handler)
-        
-        # Initialize the system
-        system = st.session_state.cg_system
-        graph = system.build_graph()
-        
-        initial_state = {
-            "company": company,
-            "company_symbol": company_symbol,
-            "pdf_path": pdf_path,
-            "is_file_embedded": False,
-            "corporate_meta_step": "start",
-            "final_report": "",
-            "report_sections": [],
-            "start_time": datetime.now().isoformat(),
-            "iterations": 0
-        }
-        
-        # Create the checkpoint saver
-        checkpoint_saver = MemorySaver()
-        system.app = system.graph.compile(checkpointer=checkpoint_saver)
-        
-        system._save_state_snapshot(initial_state, "initial")
-        
-        update_log(f"[System] Starting corporate governance analysis for {company}")
-        
-        current_state = system.app.invoke(
-            initial_state,
-            config={"configurable": {"thread_id": f"{company}_cg_{datetime.now().strftime('%Y%m%d%H%M%S')}"}}
-        )
-        
-        iteration = 0
-        max_iterations = 20
-        
-        while current_state.get("goto") != END and iteration < max_iterations:
-            iteration += 1
-            progress = min(iteration / max_iterations, 1.0)
-            
-            # Update progress
-            progress_bar.progress(progress)
-            st.session_state.progress = progress
-            st.session_state.current_iteration = iteration
-            st.session_state.max_iterations = max_iterations
-            st.session_state.current_goto = current_state.get("goto", "processing")
-            
-            # Update status text
-            status_text.text(f"Iteration {iteration}/{max_iterations}: {st.session_state.current_goto}")
-            
-            # Update agent status display
-            with agent_status_container:
-                display_agent_status()
-            
-            # Update logs display
-            with logs_container:
-                display_logs()
-            
-            # Add important updates to chat
-            recent_logs = st.session_state.logs[-5:] if st.session_state.logs else []
-            significant_updates = [
-                log for log in recent_logs if any(
-                    marker in log for marker in [
-                        "RAG analysis complete",
-                        "Transcription complete",
-                        "Corporate data collection complete",
-                        "Generating final report",
-                        "Analysis complete"
-                    ]
-                )
-            ]
-            
-            if significant_updates:
-                st.session_state.messages.append({
-                    "role": "assistant", 
-                    "content": significant_updates[-1]
-                })
-            elif iteration % 5 == 0:
-                st.session_state.messages.append({
-                    "role": "assistant", 
-                    "content": f"Corporate governance analysis in progress ({int(progress*100)}% complete)..."
-                })
-            
-            current_state["iterations"] = iteration
-            
-            time.sleep(0.1)
-            st.experimental_rerun()
-            
-            current_state = system.app.invoke(
-                current_state,
-                config={"configurable": {"thread_id": f"{company}_cg_{datetime.now().strftime('%Y%m%d%H%M%S')}"}}
-            )
-        
-        if iteration >= max_iterations and current_state.get("goto") != END:
-            current_state["warning"] = f"Analysis terminated after reaching maximum iterations ({max_iterations})"
-            current_state["goto"] = END
-        
-        system._save_state_snapshot(current_state, "final")
-        system._save_final_report(current_state)
-        system.final_state = current_state
-        
-        # Get path to markdown file
-        report_filename = f"{company.replace(' ', '_')}_latest.md"
-        markdown_path = os.path.join("corporate_reports", report_filename)
-        
-        if os.path.exists(markdown_path):
-            with open(markdown_path, "r", encoding="utf-8") as f:
-                st.session_state.report = f.read()
-            
-            # Generate PDF for download
-            pdf_path = os.path.join("corporate_reports", f"{company.replace(' ', '_')}_latest.pdf")
-            convert_markdown_to_pdf(markdown_path, pdf_path)
-            
-            # Notify completion
-            st.session_state.messages.append({
-                "role": "assistant", 
-                "content": f"✅ Corporate governance analysis complete! The report for {company} is now available."
-            })
-            
-            # Final progress update
-            progress_bar.progress(1.0)
-            status_text.text("Analysis complete!")
-        else:
-            st.session_state.messages.append({
-                "role": "assistant", 
-                "content": f"❌ Analysis finished but no report was generated. Please check the logs for errors."
-            })
-    
-    except Exception as e:
-        import traceback
-        error_trace = traceback.format_exc()
+    # Create a spinner for loading
+    with st.spinner(f"Analyzing corporate governance for {company}. This may take a few minutes..."):
+        # Add initial message
+        st.session_state.messages.append({"role": "user", "content": f"Analyze corporate governance for {company} ({company_symbol})"})
         st.session_state.messages.append({
             "role": "assistant", 
-            "content": f"❌ Error during analysis: {str(e)}"
+            "content": f"Starting corporate governance analysis for {company}. Please wait..."
         })
-        st.error(error_trace)
-    
-    finally:
-        st.session_state.analysis_running = False
-        # Remove our custom handler
-        for handler in logger.handlers[:]:
-            if isinstance(handler, StreamHandler):
-                logger.removeHandler(handler)
+        
+        try:
+            # Initialize and run the system in one shot
+            system = st.session_state.cg_system
+            
+            # Execute the analysis as a single-shot process
+            result = system.run(company, company_symbol, pdf_path, max_iterations=10)
+            
+            # Get path to markdown file
+            report_filename = f"{company.replace(' ', '_')}_latest.md"
+            markdown_path = os.path.join("corporate_reports", report_filename)
+            
+            if os.path.exists(markdown_path):
+                with open(markdown_path, "r", encoding="utf-8") as f:
+                    st.session_state.report = f.read()
+                
+                # Generate PDF for download
+                pdf_path = os.path.join("corporate_reports", f"{company.replace(' ', '_')}_latest.pdf")
+                convert_markdown_to_pdf(markdown_path, pdf_path)
+                
+                # Notify completion
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": f"✅ Corporate governance analysis complete for {company}."
+                })
+            else:
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": f"❌ Analysis finished but no report was generated. Please check the logs for errors."
+                })
+        
+        except Exception as e:
+            import traceback
+            error_trace = traceback.format_exc()
+            st.session_state.messages.append({
+                "role": "assistant", 
+                "content": f"❌ Error during analysis: {str(e)}"
+            })
+            st.error(error_trace)
+        
+        finally:
+            st.session_state.analysis_running = False
 
 # Custom CSS
 st.markdown("""
 <style>
-.main-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1E3A8A;
-    margin-bottom: 1rem;
+/* Global styles */
+.main {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
 }
-.report-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1E3A8A;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #E5E7EB;
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF !important;
 }
+
+/* For text elements in the app */
+.stTextInput, .stTextArea label, .stSelectbox label {
+    color: #FFFFFF !important;
+}
+
+/* Sidebar styling */
+.sidebar .sidebar-content {
+    background-color: #1E1E1E;
+}
+
+/* Download button */
 .download-btn {
     display: inline-block;
     background-color: #2563EB;
-    color: white;
+    color: white !important;
     padding: 0.5rem 1rem;
     text-decoration: none;
     border-radius: 0.25rem;
     font-weight: 500;
     margin-top: 1rem;
+    border: none;
 }
 .download-btn:hover {
     background-color: #1D4ED8;
+    color: white !important;
 }
+
+/* Form button styling */
 .stButton>button {
     background-color: #2563EB;
     color: white;
     font-weight: 500;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
 }
 .stButton>button:hover {
     background-color: #1D4ED8;
 }
 
-/* Agent status cards */
-.agent-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin-bottom: 16px;
-    transition: all 0.3s ease;
-}
-.agent-card:hover {
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-}
-.agent-card h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: #1E3A8A;
-}
-.agent-status {
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-.agent-message {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #4B5563;
-    height: 80px;
-    overflow-y: auto;
-}
-
-/* Log entries styling */
-.log-entry {
-    padding: 8px;
-    margin: 4px 0;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 0.85rem;
-    background-color: #F3F4F6;
-}
-.log-entry.meta-agent {
-    border-left: 4px solid #3B82F6;
-    background-color: #EFF6FF;
-}
-.log-entry.research-agent {
-    border-left: 4px solid #10B981;
-    background-color: #ECFDF5;
-}
-.log-entry.analyst-agent {
-    border-left: 4px solid #F59E0B;
-    background-color: #FFFBEB;
-}
-/* Corporate Governance specific colors */
-.log-entry.rag-agent {
-    border-left: 4px solid #8B5CF6;
-    background-color: #F5F3FF;
-}
-.log-entry.youtube-agent {
-    border-left: 4px solid #EC4899;
-    background-color: #FCE7F3;
-}
-.log-entry.corporate-agent {
-    border-left: 4px solid #0EA5E9;
-    background-color: #E0F2FE;
-}
-.log-entry.corporate-meta-writer-agent {
-    border-left: 4px solid #14B8A6;
-    background-color: #CCFBF1;
-}
-
-/* Custom scrollbar for logs */
-.log-container {
-    max-height: 200px;
-    overflow-y: auto;
+/* For GitHub-like markdown styling */
+.report-container {
+    background-color: #0d1117;
+    color: #c9d1d9;
     border-radius: 6px;
-    border: 1px solid #E5E7EB;
+    padding: 24px;
+    margin-bottom: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
 }
-.log-container::-webkit-scrollbar {
-    width: 8px;
+
+/* GitHub-style headings */
+.report-container h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    border-bottom: 1px solid #21262d;
+    color: #e6edf3 !important;
+    margin-bottom: 16px;
+    font-weight: 600;
 }
-.log-container::-webkit-scrollbar-track {
-    background: #F9FAFB;
+
+.report-container h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 1px solid #21262d;
+    color: #e6edf3 !important;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
 }
-.log-container::-webkit-scrollbar-thumb {
-    background-color: #D1D5DB;
-    border-radius: 20px;
+
+.report-container h3 {
+    font-size: 1.25em;
+    color: #e6edf3 !important;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.report-container h4 {
+    font-size: 1em;
+    color: #e6edf3 !important;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+/* GitHub-style paragraphs */
+.report-container p {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+/* GitHub-style lists */
+.report-container ul, .report-container ol {
+    padding-left: 2em;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.report-container li {
+    margin-top: 0.25em;
+}
+
+/* GitHub-style code blocks */
+.report-container pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #161b22;
+    border-radius: 6px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.report-container code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: #161b22;
+    border-radius: 3px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* GitHub-style tables */
+.report-container table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.report-container table th {
+    padding: 6px 13px;
+    border: 1px solid #30363d;
+    font-weight: 600;
+    background-color: #161b22;
+}
+
+.report-container table td {
+    padding: 6px 13px;
+    border: 1px solid #30363d;
+}
+
+.report-container table tr {
+    background-color: #0d1117;
+    border-top: 1px solid #21262d;
+}
+
+.report-container table tr:nth-child(2n) {
+    background-color: #161b22;
+}
+
+/* GitHub-style blockquotes */
+.report-container blockquote {
+    padding: 0 1em;
+    color: #8b949e;
+    border-left: 0.25em solid #30363d;
+    margin: 0 0 16px 0;
+}
+
+/* GitHub-style horizontal rule */
+.report-container hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #21262d;
+    border: 0;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -693,35 +405,11 @@ else:
         
         run_corporate_governance(company_name, company_symbol, pdf_path)
 
-# Main page title based on report type
-if st.session_state.report_type == "news_forensic":
-    st.markdown('<h1 class="main-title">Financial Forensic Analysis</h1>', unsafe_allow_html=True)
-else:
-    st.markdown('<h1 class="main-title">Corporate Governance Analysis</h1>', unsafe_allow_html=True)
+# Chat and report layout
+col1, col2 = st.columns([1, 2])
 
-# Display progress information if analysis is running
-if st.session_state.analysis_running:
-    st.subheader("Analysis Status")
-    
-    # Progress information
-    progress_text = f"Iteration {st.session_state.current_iteration}/{st.session_state.max_iterations}"
-    if st.session_state.current_goto:
-        progress_text += f": {st.session_state.current_goto}"
-    st.text(progress_text)
-    
-    # Progress bar
-    st.progress(st.session_state.progress)
-    
-    # Agent status
-    display_agent_status()
-    
-    # Display logs
-    display_logs()
-
-# Chat interface and report (side by side)
-chat_col, report_col = st.columns([1, 2])
-
-with chat_col:
+# Chat interface (left column)
+with col1:
     st.subheader("Conversation")
     chat_container = st.container()
     
@@ -731,41 +419,36 @@ with chat_col:
                 st.write(message["content"])
 
 # Report display (right column)
-with report_col:
-    st.markdown('<h2 class="report-title">Analysis Report</h2>', unsafe_allow_html=True)
+with col2:
+    st.subheader("Analysis Report")
     
     if st.session_state.report:
-        tab1, tab2 = st.tabs(["Markdown", "PDF"])
+        # Create a container with padding for the report
+        report_container = st.container()
         
-        with tab1:
+        with report_container:
+            # Apply GitHub-style markdown rendering
+            st.markdown('<div class="report-container">', unsafe_allow_html=True)
+            # Use st.markdown WITHOUT unsafe_allow_html to properly render markdown
             st.markdown(st.session_state.report)
+            st.markdown('</div>', unsafe_allow_html=True)
         
-        with tab2:
-            # Convert markdown to PDF for viewing
-            with tempfile.NamedTemporaryFile(suffix='.md', delete=False) as temp_md:
-                temp_md_path = temp_md.name
-                temp_md.write(st.session_state.report.encode('utf-8'))
+        # Add download option
+        if st.session_state.report_type == "news_forensic":
+            report_dir = "markdowns"
+        else:
+            report_dir = "corporate_reports"
             
-            temp_pdf_path = temp_md_path.replace('.md', '.pdf')
-            convert_markdown_to_pdf(temp_md_path, temp_pdf_path)
-            
-            # Display PDF
-            display_pdf(temp_pdf_path)
-            
-            # Download link
-            company = company_name if company_name else "report"
-            report_type_str = "forensic" if st.session_state.report_type == "news_forensic" else "governance"
-            download_filename = f"{company.replace(' ', '_')}_{report_type_str}_report.pdf"
-            st.markdown(get_pdf_download_link(temp_pdf_path, download_filename), unsafe_allow_html=True)
-            
-            # Clean up temp files
-            try:
-                os.unlink(temp_md_path)
-            except:
-                pass
+        if company_name:
+            pdf_path = os.path.join(report_dir, f"{company_name.replace(' ', '_')}_latest.pdf")
+            if os.path.exists(pdf_path):
+                report_type_str = "forensic" if st.session_state.report_type == "news_forensic" else "governance"
+                download_filename = f"{company_name.replace(' ', '_')}_{report_type_str}_report.pdf"
+                st.markdown(get_pdf_download_link(pdf_path, download_filename), unsafe_allow_html=True)
     else:
         st.info("No report available yet. Start an analysis to generate a report.")
 
-# Footer
-st.markdown("---")
-st.caption("Financial Analysis System © 2025")
+# Display a simple spinner when analysis is running
+if st.session_state.analysis_running:
+    st.info("Analysis in progress... Please wait.")
+    st.spinner()

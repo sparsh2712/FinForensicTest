@@ -47,7 +47,7 @@ class YoutubeTool:
     @retry(stop=stop_after_attempt(RETRY_LIMIT), wait=wait_exponential(multiplier=MULTIPLIER, min=MIN_WAIT, max=MAX_WAIT))
     def get_transcript(self, video_id: str) -> Optional[str]:
         try:
-            transcript = self.transcriptor.get_transcript(video_id)
+            transcript = self.transcriptor.fetch(video_id)
             
             self.logger.info(f"Successfully fetched transcript for video: {video_id}")
             

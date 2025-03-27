@@ -1,23 +1,23 @@
 import numpy as np
 import time
+import os
 from typing import List, Optional
 from .utils import log_memory_usage, log_array_info, logger, WatchdogTimer
-from config import GOOGLE_API_KEY, DEFAULT_CONFIG
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type, retry_if_result, RetryError
+from dotenv import load_dotenv
 
-MISTRAL_API_KEY=""
-GOOGLE_API_KEY=""
+load_dotenv()
 
 class GeminiEmbeddingProvider:
-    def __init__(self, api_key: str = GOOGLE_API_KEY, model_name: str = "gemini-embedding-exp-03-07", 
-                 dimension: Optional[int] = DEFAULT_CONFIG["embedding_dimension"]):
-        self.api_key = api_key
+    def __init__(self, api_key: str = None, model_name: str = "gemini-embedding-exp-03-07", 
+                 dimension: Optional[int] = 768):
+        self.api_key = api_key or os.environ.get("GOOGLE_API_KEY")
         self.model_name = model_name
         self.embedding_dimension = dimension
-        self.max_tokens = DEFAULT_CONFIG["max_tokens"]
-        self.retry_max_attempts = DEFAULT_CONFIG["retry_max_attempts"]
-        self.retry_base_delay = DEFAULT_CONFIG["retry_base_delay"]
-        self.request_delay = DEFAULT_CONFIG["request_delay"]
+        self.max_tokens = 8000
+        self.retry_max_attempts = 3
+        self.retry_base_delay = 1
+        self.request_delay = 0.5
         
         from google import genai
         from google.genai import types

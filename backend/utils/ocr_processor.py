@@ -6,14 +6,13 @@ from typing import List, Optional, Dict, Tuple
 
 from mistralai import Mistral
 from tenacity import retry, stop_after_attempt, wait_exponential
+from dotenv import load_dotenv
 
+load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-
-MISTRAL_API_KEY=""
-GOOGLE_API_KEY=""
 
 @dataclass
 class ImageData:
@@ -61,8 +60,8 @@ class TokenInfo:
 
 
 class OCR:
-    def __init__(self, api_key: str = MISTRAL_API_KEY):
-        self.api_key = api_key
+    def __init__(self, api_key: str = None):
+        self.api_key = api_key or os.environ.get("MISTRAL_API_KEY")
         self.client = Mistral(api_key=self.api_key)
         self.pdf_id: Optional[str] = None
         self.pdf_url: Optional[str] = None
@@ -242,7 +241,7 @@ def analyze_for_embedding(text, encoding_name="cl100k_base") -> Tuple[int, Dict[
 
 
 if __name__ == "__main__":
-    ocr = OCR()  # Using hardcoded API key
+    ocr = OCR()  # Using API key from environment
     
     # Process the document
     response = ocr.execute("test.pdf")

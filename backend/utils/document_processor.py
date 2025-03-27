@@ -6,15 +6,14 @@ from .ocr_processor import OCR
 from .text_chunk import TextChunk
 from .embedding import GeminiEmbeddingProvider
 from .utils import log_memory_usage, log_array_info, logger, chunk_generator
-from config import DEFAULT_CONFIG
+from dotenv import load_dotenv
 
-MISTRAL_API_KEY=""
-GOOGLE_API_KEY=""
+load_dotenv()
 
 class DocumentProcessor:
     def __init__(self, ocr: OCR, embedding_provider: GeminiEmbeddingProvider, 
-                 chunk_size: int = DEFAULT_CONFIG["chunk_size"], 
-                 chunk_overlap: int = DEFAULT_CONFIG["chunk_overlap"]):
+                 chunk_size: int = 1000, 
+                 chunk_overlap: int = 200):
         self.ocr = ocr
         self.embedding_provider = embedding_provider
         self.chunk_size = chunk_size

@@ -1,28 +1,32 @@
 import gc
 import tracemalloc
+import os
 from typing import List, Dict
 from .ocr_processor import OCR
 from .embedding import GeminiEmbeddingProvider
 from .document_processor import DocumentProcessor
 from .vector_store import FaissVectorStore
 from .utils import log_memory_usage, logger, chunk_generator
-from config import GOOGLE_API_KEY, MISTRAL_API_KEY, DEFAULT_CONFIG
+from dotenv import load_dotenv
 
-MISTRAL_API_KEY=""
-GOOGLE_API_KEY=""
+load_dotenv()
 
 class OCRVectorStore:
-    def __init__(self, index_type: str = DEFAULT_CONFIG["index_type"], 
-                 chunk_size: int = DEFAULT_CONFIG["chunk_size"], 
-                 chunk_overlap: int = DEFAULT_CONFIG["chunk_overlap"]):
+    def __init__(self, index_type: str = "Flat", 
+                 chunk_size: int = 1000, 
+                 chunk_overlap: int = 200):
         logger.warning("INITIALIZING OCR VECTOR STORE")
         log_memory_usage("init_start")
         
-        self.ocr = OCR(api_key=MISTRAL_API_KEY)
+        # Get API keys from environment
+        mistral_api_key = os.environ.get("MISTRAL_API_KEY", "")
+        google_api_key = os.environ.get("GOOGLE_API_KEY", "")
+        
+        self.ocr = OCR(api_key=mistral_api_key)
         
         self.embedding_provider = GeminiEmbeddingProvider(
-            api_key=GOOGLE_API_KEY,
-            dimension=DEFAULT_CONFIG["embedding_dimension"]
+            api_key=google_api_key,
+            dimension=768
         )
         
         # Log the actual values being used
