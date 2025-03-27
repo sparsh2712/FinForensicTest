@@ -1,7 +1,7 @@
 import numpy as np
 import time
 from typing import List, Optional
-from utils import log_memory_usage, log_array_info, logger, WatchdogTimer
+from .utils import log_memory_usage, log_array_info, logger, WatchdogTimer
 from config import GOOGLE_API_KEY, DEFAULT_CONFIG
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type, retry_if_result, RetryError
 

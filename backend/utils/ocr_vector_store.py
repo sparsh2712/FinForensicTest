@@ -1,11 +1,11 @@
 import gc
 import tracemalloc
 from typing import List, Dict
-from ocr_processor import OCR
-from embedding import GeminiEmbeddingProvider
-from document_processor import DocumentProcessor
-from vector_store import FaissVectorStore
-from utils import log_memory_usage, logger, chunk_generator
+from .ocr_processor import OCR
+from .embedding import GeminiEmbeddingProvider
+from .document_processor import DocumentProcessor
+from .vector_store import FaissVectorStore
+from .utils import log_memory_usage, logger, chunk_generator
 from config import GOOGLE_API_KEY, MISTRAL_API_KEY, DEFAULT_CONFIG
 
 MISTRAL_API_KEY=""

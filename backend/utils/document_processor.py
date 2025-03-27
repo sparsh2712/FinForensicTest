@@ -2,10 +2,10 @@ import os
 import gc
 import numpy as np
 from typing import List
-from ocr_processor import OCR
-from text_chunk import TextChunk
-from embedding import GeminiEmbeddingProvider
-from utils import log_memory_usage, log_array_info, logger, chunk_generator
+from .ocr_processor import OCR
+from .text_chunk import TextChunk
+from .embedding import GeminiEmbeddingProvider
+from .utils import log_memory_usage, log_array_info, logger, chunk_generator
 from config import DEFAULT_CONFIG
 
 MISTRAL_API_KEY=""

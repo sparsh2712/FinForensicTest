@@ -4,8 +4,8 @@ import gc
 import numpy as np
 import faiss
 from typing import List, Tuple
-from text_chunk import TextChunk
-from utils import log_memory_usage, log_array_info, logger, chunk_generator
+from .text_chunk import TextChunk
+from .utils import log_memory_usage, log_array_info, logger, chunk_generator
 
 class FaissVectorStore:
     def __init__(self, dimension: int = None, index_type: str = "Flat"):
