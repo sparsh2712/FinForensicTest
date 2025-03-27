@@ -7,7 +7,7 @@ from datetime import datetime
 import requests
 import googleapiclient.errors
 from tenacity import retry, stop_after_attempt, wait_exponential
-from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, TranscriptsDisabled
 from googleapiclient.discovery import build
 import os
 from dotenv import load_dotenv
@@ -48,10 +48,14 @@ class YoutubeTool:
     def get_transcript(self, video_id: str) -> Optional[str]:
         try:
             transcript = self.transcriptor.fetch(video_id)
-            
             self.logger.info(f"Successfully fetched transcript for video: {video_id}")
-            
             return " ".join(snippet.text for snippet in transcript)
+        except NoTranscriptFound:
+            try:
+                transcript_list = self.transcriptor.list_transcripts(video_id)
+                fetched_transcript = next(iter(transcript_list)).fetch()
+            except (NoTranscriptFound, TranscriptsDisabled):
+                return "Failed to transcribe the video"
         except Exception as e:
             self.logger.error(f"Error fetching transcript: {e}")
             return "Failed to transcribe the video"

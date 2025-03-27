@@ -3,19 +3,24 @@ import json
 import brotli
 import yaml
 import os
+import logging
 from typing import Dict
 from urllib.parse import quote
 from tenacity import retry, stop_after_attempt, wait_exponential
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger("corporate_agent")
 
 class NSETool:
     def __init__(self, config):
         self.config = config
         self.config.setdefault("base_url", "https://www.nseindia.com")
         self.config.setdefault("refresh_interval", 25)
-        self.config.setdefault("config_path", "assets/nse_config.yaml")
-        self.config.setdefault("headers_path", "assets/headers.yaml")
-        self.config.setdefault("cookie_path", "assets/cookies.yaml")
-        self.config.setdefault("schema_path", "assets/nse_schema.yaml")
+        self.config.setdefault("config_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/nse_config.yaml")
+        self.config.setdefault("headers_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/headers.yaml")
+        self.config.setdefault("cookie_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/cookies.yaml")
+        self.config.setdefault("schema_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/nse_schema.yaml")
         self.config.setdefault("use_hardcoded_cookies", False)
         self.config.setdefault("domain", "nseindia.com")
         
@@ -32,24 +37,34 @@ class NSETool:
             "BoardMeetings": self._process_board_meetings,
             "CorporateActions": self._process_corporate_actions,
         }
+        logger.info(f"Initializing NSETool for company: {self.config.get('company')}")
         self._create_new_session()
     
     def _load_yaml(self, path):
-        with open(path, "r") as f:
-            return yaml.safe_load(f)
+        logger.debug(f"Loading YAML from: {path}")
+        try:
+            with open(path, "r") as f:
+                return yaml.safe_load(f)
+        except Exception as e:
+            logger.error(f"Error loading YAML from {path}: {e}")
+            raise
     
     def _create_new_session(self):
+        logger.info("Creating new HTTP session")
         self.session = requests.Session()
         self.session.headers.update(self.headers)
         
         if self.config["use_hardcoded_cookies"]:
+            logger.debug("Using hardcoded cookies")
             for name, value in self.cookies.items():
                 self.session.cookies.set(name, value, domain=self.config["domain"])
         else:
+            logger.debug("Fetching fresh cookies from NSE")
             self.session.get(self.config["base_url"])
             filings_url = f"{self.config['base_url']}/companies-listing/corporate-filings-announcements"
             self.session.get(filings_url)
             self.cookies = self.session.cookies.get_dict()
+            logger.debug(f"Retrieved {len(self.cookies)} cookies")
             
         return self.session
 
@@ -58,12 +73,19 @@ class NSETool:
         wait=wait_exponential(multiplier=1, min=2, max=10))
     def _refresh_session(self, referer):
         if self.session is None:
+            logger.info("Session is None, creating new session")
             self._create_new_session()
         
         headers = self.headers.copy()
         headers["Referer"] = referer
         
-        self.session.get(referer, headers=headers, timeout=10)
+        logger.debug(f"Refreshing session with referer: {referer}")
+        try:
+            self.session.get(referer, headers=headers, timeout=10)
+            logger.debug("Session refreshed successfully")
+        except Exception as e:
+            logger.warning(f"Error refreshing session: {e}")
+            raise
             
         if not self.config["use_hardcoded_cookies"]:
             self.cookies = self.session.cookies.get_dict()
@@ -72,23 +94,37 @@ class NSETool:
     def make_request(self, url, referer):
         self._refresh_session(referer)
         
-        response = self.session.get(url, headers=self.headers, timeout=60)
-        response.raise_for_status()
-        
-        content = response.content
-        if not content:
-            return None
+        logger.debug(f"Making request to: {url}")
+        try:
+            response = self.session.get(url, headers=self.headers, timeout=60)
+            response.raise_for_status()
+            
+            content = response.content
+            if not content:
+                logger.warning("Received empty response")
+                return None
 
-        if 'br' in response.headers.get('Content-Encoding', ''):
-            decompressed_content = brotli.decompress(content)
-            json_text = decompressed_content.decode('utf-8')
-            return json.loads(json_text)
-        else:
-            return response.json()
+            if 'br' in response.headers.get('Content-Encoding', ''):
+                logger.debug("Decompressing brotli content")
+                decompressed_content = brotli.decompress(content)
+                json_text = decompressed_content.decode('utf-8')
+                return json.loads(json_text)
+            else:
+                return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request error: {e}")
+            raise
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON decode error: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected error in make_request: {e}")
+            raise
 
     def fetch_data_from_nse(self, stream, input_params):
         stream_config = self.data_config.get(stream)
         if not stream_config:
+            logger.warning(f"Stream configuration not found for: {stream}")
             return []
         
         params = stream_config.get('params', {}).copy() 
@@ -99,26 +135,37 @@ class NSETool:
         params.update(input_params)
 
         url = self._construct_url(stream_config.get("endpoint"), params)
-        result = self.make_request(url, stream_config.get("referer", self.fallback_referer))
+        logger.info(f"Fetching {stream} data for {self.config.get('company')}")
+        logger.debug(f"Request URL: {url}")
         
-        if result:
-            max_results = input_params.get("max_results", 20)
+        try:
+            result = self.make_request(url, stream_config.get("referer", self.fallback_referer))
             
-            if isinstance(result, list):
-                data_list = result
-                if max_results and len(data_list) > max_results:
-                    data_list = data_list[:max_results]
-                return data_list
-            elif isinstance(result, dict):
-                data_list = result.get("data", result)
-                if isinstance(data_list, list):
+            if result:
+                max_results = input_params.get("max_results", 20)
+                
+                if isinstance(result, list):
+                    data_list = result
                     if max_results and len(data_list) > max_results:
                         data_list = data_list[:max_results]
+                    logger.info(f"Retrieved {len(data_list)} items for {stream}")
                     return data_list
-                else:
-                    return [result]
-            return [result]
-        else:
+                elif isinstance(result, dict):
+                    data_list = result.get("data", result)
+                    if isinstance(data_list, list):
+                        if max_results and len(data_list) > max_results:
+                            data_list = data_list[:max_results]
+                        logger.info(f"Retrieved {len(data_list)} items for {stream}")
+                        return data_list
+                    else:
+                        logger.info(f"Retrieved data object for {stream}")
+                        return [result]
+                return [result]
+            else:
+                logger.warning(f"No data returned for {stream}")
+                return []
+        except Exception as e:
+            logger.error(f"Error fetching data for {stream}: {e}")
             return []
 
     def _construct_url(self, endpoint, params):
@@ -138,52 +185,66 @@ class NSETool:
         return base_url
     
     def close(self):
+        logger.info("Closing NSE tool session")
         if self.session:
             self.session.close()
 
     def _filter_on_schema(self, data, schema):
         if not data or not isinstance(data, list):
             return []
-        return [{new_key: entry[old_key] for new_key, old_key in schema.items() if old_key in entry} for entry in data]
+        filtered_data = [{new_key: entry[old_key] for new_key, old_key in schema.items() if old_key in entry} for entry in data]
+        logger.debug(f"Filtered data according to schema, resulting in {len(filtered_data)} entries")
+        return filtered_data
     
     def _get_schema(self, stream_name):
+        logger.debug(f"Getting schema for stream: {stream_name}")
         schema_data = self._load_yaml(self.config["schema_path"])
         return schema_data.get(stream_name, {})
     
     def _process_stream(self, stream, params, schema):
+        logger.debug(f"Processing stream: {stream} with params: {params}")
         data = self.fetch_data_from_nse(stream, params)
         filtered_data = self._filter_on_schema(data, schema)
         return filtered_data
     
     def _process_announcements(self, params, schema):
+        logger.info("Processing Announcements stream")
         return self._process_stream("Announcements", params, schema)
     
     def _process_ann_xbrl(self, params, schema):
+        logger.info("Processing AnnXBRL stream")
         data = self.fetch_data_from_nse("AnnXBRL", params)
         filtered_data = self._filter_on_schema(data, schema)
         for entry in filtered_data:
             app_id = entry.get("appId")
             if app_id:
+                logger.debug(f"Fetching XBRL details for appId: {app_id}")
                 entry["details"] = self._get_announcement_details(app_id, params)
         return filtered_data
     
     def _get_announcement_details(self, appId, params):
         try:
+            logger.debug(f"Getting announcement details for appId: {appId}")
             data = self.fetch_data_from_nse("AnnXBRLDetails", {"appId": appId, "type": params.get("type", "announcements")})
             return data[0] if data else {}
-        except:
+        except Exception as e:
+            logger.error(f"Error getting announcement details for appId {appId}: {e}")
             return {}
     
     def _process_annual_reports(self, params, schema):
+        logger.info("Processing AnnualReports stream")
         return self._process_stream("AnnualReports", params, schema)
     
     def _process_esg_reports(self, params, schema):
+        logger.info("Processing ESG Reports stream")
         return self._process_stream("BussinessSustainabilitiyReport", params, schema)
     
     def _process_board_meetings(self, params, schema):
+        logger.info("Processing BoardMeetings stream")
         return self._process_stream("BoardMeetings", params, schema)
     
     def _process_corporate_actions(self, params, schema):
+        logger.info("Processing CorporateActions stream")
         return self._process_stream("CorporateActions", params, schema)
     
     def get(self, streams=None, stream_params=None):
@@ -196,6 +257,7 @@ class NSETool:
         if isinstance(streams, str):
             streams = [streams]
             
+        logger.info(f"Retrieving data for streams: {streams}")
         result = {}
         
         for stream in streams:
@@ -204,29 +266,33 @@ class NSETool:
                     schema = self._get_schema(stream)
                     processor = self.stream_processors[stream]
                     params = stream_params.get(stream, {})
+                    logger.info(f"Processing stream: {stream}")
                     result[stream] = processor(params, schema)
-                except Exception:
+                    logger.info(f"Retrieved {len(result[stream])} records for {stream}")
+                except Exception as e:
+                    logger.error(f"Error processing stream {stream}: {e}")
                     result[stream] = []
                     
         return result
 
 def corporate_agent(state: Dict) -> Dict:
-    print("[Corporate Agent] Starting corporate data collection process...")
+    logger.info("Starting corporate data collection process")
     
     company = state.get("company")
     symbol = state.get("company_symbol", company)
     
     if not company:
-        print("[Corporate Agent] ERROR: Company name is missing!")
+        logger.error("Company name is missing")
         return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": "Company name is required"}
     
-    params_path = "assets/params.yaml"
+    params_path = "/Users/sparsh/Desktop/FinForensicTest/backend/assets/params.yaml"
     
     try:
+        logger.debug(f"Loading parameters from {params_path}")
         with open(params_path, "r") as f:
             yaml_params = yaml.safe_load(f)
     except Exception as e:
-        print(f"[Corporate Agent] ERROR: Failed to load params file: {e}")
+        logger.error(f"Failed to load params file: {e}")
         return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": f"Failed to load params file: {e}"}
     
     config = {
@@ -234,23 +300,30 @@ def corporate_agent(state: Dict) -> Dict:
         "symbol": symbol
     }
     
+    logger.info(f"Initializing NSETool for {company} ({symbol})")
+    
     try:
         nse_tool = NSETool(config)
         
         streams = ["Announcements", "AnnXBRL", "AnnualReports", "BussinessSustainabilitiyReport", "BoardMeetings", "CorporateActions"]
+        logger.info(f"Requesting data for streams: {streams}")
         
         corporate_results = nse_tool.get(streams, yaml_params)
         nse_tool.close()
         
+        # Log summary of results
+        for stream, data in corporate_results.items():
+            logger.info(f"{stream}: Retrieved {len(data)} records")
+        
         state["corporate_results"] = corporate_results
         state["corporate_status"] = "DONE"
         
-        print(f"[Corporate Agent] Corporate data collection complete for {company}.")
+        logger.info(f"Corporate data collection complete for {company}")
         
     except Exception as e:
-        print(f"[Corporate Agent] ERROR during corporate data collection: {e}")
+        logger.error(f"Error during corporate data collection: {e}")
         import traceback
-        print(traceback.format_exc())
+        logger.error(f"Traceback: {traceback.format_exc()}")
         return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": f"Error during corporate data collection: {str(e)}"}
     
     return {**state, "goto": "meta_agent"}
