@@ -12,13 +12,14 @@ from pathlib import Path
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END
 
-# Import your existing system
+# Import both system types
 from backend.core.news_forensic import NewsForensicSystem
+from backend.core.corporate_governance_workflow import CorporateGovernanceSystem
 from backend.utils.pdf_generator import convert_markdown_to_pdf
 
 # Configure the page
 st.set_page_config(
-    page_title="FinForensic System",
+    page_title="Financial Analysis System",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -27,12 +28,14 @@ st.set_page_config(
 # Initialize session state variables
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Welcome to the FinForensic System! Please enter a company name to begin analysis."}
+        {"role": "assistant", "content": "Welcome to the Financial Analysis System! Please select a report type and enter company information to begin analysis."}
     ]
 if "report" not in st.session_state:
     st.session_state.report = None
 if "system" not in st.session_state:
     st.session_state.system = None
+if "cg_system" not in st.session_state:
+    st.session_state.cg_system = None
 if "analysis_running" not in st.session_state:
     st.session_state.analysis_running = False
 if "progress" not in st.session_state:
@@ -51,8 +54,18 @@ if "agent_messages" not in st.session_state:
     st.session_state.agent_messages = {
         "Meta Agent": "",
         "Research Agent": "",
-        "Analyst Agent": ""
+        "Analyst Agent": "",
+        "RAG Agent": "",
+        "YouTube Agent": "",
+        "Corporate Agent": "",
+        "Corporate Meta Writer Agent": ""
     }
+if "report_type" not in st.session_state:
+    st.session_state.report_type = "news_forensic"
+if "company_symbol" not in st.session_state:
+    st.session_state.company_symbol = ""
+if "uploaded_pdf" not in st.session_state:
+    st.session_state.uploaded_pdf = None
 
 def display_pdf(pdf_path):
     """Display PDF in Streamlit"""
@@ -77,7 +90,11 @@ def update_log(message):
         patterns = [
             (r"\[Meta Agent\] (.*)", "Meta Agent"),
             (r"\[Research Agent\] (.*)", "Research Agent"),
-            (r"\[Analyst Agent\] (.*)", "Analyst Agent")
+            (r"\[Analyst Agent\] (.*)", "Analyst Agent"),
+            (r"\[RAG Agent\] (.*)", "RAG Agent"),
+            (r"\[YouTube Agent\] (.*)", "YouTube Agent"),
+            (r"\[Corporate Agent\] (.*)", "Corporate Agent"),
+            (r"\[Corporate Meta Writer Agent\] (.*)", "Corporate Meta Writer Agent")
         ]
         
         for pattern, agent_name in patterns:
@@ -90,9 +107,12 @@ def update_log(message):
 
 def display_agent_status():
     """Display the current status of each agent"""
-    cols = st.columns(3)
+    if st.session_state.report_type == "news_forensic":
+        agents = ["Meta Agent", "Research Agent", "Analyst Agent"]
+    else:
+        agents = ["RAG Agent", "YouTube Agent", "Corporate Agent", "Corporate Meta Writer Agent"]
     
-    agents = ["Meta Agent", "Research Agent", "Analyst Agent"]
+    cols = st.columns(len(agents))
     
     for i, agent_name in enumerate(agents):
         with cols[i]:
@@ -120,17 +140,29 @@ def display_logs():
     
     with st.expander("Analysis Logs", expanded=True):
         for log in st.session_state.logs[-15:]:  # Show last 15 logs
-            if "[Meta Agent]" in log:
-                st.markdown(f'<div class="log-entry meta-agent">{log}</div>', unsafe_allow_html=True)
-            elif "[Research Agent]" in log:
-                st.markdown(f'<div class="log-entry research-agent">{log}</div>', unsafe_allow_html=True)
-            elif "[Analyst Agent]" in log:
-                st.markdown(f'<div class="log-entry analyst-agent">{log}</div>', unsafe_allow_html=True)
+            if st.session_state.report_type == "news_forensic":
+                if "[Meta Agent]" in log:
+                    st.markdown(f'<div class="log-entry meta-agent">{log}</div>', unsafe_allow_html=True)
+                elif "[Research Agent]" in log:
+                    st.markdown(f'<div class="log-entry research-agent">{log}</div>', unsafe_allow_html=True)
+                elif "[Analyst Agent]" in log:
+                    st.markdown(f'<div class="log-entry analyst-agent">{log}</div>', unsafe_allow_html=True)
+                else:
+                    st.markdown(f'<div class="log-entry">{log}</div>', unsafe_allow_html=True)
             else:
-                st.markdown(f'<div class="log-entry">{log}</div>', unsafe_allow_html=True)
+                if "[RAG Agent]" in log:
+                    st.markdown(f'<div class="log-entry rag-agent">{log}</div>', unsafe_allow_html=True)
+                elif "[YouTube Agent]" in log:
+                    st.markdown(f'<div class="log-entry youtube-agent">{log}</div>', unsafe_allow_html=True)
+                elif "[Corporate Agent]" in log:
+                    st.markdown(f'<div class="log-entry corporate-agent">{log}</div>', unsafe_allow_html=True)
+                elif "[Corporate Meta Writer Agent]" in log:
+                    st.markdown(f'<div class="log-entry corporate-meta-writer-agent">{log}</div>', unsafe_allow_html=True)
+                else:
+                    st.markdown(f'<div class="log-entry">{log}</div>', unsafe_allow_html=True)
 
 def run_analysis(company, industry):
-    """Run the analysis directly (no threading)"""
+    """Run the news forensic analysis"""
     st.session_state.system = NewsForensicSystem()
     st.session_state.analysis_running = True
     st.session_state.progress = 0
@@ -154,7 +186,7 @@ def run_analysis(company, industry):
     st.session_state.messages.append({"role": "user", "content": f"Analyze {company}"})
     st.session_state.messages.append({
         "role": "assistant", 
-        "content": f"Starting analysis for {company}. This may take a few minutes..."
+        "content": f"Starting news forensic analysis for {company}. This may take a few minutes..."
     })
     
     try:
@@ -251,7 +283,6 @@ def run_analysis(company, industry):
             
             current_state["iterations"] = iteration
             
-            # Trigger a rerun to refresh UI
             time.sleep(0.1)
             st.experimental_rerun()
             
@@ -283,7 +314,189 @@ def run_analysis(company, industry):
             # Notify completion
             st.session_state.messages.append({
                 "role": "assistant", 
-                "content": f"✅ Analysis complete! The report for {company} is now available."
+                "content": f"✅ News forensic analysis complete! The report for {company} is now available."
+            })
+            
+            # Final progress update
+            progress_bar.progress(1.0)
+            status_text.text("Analysis complete!")
+        else:
+            st.session_state.messages.append({
+                "role": "assistant", 
+                "content": f"❌ Analysis finished but no report was generated. Please check the logs for errors."
+            })
+    
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        st.session_state.messages.append({
+            "role": "assistant", 
+            "content": f"❌ Error during analysis: {str(e)}"
+        })
+        st.error(error_trace)
+    
+    finally:
+        st.session_state.analysis_running = False
+        # Remove our custom handler
+        for handler in logger.handlers[:]:
+            if isinstance(handler, StreamHandler):
+                logger.removeHandler(handler)
+
+def run_corporate_governance(company, company_symbol, pdf_path):
+    """Run the corporate governance analysis"""
+    st.session_state.cg_system = CorporateGovernanceSystem()
+    st.session_state.analysis_running = True
+    st.session_state.progress = 0
+    st.session_state.logs = []
+    st.session_state.active_agent = None
+    st.session_state.agent_messages = {
+        "RAG Agent": "",
+        "YouTube Agent": "",
+        "Corporate Agent": "",
+        "Corporate Meta Writer Agent": ""
+    }
+    
+    # Set up a progress bar
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+    
+    # Create containers for dynamic content
+    agent_status_container = st.empty()
+    logs_container = st.empty()
+    
+    # Add initial message
+    st.session_state.messages.append({"role": "user", "content": f"Analyze corporate governance for {company} ({company_symbol})"})
+    st.session_state.messages.append({
+        "role": "assistant", 
+        "content": f"Starting corporate governance analysis for {company}. This may take a few minutes..."
+    })
+    
+    try:
+        # Create a custom log handler to capture logs
+        class StreamHandler(logging.StreamHandler):
+            def emit(self, record):
+                log_entry = self.format(record)
+                update_log(log_entry)
+                
+        # Add our custom handler to the logger
+        logger = logging.getLogger("corporate_governance")
+        handler = StreamHandler()
+        handler.setFormatter(logging.Formatter('%(message)s'))
+        logger.addHandler(handler)
+        
+        # Initialize the system
+        system = st.session_state.cg_system
+        graph = system.build_graph()
+        
+        initial_state = {
+            "company": company,
+            "company_symbol": company_symbol,
+            "pdf_path": pdf_path,
+            "is_file_embedded": False,
+            "corporate_meta_step": "start",
+            "final_report": "",
+            "report_sections": [],
+            "start_time": datetime.now().isoformat(),
+            "iterations": 0
+        }
+        
+        # Create the checkpoint saver
+        checkpoint_saver = MemorySaver()
+        system.app = system.graph.compile(checkpointer=checkpoint_saver)
+        
+        system._save_state_snapshot(initial_state, "initial")
+        
+        update_log(f"[System] Starting corporate governance analysis for {company}")
+        
+        current_state = system.app.invoke(
+            initial_state,
+            config={"configurable": {"thread_id": f"{company}_cg_{datetime.now().strftime('%Y%m%d%H%M%S')}"}}
+        )
+        
+        iteration = 0
+        max_iterations = 20
+        
+        while current_state.get("goto") != END and iteration < max_iterations:
+            iteration += 1
+            progress = min(iteration / max_iterations, 1.0)
+            
+            # Update progress
+            progress_bar.progress(progress)
+            st.session_state.progress = progress
+            st.session_state.current_iteration = iteration
+            st.session_state.max_iterations = max_iterations
+            st.session_state.current_goto = current_state.get("goto", "processing")
+            
+            # Update status text
+            status_text.text(f"Iteration {iteration}/{max_iterations}: {st.session_state.current_goto}")
+            
+            # Update agent status display
+            with agent_status_container:
+                display_agent_status()
+            
+            # Update logs display
+            with logs_container:
+                display_logs()
+            
+            # Add important updates to chat
+            recent_logs = st.session_state.logs[-5:] if st.session_state.logs else []
+            significant_updates = [
+                log for log in recent_logs if any(
+                    marker in log for marker in [
+                        "RAG analysis complete",
+                        "Transcription complete",
+                        "Corporate data collection complete",
+                        "Generating final report",
+                        "Analysis complete"
+                    ]
+                )
+            ]
+            
+            if significant_updates:
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": significant_updates[-1]
+                })
+            elif iteration % 5 == 0:
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": f"Corporate governance analysis in progress ({int(progress*100)}% complete)..."
+                })
+            
+            current_state["iterations"] = iteration
+            
+            time.sleep(0.1)
+            st.experimental_rerun()
+            
+            current_state = system.app.invoke(
+                current_state,
+                config={"configurable": {"thread_id": f"{company}_cg_{datetime.now().strftime('%Y%m%d%H%M%S')}"}}
+            )
+        
+        if iteration >= max_iterations and current_state.get("goto") != END:
+            current_state["warning"] = f"Analysis terminated after reaching maximum iterations ({max_iterations})"
+            current_state["goto"] = END
+        
+        system._save_state_snapshot(current_state, "final")
+        system._save_final_report(current_state)
+        system.final_state = current_state
+        
+        # Get path to markdown file
+        report_filename = f"{company.replace(' ', '_')}_latest.md"
+        markdown_path = os.path.join("corporate_reports", report_filename)
+        
+        if os.path.exists(markdown_path):
+            with open(markdown_path, "r", encoding="utf-8") as f:
+                st.session_state.report = f.read()
+            
+            # Generate PDF for download
+            pdf_path = os.path.join("corporate_reports", f"{company.replace(' ', '_')}_latest.pdf")
+            convert_markdown_to_pdf(markdown_path, pdf_path)
+            
+            # Notify completion
+            st.session_state.messages.append({
+                "role": "assistant", 
+                "content": f"✅ Corporate governance analysis complete! The report for {company} is now available."
             })
             
             # Final progress update
@@ -401,6 +614,23 @@ st.markdown("""
     border-left: 4px solid #F59E0B;
     background-color: #FFFBEB;
 }
+/* Corporate Governance specific colors */
+.log-entry.rag-agent {
+    border-left: 4px solid #8B5CF6;
+    background-color: #F5F3FF;
+}
+.log-entry.youtube-agent {
+    border-left: 4px solid #EC4899;
+    background-color: #FCE7F3;
+}
+.log-entry.corporate-agent {
+    border-left: 4px solid #0EA5E9;
+    background-color: #E0F2FE;
+}
+.log-entry.corporate-meta-writer-agent {
+    border-left: 4px solid #14B8A6;
+    background-color: #CCFBF1;
+}
 
 /* Custom scrollbar for logs */
 .log-container {
@@ -423,20 +653,51 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar for inputs
-st.sidebar.title("FinForensic System")
+st.sidebar.title("Financial Analysis System")
+
+# Select report type
+report_type = st.sidebar.radio(
+    "Select Report Type",
+    ["News Forensic Analysis", "Corporate Governance Analysis"],
+    index=0 if st.session_state.report_type == "news_forensic" else 1
+)
+
+st.session_state.report_type = "news_forensic" if report_type == "News Forensic Analysis" else "corporate_governance"
+
 st.sidebar.subheader("Enter Company Information")
 
-with st.sidebar.form("company_form"):
-    company_name = st.text_input("Company Name", key="company_input")
-    industry = st.text_input("Industry (optional)", key="industry_input")
-    submit_button = st.form_submit_button("Start Analysis")
+# Different forms based on report type
+if st.session_state.report_type == "news_forensic":
+    with st.sidebar.form("news_forensic_form"):
+        company_name = st.text_input("Company Name", key="nf_company_input")
+        industry = st.text_input("Industry (optional)", key="nf_industry_input")
+        submit_button = st.form_submit_button("Start News Forensic Analysis")
+        
+    if submit_button and company_name and not st.session_state.analysis_running:
+        st.session_state.report = None
+        run_analysis(company_name, industry)
+else:
+    with st.sidebar.form("corporate_governance_form"):
+        company_name = st.text_input("Company Name", key="cg_company_input")
+        company_symbol = st.text_input("Company Symbol", key="cg_symbol_input")
+        uploaded_file = st.file_uploader("Upload Company Report PDF", type="pdf")
+        submit_button = st.form_submit_button("Start Corporate Governance Analysis")
+        
+    if submit_button and company_name and company_symbol and uploaded_file and not st.session_state.analysis_running:
+        st.session_state.report = None
+        
+        # Save the uploaded PDF to a temporary file
+        pdf_path = f"temp_{uploaded_file.name}"
+        with open(pdf_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+        
+        run_corporate_governance(company_name, company_symbol, pdf_path)
 
-if submit_button and company_name and not st.session_state.analysis_running:
-    st.session_state.report = None
-    run_analysis(company_name, industry)
-
-# Main page
-st.markdown('<h1 class="main-title">Financial Forensic Analysis</h1>', unsafe_allow_html=True)
+# Main page title based on report type
+if st.session_state.report_type == "news_forensic":
+    st.markdown('<h1 class="main-title">Financial Forensic Analysis</h1>', unsafe_allow_html=True)
+else:
+    st.markdown('<h1 class="main-title">Corporate Governance Analysis</h1>', unsafe_allow_html=True)
 
 # Display progress information if analysis is running
 if st.session_state.analysis_running:
@@ -493,7 +754,8 @@ with report_col:
             
             # Download link
             company = company_name if company_name else "report"
-            download_filename = f"{company.replace(' ', '_')}_report.pdf"
+            report_type_str = "forensic" if st.session_state.report_type == "news_forensic" else "governance"
+            download_filename = f"{company.replace(' ', '_')}_{report_type_str}_report.pdf"
             st.markdown(get_pdf_download_link(temp_pdf_path, download_filename), unsafe_allow_html=True)
             
             # Clean up temp files
@@ -506,4 +768,4 @@ with report_col:
 
 # Footer
 st.markdown("---")
-st.caption("FinForensic System © 2025")
+st.caption("Financial Analysis System © 2025")
