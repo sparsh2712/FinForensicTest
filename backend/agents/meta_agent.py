@@ -7,7 +7,7 @@ from backend.utils.prompt_manager import PromptManager
 
 load_dotenv()
 
-prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
+prompt_manager = PromptManager("/home/satyam/Desktop/FinForensicTest/backend/prompts")
 
 def load_preliminary_research_guidelines(company: str, industry: str) -> List[str]:
     """

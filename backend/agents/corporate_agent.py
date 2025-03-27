@@ -17,10 +17,12 @@ class NSETool:
         self.config = config
         self.config.setdefault("base_url", "https://www.nseindia.com")
         self.config.setdefault("refresh_interval", 25)
-        self.config.setdefault("config_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/nse_config.yaml")
-        self.config.setdefault("headers_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/headers.yaml")
-        self.config.setdefault("cookie_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/cookies.yaml")
-        self.config.setdefault("schema_path", "/Users/sparsh/Desktop/FinForensicTest/backend/assets/nse_schema.yaml")
+        # Use relative paths with os.path to ensure portability
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.config.setdefault("config_path", os.path.join(base_dir, "assets", "nse_config.yaml"))
+        self.config.setdefault("headers_path", os.path.join(base_dir, "assets", "headers.yaml"))
+        self.config.setdefault("cookie_path", os.path.join(base_dir, "assets", "cookies.yaml"))
+        self.config.setdefault("schema_path", os.path.join(base_dir, "assets", "nse_schema.yaml"))
         self.config.setdefault("use_hardcoded_cookies", False)
         self.config.setdefault("domain", "nseindia.com")
         
@@ -141,7 +143,28 @@ class NSETool:
         try:
             result = self.make_request(url, stream_config.get("referer", self.fallback_referer))
             
+            # Log NSE response data
             if result:
+                # Format the first part of response for logging (limit size)
+                response_preview = json.dumps(result)[:1000]
+                if len(json.dumps(result)) > 1000:
+                    response_preview += "..."
+                logger.info(f"NSE {stream} Response Preview: {response_preview}")
+                
+                # Log data type and structure
+                if isinstance(result, list):
+                    logger.info(f"NSE {stream} Response: List with {len(result)} items")
+                    if result and len(result) > 0:
+                        sample_keys = list(result[0].keys()) if isinstance(result[0], dict) else "non-dict items"
+                        logger.info(f"NSE {stream} Sample Keys: {sample_keys}")
+                elif isinstance(result, dict):
+                    logger.info(f"NSE {stream} Response: Dict with keys {list(result.keys())}")
+                    if "data" in result and isinstance(result["data"], list):
+                        logger.info(f"NSE {stream} Data: List with {len(result['data'])} items")
+                        if result["data"] and len(result["data"]) > 0:
+                            sample_keys = list(result["data"][0].keys()) if isinstance(result["data"][0], dict) else "non-dict items"
+                            logger.info(f"NSE {stream} Sample Data Keys: {sample_keys}")
+                
                 max_results = input_params.get("max_results", 20)
                 
                 if isinstance(result, list):
@@ -167,7 +190,7 @@ class NSETool:
         except Exception as e:
             logger.error(f"Error fetching data for {stream}: {e}")
             return []
-
+            
     def _construct_url(self, endpoint, params):
         filtered_params = {k: v for k, v in params.items() if v is not None and v != ""}
         
@@ -279,12 +302,13 @@ class NSETool:
         # Properly load the JSON file with error handling
         try:
             logger.info("Attempting to load Key Personnel data")
-            json_path = "/Users/sparsh/Desktop/FinForensicTest/backend/assets/corporate_governance.json"
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            json_path = os.path.join(base_dir, "assets", "corporate_governance.json")
             
             # Check if file exists
             if not os.path.exists(json_path):
                 logger.error(f"Key Personnel file not found at: {json_path}")
-                result["Key_Personnel"] = {"error": "File not found"}
+                result["Key_Personnel"] = {"error": "File not found", "board_of_directors": [], "communities": {}}
                 return result
                 
             # Open and parse the JSON file
@@ -295,18 +319,40 @@ class NSETool:
             company_symbol = self.config.get("symbol")
             if not company_symbol:
                 logger.error("Company symbol is missing")
-                result["Key_Personnel"] = {"error": "Company symbol missing"}
+                result["Key_Personnel"] = {"error": "Company symbol missing", "board_of_directors": [], "communities": {}}
                 return result
                 
-            # Get data for this company
-            personnel_data = key_personnel_dict.get(company_symbol)
+            # Try multiple formats of company symbol to improve matching
+            personnel_data = None
+            symbol_variants = [
+                company_symbol,
+                company_symbol.upper(),
+                company_symbol.lower(),
+                company_symbol.replace(" ", ""),
+                company_symbol.strip()
+            ]
             
-            # Handle missing data case
+            for variant in symbol_variants:
+                if variant in key_personnel_dict:
+                    personnel_data = key_personnel_dict[variant]
+                    logger.info(f"Found Key Personnel data using symbol variant: {variant}")
+                    break
+            
+            # Handle missing data case with better structure
             if personnel_data is None:
-                logger.warning(f"No Key Personnel data found for symbol: {company_symbol}")
+                logger.warning(f"No Key Personnel data found for symbol: {company_symbol} or variants")
                 result["Key_Personnel"] = {"board_of_directors": [], "communities": {}}
             else:
-                result["Key_Personnel"] = personnel_data
+                # Ensure data has expected structure
+                if isinstance(personnel_data, dict):
+                    if "board_of_directors" not in personnel_data:
+                        personnel_data["board_of_directors"] = []
+                    if "communities" not in personnel_data:
+                        personnel_data["communities"] = {}
+                    result["Key_Personnel"] = personnel_data
+                else:
+                    logger.error(f"Unexpected Key Personnel data format for {company_symbol}")
+                    result["Key_Personnel"] = {"error": "Unexpected data format", "board_of_directors": [], "communities": {}}
                 
             logger.info(f"Successfully added Key Personnel data for {company_symbol}")
             
@@ -327,9 +373,10 @@ def corporate_agent(state: Dict) -> Dict:
     
     if not company:
         logger.error("Company name is missing")
-        return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": "Company name is required"}
+        return {**state, "goto": "corporate_meta_writer_agent", "corporate_status": "ERROR", "error": "Company name is required"}
     
-    params_path = "/Users/sparsh/Desktop/FinForensicTest/backend/assets/params.yaml"
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    params_path = os.path.join(base_dir, "assets", "params.yaml")
     
     try:
         logger.debug(f"Loading parameters from {params_path}")
@@ -337,7 +384,7 @@ def corporate_agent(state: Dict) -> Dict:
             yaml_params = yaml.safe_load(f)
     except Exception as e:
         logger.error(f"Failed to load params file: {e}")
-        return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": f"Failed to load params file: {e}"}
+        return {**state, "goto": "corporate_meta_writer_agent", "corporate_status": "ERROR", "error": f"Failed to load params file: {e}"}
     
     config = {
         "company": company,
@@ -368,6 +415,6 @@ def corporate_agent(state: Dict) -> Dict:
         logger.error(f"Error during corporate data collection: {e}")
         import traceback
         logger.error(f"Traceback: {traceback.format_exc()}")
-        return {**state, "goto": "meta_agent", "corporate_status": "ERROR", "error": f"Error during corporate data collection: {str(e)}"}
+        return {**state, "goto": "corporate_meta_writer_agent", "corporate_status": "ERROR", "error": f"Error during corporate data collection: {str(e)}"}
     
-    return {**state, "goto": "meta_agent"}
+    return {**state, "goto": "corporate_meta_writer_agent"}

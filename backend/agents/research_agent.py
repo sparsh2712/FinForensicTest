@@ -7,52 +7,18 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from datetime import datetime
 import traceback
 import os
+import logging
 from dotenv import load_dotenv
 from backend.utils.prompt_manager import PromptManager
+
 load_dotenv()
 
-prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
+# Set up logging
+logger = logging.getLogger(__name__)
 
-def generate_queries(company: str, industry: str, research_plan: Dict, query_history: List[Dict[str, List]]) -> Dict[str, List[str]]:
-    """
-    Generate search queries based on a research plan given by the meta agent, research plans can be basic research guidelines or hyper specific questions.
-    """
-    try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7)
-
-        variables = {
-            "company": company,
-            "industry": industry,
-            "research_plan": json.dumps(research_plan, indent=4),
-            "query_history": json.dumps(query_history, indent=4), 
-        }
-        system_prompt, human_prompt = prompt_manager.get_prompt("research_agent", "generate_queries", variables)
-
-        messages = [
-            ("system", system_prompt),
-            ("human", human_prompt)
-        ]
-        response = llm.invoke(messages)
-
-        print(f"RAW RESPONSE: {response.content}")
-        response_content = response.content.strip()
-        
-        if "```json" in response_content:
-            json_content = response_content.split("```json")[1].split("```")[0].strip()
-        elif "```" in response_content:
-            json_content = response_content.split("```")[1].strip()
-        else:
-            json_content = response_content
-
-        query = json.loads(json_content)
-        print(f"[Research Agent] Generated {sum(len(v) for v in query.values())} queries across {len(query)} categories")
-        return query
-
-    except Exception as e:
-        print(f"[Research Agent] Error in query generation: {e}")
-        print(traceback.format_exc())
-        return {f"{research_plan['objective']}": f"{research_plan['objective']}"}
-
+# Use environment variable or default path for prompts directory
+prompts_dir = os.environ.get("PROMPTS_DIR", None)
+prompt_manager = PromptManager(prompts_dir)
 
 def is_quarterly_report_article(title: str, snippet: str = "") -> bool:
     """
@@ -93,18 +59,18 @@ def parse_serp_results(raw_output, category: str) -> List[Dict]:
     
     try:
         if isinstance(raw_output, str):
-            print(f"[Research Agent] Attempting to parse string response as JSON...")
+            logger.debug(f"Attempting to parse string response as JSON")
             try:
                 parsed_data = json.loads(raw_output)
                 
                 if isinstance(parsed_data, list):
                     raw_output = parsed_data
-                    print(f"[Research Agent] Successfully parsed string as JSON list with {len(raw_output)} items")
+                    logger.debug(f"Successfully parsed string as JSON list with {len(raw_output)} items")
                 elif isinstance(parsed_data, dict) and 'organic_results' in parsed_data:
                     raw_output = parsed_data['organic_results']
-                    print(f"[Research Agent] Successfully parsed string as JSON object with organic_results")
+                    logger.debug(f"Successfully parsed string as JSON object with organic_results")
             except json.JSONDecodeError:
-                print(f"[Research Agent] Not valid JSON, treating as text: {raw_output[:100]}...")
+                logger.debug(f"Not valid JSON, treating as text: {raw_output[:100]}...")
                 
                 if len(raw_output) > 50:
                     import hashlib
@@ -121,12 +87,18 @@ def parse_serp_results(raw_output, category: str) -> List[Dict]:
                         "is_quarterly_report": False
                     })
                     
-                    print(f"[Research Agent] Created result from text response")
+                    logger.debug(f"Created result from text response")
                     return results
         
         if isinstance(raw_output, list):
             for i, item in enumerate(raw_output):
                 if isinstance(item, dict) and "title" in item and "link" in item:
+                    # Check if article is about quarterly reports
+                    is_quarterly = is_quarterly_report_article(
+                        item["title"], 
+                        item.get("snippet", "")
+                    )
+                    
                     results.append({
                         "index": i,
                         "title": item["title"].strip(),
@@ -135,15 +107,14 @@ def parse_serp_results(raw_output, category: str) -> List[Dict]:
                         "snippet": item.get("snippet", "").strip(),
                         "source": item.get("source", "Unknown source").strip(),
                         "category": category,
-                        "is_quarterly_report": False
+                        "is_quarterly_report": is_quarterly
                     })
         
     except Exception as e:
-        print(f"[Research Agent] Error in parse_serp_results: {e}")
-        import traceback
-        print(traceback.format_exc())
+        logger.error(f"Error in parse_serp_results: {e}")
+        logger.error(traceback.format_exc())
     
-    print(f"[Research Agent] Parsed {len(results)} results from category '{category}'")
+    logger.info(f"Parsed {len(results)} results from category '{category}'")
     return results
 
 def calculate_event_importance(event_name: str, articles: List[Dict]) -> int:
@@ -187,20 +158,21 @@ def calculate_event_importance(event_name: str, articles: List[Dict]) -> int:
     
     return score
 
-def group_results(company: str, articles: List[Dict], industry: str = None) -> Dict[str, List[Dict]]:
+def group_results(company: str, articles: List[Dict], industry: str = None) -> Dict[str, Dict[str, any]]:
     """
     Group news articles into event clusters with special handling for quarterly reports
     and improved prioritization of negative events.
     """
     if not articles:
-        print("[Research Agent] No articles to cluster")
+        logger.warning("No articles to cluster")
         return {}
     
+    # Split articles into quarterly reports and others
     quarterly_report_articles = [a for a in articles if a.get("is_quarterly_report", False)]
     other_articles = [a for a in articles if not a.get("is_quarterly_report", False)]
     
-    print(f"[Research Agent] Identified {len(quarterly_report_articles)} quarterly report articles")
-    print(f"[Research Agent] Processing {len(other_articles)} non-quarterly report articles")
+    logger.info(f"Identified {len(quarterly_report_articles)} quarterly report articles")
+    logger.info(f"Processing {len(other_articles)} non-quarterly report articles")
     
     regular_events = {}
     if other_articles:
@@ -224,7 +196,26 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
                 "simplified_articles": json.dumps(simplified_articles)
             }
 
-            system_prompt, human_prompt = prompt_manager.get_prompt("research_agent", "group_results", variables)
+            try:
+                system_prompt, human_prompt = prompt_manager.get_prompt("research_agent", "group_results", variables)
+            except Exception as e:
+                logger.error(f"Error getting prompt for grouping results: {e}")
+                # Fallback prompt
+                system_prompt = "You are an expert at organizing financial news into logical event categories."
+                human_prompt = f"""
+                Group these articles about {company} into distinct event categories:
+                {json.dumps(simplified_articles, indent=2)}
+                
+                Return a JSON dictionary where:
+                - Keys are event names with format "Event: Brief description - Priority"
+                - Values are lists of article indices (numbers only) that belong to each event
+                
+                Example:
+                {{
+                  "Event: Company Q1 Results - Low": [0, 5, 9],
+                  "Event: CEO Resignation - High": [2, 3, 7]
+                }}
+                """
         
             messages = [
                 ("system", system_prompt),
@@ -234,14 +225,23 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
             response = llm.invoke(messages)
             response_content = response.content.strip()
             
-            if "```json" in response_content:
-                json_content = response_content.split("```json")[1].split("```")[0].strip()
-            elif "```" in response_content:
-                json_content = response_content.split("```")[1].strip()
-            else:
-                json_content = response_content
-                
-            clustered_indices = json.loads(json_content)
+            # Extract JSON content with better error handling
+            try:
+                if "```json" in response_content:
+                    json_content = response_content.split("```json")[1].split("```")[0].strip()
+                elif "```" in response_content:
+                    json_content = response_content.split("```")[1].strip()
+                else:
+                    json_content = response_content
+                    
+                clustered_indices = json.loads(json_content)
+            except (ValueError, json.JSONDecodeError) as e:
+                logger.error(f"Failed to parse LLM grouping response as JSON: {e}")
+                # Create a simple grouping as fallback
+                clustered_indices = {}
+                for i, article in enumerate(other_articles):
+                    event_name = f"News: {article['title'][:50]}..."
+                    clustered_indices[event_name] = [i]
             
             for event_name, indices in clustered_indices.items():
                 valid_indices = []
@@ -254,16 +254,20 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
                 if valid_indices:
                     regular_events[event_name] = [other_articles[i] for i in valid_indices]
             
-            print(f"[Research Agent] Grouped non-quarterly articles into {len(regular_events)} events")
+            logger.info(f"Grouped non-quarterly articles into {len(regular_events)} events")
             
         except Exception as e:
-            print(f"[Research Agent] Error clustering non-quarterly articles: {e}")
-            print(traceback.format_exc())
+            logger.error(f"Error clustering non-quarterly articles: {e}")
+            logger.error(traceback.format_exc())
             
+            # Fallback: create one event per article
             for i, article in enumerate(other_articles):
                 event_name = f"News: {article['title'][:50]}..."
                 regular_events[event_name] = [article]
+            
+            logger.info(f"Created {len(regular_events)} individual article events as fallback")
     
+    # Handle quarterly report articles
     if quarterly_report_articles:
         dates = [article.get("date", "") for article in quarterly_report_articles]
         valid_dates = [d for d in dates if d and d.lower() != "unknown date"]
@@ -287,13 +291,15 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
                 if parsed_dates:
                     most_recent = max(parsed_dates)
                     date_str = f" ({most_recent.strftime('%b %Y')})"
-            except:
-                date_str = f" ({valid_dates[0]})"
+            except Exception as e:
+                logger.error(f"Error parsing dates for quarterly reports: {e}")
+                date_str = f" ({valid_dates[0]})" if valid_dates else ""
         
         quarterly_event_name = f"Financial Reporting: Quarterly/Annual Results{date_str} - Low"
         regular_events[quarterly_event_name] = quarterly_report_articles
-        print(f"[Research Agent] Created a consolidated event for {len(quarterly_report_articles)} quarterly report articles")
+        logger.info(f"Created a consolidated event for {len(quarterly_report_articles)} quarterly report articles")
     
+    # Calculate importance scores and build final events structure
     final_events = {}
     importance_scores = {}
     
@@ -308,18 +314,102 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
         }
         final_events[event_name] = event_data
     
-    print(f"[Research Agent] Assigned importance scores to {len(importance_scores)} events")
+    logger.info(f"Assigned importance scores to {len(importance_scores)} events")
     for event, score in sorted(importance_scores.items(), key=lambda x: x[1], reverse=True)[:5]:
-        print(f"[Research Agent] Event: '{event}' - Score: {score}")
+        logger.info(f"Event: '{event}' - Score: {score}")
     
     return final_events
+
+def generate_queries(company: str, industry: str, research_plan: Dict, query_history: List[Dict[str, List]]) -> Dict[str, List[str]]:
+    """
+    Generate search queries based on a research plan given by the meta agent, research plans can be basic research guidelines or hyper specific questions.
+    """
+    try:
+        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.3)
+
+        variables = {
+            "company": company,
+            "industry": industry,
+            "research_plan": json.dumps(research_plan, indent=4),
+            "query_history": json.dumps(query_history, indent=4), 
+        }
+        
+        try:
+            system_prompt, human_prompt = prompt_manager.get_prompt("research_agent", "generate_queries", variables)
+            logger.info(f"Successfully loaded prompts for query generation")
+        except Exception as e:
+            logger.error(f"Error getting prompt for query generation: {e}")
+            # Fallback to hardcoded prompt
+            system_prompt = "You are an expert search query generator focused on investigating companies."
+            human_prompt = f"""
+            Generate search queries to investigate {company} in the {industry} industry.
+            
+            Research plan: {json.dumps(research_plan, indent=4)}
+            
+            Generate a JSON object with categories as keys and arrays of search queries as values.
+            Example format: {{"Regulatory Issues": ["{company} regulatory violations", "{company} regulatory investigation"]}}
+            """
+            logger.info("Using fallback prompt for query generation")
+
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        logger.debug(f"Invoking LLM for query generation")
+        response = llm.invoke(messages)
+        response_content = response.content.strip()
+        logger.debug(f"Received response from LLM for query generation")
+        
+        # Extract JSON content with better error handling
+        try:
+            if "```json" in response_content:
+                json_content = response_content.split("```json")[1].split("```")[0].strip()
+            elif "```" in response_content:
+                json_content = response_content.split("```")[1].strip()
+            else:
+                json_content = response_content
+                
+            query = json.loads(json_content)
+            logger.info(f"Successfully parsed LLM response as JSON with {len(query)} categories")
+        except (ValueError, json.JSONDecodeError) as e:
+            logger.error(f"Failed to parse LLM response as JSON: {e}")
+            logger.error(f"Response content: {response_content[:200]}...")
+            # Create fallback queries
+            query = {
+                "General Concerns": [
+                    f"{company} financial irregularities",
+                    f"{company} regulatory issues",
+                    f"{company} legal problems",
+                    f"{company} controversy"
+                ]
+            }
+            logger.info("Using fallback queries due to JSON parsing error")
+            
+        query_count = sum(len(v) for v in query.values())
+        logger.info(f"Generated {query_count} queries across {len(query)} categories")
+        return query
+
+    except Exception as e:
+        logger.error(f"Error in query generation: {e}")
+        logger.error(traceback.format_exc())
+        # Return fallback queries when exceptions occur
+        return {
+            "General": [
+                f"{company} issues",
+                f"{company} controversy",
+                f"{company} regulatory problems",
+                f"{company} financial concerns"
+            ]
+        }
+
 
 def research_agent(state: Dict) -> Dict:
     """
     Enhanced research agent that handles both preliminary and targeted research.
     Prevents duplicate queries and efficiently processes search results.
     """
-    print("[Research Agent] Received state:", state)
+    logger.info(f"Research Agent received state for company: {state.get('company', 'Unknown')}")
     
     # Extract key information from state
     company = state.get("company", "")
@@ -332,101 +422,121 @@ def research_agent(state: Dict) -> Dict:
     
     # Validation - Company name and research plan are required
     if not company:
-        print("[Research Agent] ERROR: Missing company name")
+        logger.error("Missing company name")
         return {**state, "goto": "meta_agent", "error": "Missing company name"}
         
     if not research_plans:
-        print("[Research Agent] ERROR: No research plan provided")
+        logger.error("No research plan provided")
         return {**state, "goto": "meta_agent", "error": "No research plan provided"}
     
     # Get the most recent research plan
     current_plan = research_plans[-1]
-    print(f"[Research Agent] Processing research plan: {current_plan.get('objective', 'No objective specified')}")
+    logger.info(f"Processing research plan: {current_plan.get('objective', 'No objective specified')}")
     
     # Check if this is an event-specific targeted research plan
     target_event = current_plan.get("event_name", None)
     if target_event:
-        print(f"[Research Agent] This is a targeted research plan for event: {target_event}")
+        logger.info(f"This is a targeted research plan for event: {target_event}")
     
     # Set up output tracking
     all_articles = []
     executed_queries = []
     
     # Generate search queries based on the research plan
-    query_categories = generate_queries(company, industry, current_plan, search_history)
-    
-    # Execute searches and collect results
-    for category, queries in query_categories.items():
-        print(f"[Research Agent] Processing category: {category}")
-        for query in queries:
-            # Skip duplicate queries that have been executed before
-            if query in [q for sublist in search_history for q in sublist]:
-                print(f"[Research Agent] Skipping duplicate query: {query}")
-                continue
-            
-            print(f"[Research Agent] Executing search query: {query}")
-            executed_queries.append(query)
-            
-            # Set up the search parameters
-            params = {
-                "engine": "google",
-                "q": query,
-                "location": "India",
-                "google_domain": "google.co.in",
-                "gl": "in",
-                "hl": "en",
-                "safe": "off", 
-                "num": "100", 
-                "output": "json"
-            }
-            if search_type == "google_news":
-                params["tbm"] = "nws"
-            
-            try:
-                # Execute the search
-                serp = SerpAPIWrapper(params=params)
-                raw_output = serp.run(query)
+    try:
+        query_categories = generate_queries(company, industry, current_plan, search_history)
+        
+        # Limit number of queries per category for efficiency
+        for category, queries in query_categories.items():
+            if len(queries) > 3:
+                logger.info(f"Limiting {category} from {len(queries)} to 3 queries")
+                query_categories[category] = queries[:3]
+        
+        # Configure SerpAPI parameters with environment check
+        serp_api_key = os.environ.get("SERPAPI_API_KEY")
+        if not serp_api_key:
+            logger.warning("SERPAPI_API_KEY environment variable not found")
+        
+        # Execute searches and collect results
+        for category, queries in query_categories.items():
+            logger.info(f"Processing category: {category}")
+            for query in queries:
+                # Skip duplicate queries that have been executed before
+                if any(query in sublist for sublist in search_history if sublist):
+                    logger.info(f"Skipping duplicate query: {query}")
+                    continue
                 
-                # Process the results
-                articles = parse_serp_results(raw_output, category)
-                all_articles.extend(articles)
+                logger.info(f"Executing search query: {query}")
+                executed_queries.append(query)
                 
-                # Add a delay to avoid rate limiting
-                time.sleep(1)
-            except Exception as e:
-                print(f"[Research Agent] Error executing query '{query}': {e}")
-                import traceback
-                print(traceback.format_exc())
+                # Set up the search parameters
+                params = {
+                    "engine": "google",
+                    "q": query,
+                    "location": "India",
+                    "google_domain": "google.co.in",
+                    "gl": "in",
+                    "hl": "en",
+                    "safe": "off", 
+                    "num": "50",  # Reduced from 100 to improve reliability
+                    "output": "json"
+                }
+                if search_type == "google_news":
+                    params["tbm"] = "nws"
+                
+                try:
+                    # Execute the search
+                    serp = SerpAPIWrapper(params=params)
+                    raw_output = serp.run(query)
+                    
+                    # Process the results
+                    articles = parse_serp_results(raw_output, category)
+                    all_articles.extend(articles)
+                    
+                    # Add a delay to avoid rate limiting
+                    time.sleep(1)
+                except Exception as e:
+                    logger.error(f"Error executing query '{query}': {e}")
+                    logger.error(traceback.format_exc())
+                
+    except Exception as e:
+        logger.error(f"Error in search execution: {e}")
+        logger.error(traceback.format_exc())
     
     # Update search history with the executed queries
-    search_history.append(executed_queries)
+    if executed_queries:
+        search_history.append(executed_queries)
     state["search_history"] = search_history
     
-    print(f"[Research Agent] Collected {len(all_articles)} total articles across all categories")
+    logger.info(f"Collected {len(all_articles)} total articles across all categories")
     
     # Handle empty results with a fallback query
     if not all_articles:
-        print("[Research Agent] No articles found with targeted queries. Trying fallback query.")
+        logger.warning("No articles found with targeted queries. Trying fallback query.")
         try:
             fallback_query = f'"{company}" negative news'
-            if fallback_query not in [q for sublist in search_history for q in sublist]:
+            if not any(fallback_query in sublist for sublist in search_history if sublist):
                 params = {
                     "engine": "google",
                     "q": fallback_query,
-                    "num": "100",
+                    "num": "50",
                     "location": "India",
                     "google_domain": "google.co.in",
                     "gl": "in"
                 }
                 
+                if not search_history:
+                    search_history.append([])
                 search_history[-1].append(fallback_query)
+                
                 serp = SerpAPIWrapper(params=params)
                 raw_output = serp.run(fallback_query)
                 fallback_articles = parse_serp_results(raw_output, "general")
                 all_articles.extend(fallback_articles)
-                print(f"[Research Agent] Fallback query returned {len(fallback_articles)} articles")
+                logger.info(f"Fallback query returned {len(fallback_articles)} articles")
         except Exception as e:
-            print(f"[Research Agent] Error with fallback query: {e}")
+            logger.error(f"Error with fallback query: {e}")
+            logger.error(traceback.format_exc())
     
     # Deduplicate articles by URL
     unique_articles = []
@@ -436,7 +546,7 @@ def research_agent(state: Dict) -> Dict:
             seen_urls.add(article["link"])
             unique_articles.append(article)
     
-    print(f"[Research Agent] Deduplicated to {len(unique_articles)} unique articles")
+    logger.info(f"Deduplicated to {len(unique_articles)} unique articles")
     
     # Process results based on whether this is targeted research for a specific event
     if target_event and return_type == "clustered":
@@ -449,11 +559,11 @@ def research_agent(state: Dict) -> Dict:
             new_articles = [a for a in unique_articles if a["link"] not in existing_urls]
             current_results[target_event].extend(new_articles)
             
-            print(f"[Research Agent] Added {len(new_articles)} new articles to event: {target_event}")
+            logger.info(f"Added {len(new_articles)} new articles to event: {target_event}")
         else:
             # Create a new event entry if it doesn't exist
             current_results[target_event] = unique_articles
-            print(f"[Research Agent] Created new event '{target_event}' with {len(unique_articles)} articles")
+            logger.info(f"Created new event '{target_event}' with {len(unique_articles)} articles")
         
         # Signal to meta_agent that we completed additional research
         state["additional_research_completed"] = True
@@ -478,10 +588,10 @@ def research_agent(state: Dict) -> Dict:
             # Update state with the grouped results
             state["research_results"] = final_results
             state["event_metadata"] = event_metadata
-            print(f"[Research Agent] Grouped articles into {len(final_results)} distinct events")
+            logger.info(f"Grouped articles into {len(final_results)} distinct events")
         elif return_type != "clustered":
             # Return unclustered results if requested
             state["research_results"] = unique_articles
-            print(f"[Research Agent] Returning {len(unique_articles)} unclustered articles")
+            logger.info(f"Returning {len(unique_articles)} unclustered articles")
     
     return {**state, "goto": "meta_agent"}

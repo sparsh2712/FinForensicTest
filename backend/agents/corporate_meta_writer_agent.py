@@ -7,10 +7,14 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 load_dotenv()
 
-def load_preset_queries(preset_file: str = "/Users/sparsh/Desktop/FinForensicTest/backend/assets/preset_queries.yaml") -> List[str]:
+def load_preset_queries(preset_file: Optional[str] = None) -> List[str]:
     """
     Load preset queries from a YAML file
     """
+    if preset_file is None:
+        # Use relative path by default
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        preset_file = os.path.join(base_dir, "assets", "preset_queries.yaml")
     try:
         with open(preset_file, "r") as file:
             data = yaml.safe_load(file)
@@ -34,7 +38,7 @@ def load_preset_queries(preset_file: str = "/Users/sparsh/Desktop/FinForensicTes
 
 def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str, List[Dict]]:
     """
-    Use LLM to select the most relevant conference call videos for each quarter
+    Use LLM to select the most relevant conference call videos for each quarter - exactly one per quarter
     """
     print(f"[Corporate Meta Writer Agent] Selecting relevant videos for {company}")
     
@@ -46,18 +50,11 @@ def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str,
     }
     
     try:
-        # Filter search results by quarter
-        quarter_keywords = {
-            "Q1": ["Q1", "first quarter"],
-            "Q2": ["Q2", "second quarter"],
-            "Q3": ["Q3", "third quarter"],
-            "Q4": ["Q4", "fourth quarter", "Q4", "annual results"]
-        }
-        
-        # Prepare the prompt for the LLM
+        # Process videos with published dates
         all_videos = []
         for query, results in search_results.items():
             for video in results:
+                # Clean up the data for the LLM
                 all_videos.append({
                     "id": video.get("id", ""),
                     "title": video.get("title", ""),
@@ -71,29 +68,33 @@ def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str,
             print(f"[Corporate Meta Writer Agent] No videos found for {company}")
             return quarterly_videos
         
-        # Use LLM to select relevant videos
+        # Use LLM to select relevant videos - exactly one per quarter
         prompt = f"""
-        You are tasked with identifying the most relevant conference or earnings call videos for {company} by quarter.
+        You are tasked with identifying the MOST RELEVANT conference call or earnings call video for {company} for EACH QUARTER.
         
         Here are YouTube search results for conference calls and earnings calls:
         {json.dumps(all_videos, indent=2)}
         
-        For each quarter (Q1, Q2, Q3, Q4), identify up to 4 most relevant videos about {company}'s earnings or conference calls.
-        Use these criteria:
-        1. Title explicitly mentions the quarter
-        2. Published by official company channel or financial news sources
-        3. More recent videos preferred
-        4. Most directly relevant to financial results/earnings calls
+        Select EXACTLY ONE video per quarter (Q1, Q2, Q3, Q4) that is the most relevant
+        official earnings call for {company}.
+        
+        Use these criteria in priority order:
+        1. Must be an EARNINGS CALL or CONFERENCE CALL (not interviews or analyses)
+        2. Must be clearly for the specific quarter (Q1, Q2, Q3, Q4)
+        3. From the MOST RECENT available fiscal year
+        4. Official company channel preferred
+        5. Complete calls preferred over highlights
         
         Return a JSON object with this structure:
         {{
-          "Q1": [{{id: "video_id1", title: "title1"}}, ...],
-          "Q2": [{{id: "video_id2", title: "title2"}}, ...],
-          "Q3": [{{id: "video_id3", title: "title3"}}, ...],
-          "Q4": [{{id: "video_id4", title: "title4"}}, ...]
+          "Q1": [{{id: "video_id", title: "title"}}],
+          "Q2": [{{id: "video_id", title: "title"}}],
+          "Q3": [{{id: "video_id", title: "title"}}],
+          "Q4": [{{id: "video_id", title: "title"}}]
         }}
         
-        Include up to 4 videos per quarter, fewer if not enough relevant videos found.
+        Include EXACTLY ONE video per quarter when available.
+        If no suitable video exists for a quarter, return an empty array for that quarter.
         """
         
         messages = [
@@ -113,14 +114,21 @@ def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str,
             json_content = content
         
         selected_videos = json.loads(json_content)
-        print(f"[Corporate Meta Writer Agent] Selected {sum(len(v) for v in selected_videos.values())} videos across all quarters")
+        
+        # Log the results
+        video_count = sum(len(videos) for videos in selected_videos.values())
+        print(f"[Corporate Meta Writer Agent] Selected {video_count} videos (max one per quarter)")
+        for quarter, videos in selected_videos.items():
+            if videos:
+                print(f"[Corporate Meta Writer Agent] - {quarter}: {videos[0].get('title', 'Unknown')}")
+            else:
+                print(f"[Corporate Meta Writer Agent] - {quarter}: No suitable video found")
         
         return selected_videos
         
     except Exception as e:
         print(f"[Corporate Meta Writer Agent] Error selecting videos: {str(e)}")
         return quarterly_videos
-
 
 def generate_final_report(company: str, rag_results: Dict, transcript_results: List[Dict], 
                           corporate_results: Dict, llm) -> str:
@@ -389,9 +397,11 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
         print("[Corporate Meta Writer Agent] ERROR: Company name is missing!")
         return {**state, "goto": "END", "error": "Company name is required"}
     
-    if not pdf_path or not os.path.exists(pdf_path):
-        print(f"[Corporate Meta Writer Agent] ERROR: PDF file not found at {pdf_path}")
-        return {**state, "goto": "END", "error": f"PDF file not found at {pdf_path}"}
+    # PDF is now optional - just log a warning if not found
+    if pdf_path and not os.path.exists(pdf_path):
+        print(f"[Corporate Meta Writer Agent] WARNING: PDF file not found at {pdf_path}, continuing without document analysis")
+        pdf_path = None
+        state["pdf_path"] = None
     
     # Initialize LLM
     print("[Corporate Meta Writer Agent] MAIN: Initializing LLM")
@@ -406,7 +416,7 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
     current_step = state.get("corporate_meta_step", "start")
     print(f"[Corporate Meta Writer Agent] MAIN: Current step: '{current_step}'")
     
-    # STEP 1: Initial setup and route to RAG agent
+    # STEP 1: Initial setup and route to RAG agent if PDF is available
     if current_step == "start":
         print("[Corporate Meta Writer Agent] STEP 1: Loading preset queries and preparing RAG analysis...")
         
@@ -424,14 +434,25 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
             ]
             print(f"[Corporate Meta Writer Agent] DEBUG: Using fallback queries")
         
-        # Update state for RAG agent
-        state["rag_queries"] = queries
-        state["rag_pdf_path"] = pdf_path
-        state["is_file_embedded"] = False
+        # Update state for next step
         state["corporate_meta_step"] = "post_rag"
         
-        print(f"[Corporate Meta Writer Agent] STEP 1: Routing to rag_agent with {len(queries)} queries")
-        return {**state, "goto": "rag_agent"}
+        # Check if PDF is available for RAG analysis
+        if pdf_path:
+            # Update state for RAG agent
+            state["rag_queries"] = queries
+            state["rag_pdf_path"] = pdf_path
+            state["is_file_embedded"] = False
+            
+            print(f"[Corporate Meta Writer Agent] STEP 1: Routing to rag_agent with {len(queries)} queries")
+            return {**state, "goto": "rag_agent"}
+        else:
+            # Skip RAG analysis if no PDF
+            print("[Corporate Meta Writer Agent] STEP 1: No PDF provided, skipping RAG analysis")
+            state["rag_results"] = {}
+            
+            # Go directly to YouTube search
+            return {**state, "goto": "corporate_meta_writer_agent"}
     
     # STEP 2: After RAG analysis, route to YouTube agent for searches
     elif current_step == "post_rag":

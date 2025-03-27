@@ -43,7 +43,7 @@ class YoutubeTool:
         MULTIPLIER = self.multiplier
         MIN_WAIT = self.min_wait
         MAX_WAIT = self.max_wait
-    
+        
     @retry(stop=stop_after_attempt(RETRY_LIMIT), wait=wait_exponential(multiplier=MULTIPLIER, min=MIN_WAIT, max=MAX_WAIT))
     def get_transcript(self, video_id: str) -> Optional[str]:
         try:
@@ -54,11 +54,14 @@ class YoutubeTool:
             try:
                 transcript_list = self.transcriptor.list_transcripts(video_id)
                 fetched_transcript = next(iter(transcript_list)).fetch()
-            except (NoTranscriptFound, TranscriptsDisabled):
-                return "Failed to transcribe the video"
+                # Add return statement here
+                return " ".join(snippet.text for snippet in fetched_transcript)
+            except (NoTranscriptFound, TranscriptsDisabled) as e:
+                self.logger.error(f"No transcript found for video {video_id}: {e}")
+                return f"Failed to transcribe the video: No transcript available"
         except Exception as e:
             self.logger.error(f"Error fetching transcript: {e}")
-            return "Failed to transcribe the video"
+            return f"Failed to transcribe the video: {str(e)}"
     
     @retry(stop=stop_after_attempt(RETRY_LIMIT), wait=wait_exponential(multiplier=MULTIPLIER, min=MIN_WAIT, max=MAX_WAIT))
     def get_playlists_from_channel(self, channel_id: str, max_results: int = 50) -> List[Dict]:

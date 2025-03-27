@@ -151,7 +151,7 @@ class NewsForensicSystem:
         except Exception as e:
             logger.error(f"Failed to save state snapshot: {e}")
     
-    def run(self, company_name: str, industry: str = None, max_iterations: int = 20) -> Dict:
+    def run(self, company_name: str, industry: str = None, max_iterations: int = 6) -> Dict:
         """
         Run the full News Forensic workflow for a given company.
         
@@ -159,7 +159,7 @@ class NewsForensicSystem:
             company_name: The name of the company to analyze
             industry: Optional industry context for better research
             max_iterations: Maximum number of iterations to prevent infinite loops
-            
+                
         Returns:
             The final state containing analysis results and final report
         """
@@ -200,10 +200,25 @@ class NewsForensicSystem:
             
             current_state["iterations"] = iteration
             
-            if iteration % 5 == 0 or current_state.get("goto") in ["analyst_agent", "meta_agent_final"]:
+            # Only save snapshots occasionally to improve performance
+            if iteration % 3 == 0 or current_state.get("goto") in ["analyst_agent", "meta_agent_final"]:
                 self._save_state_snapshot(current_state, f"iter_{iteration}")
             
-            time.sleep(1)
+            # Add minimal delay only when necessary
+            if current_state.get("goto") == "research_agent":
+                time.sleep(0.5)
+            
+            # Accelerate transitions based on quality thresholds
+            if current_state.get("quality_assessment", {}).get("overall_score", 0) >= 6 and iteration > 1:
+                if current_state.get("goto") == "research_agent":
+                    logger.info("Quality threshold met, accelerating to analysis phase")
+                    current_state["goto"] = "analyst_agent"
+            
+            # Skip additional research iterations if we have enough data
+            if iteration >= 3 and current_state.get("research_results") and len(current_state.get("research_results", {})) > 3:
+                if current_state.get("goto") == "research_agent" and not current_state.get("analysis_results"):
+                    logger.info("Sufficient research data collected, proceeding to analysis")
+                    current_state["goto"] = "analyst_agent"
             
             current_state = self.app.invoke(
                 current_state,

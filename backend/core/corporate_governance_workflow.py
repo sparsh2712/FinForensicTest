@@ -201,16 +201,16 @@ class CorporateGovernanceSystem:
         except Exception as e:
             logger.error(f"Error saving final report: {e}")
     
-    def run(self, company_name: str, company_symbol: str, pdf_path: str, max_iterations: int = 20) -> Dict:
+    def run(self, company_name: str, company_symbol: str, pdf_path: str = None, max_iterations: int = 6) -> Dict:
         """
         Run the full Corporate Governance workflow for a given company.
         
         Args:
             company_name: The name of the company to analyze
             company_symbol: The stock symbol of the company
-            pdf_path: Path to the company report PDF
+            pdf_path: Path to the company report PDF (optional)
             max_iterations: Maximum number of iterations to prevent infinite loops
-            
+                
         Returns:
             The final state containing analysis results and final report
         """
@@ -225,7 +225,8 @@ class CorporateGovernanceSystem:
             "final_report": "",
             "report_sections": [],
             "start_time": self.start_time.isoformat(),
-            "iterations": 0
+            "iterations": 0,
+            "include_youtube_transcripts": True  # Default to True for backward compatibility
         }
         
         if not self.graph:
@@ -249,10 +250,26 @@ class CorporateGovernanceSystem:
             
             current_state["iterations"] = iteration
             
-            if iteration % 5 == 0 or current_state.get("goto") == END:
+            # Only save important state snapshots
+            if iteration % 3 == 0 or current_state.get("goto") == END:
                 self._save_state_snapshot(current_state, f"iter_{iteration}")
             
-            time.sleep(1)
+            # Optimize RAG processing
+            if current_state.get("corporate_meta_step") == "post_rag" and iteration > 1:
+                logger.info("RAG processing complete, optimizing transition")
+                if current_state.get("rag_results"):
+                    # Skip unnecessary steps if we have RAG results
+                    if "youtube_agent" in str(current_state.get("goto", "")):
+                        if not current_state.get("include_youtube_transcripts", True):
+                            logger.info("Skipping YouTube transcript analysis")
+                            current_state["goto"] = "corporate_agent"
+            
+            # Skip video transcription if not needed
+            if current_state.get("corporate_meta_step") == "select_videos" and not current_state.get("search_results"):
+                logger.info("No search results found, skipping transcription")
+                current_state["transcript_results"] = []
+                current_state["corporate_meta_step"] = "get_corporate_data"
+                current_state["goto"] = "corporate_agent"
             
             current_state = self.app.invoke(
                 current_state,
@@ -272,7 +289,7 @@ class CorporateGovernanceSystem:
         logger.info(f"Corporate governance analysis completed for {company_name} after {iteration} iterations")
         
         return current_state
-    
+            
     def get_summary(self) -> Dict:
         """
         Return a summary of the analysis process.
