@@ -192,39 +192,70 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
         print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate data: {len(corporate_json)} chars")
         
         prompt = f"""
-        You are a financial analyst creating a comprehensive report about {company} based on multiple data sources.
-        
-        Today's date: {current_date}
-        
-        Document Analysis Results (RAG):
-        {rag_json}
-        
-        Conference Call Information (Transcripts):
-        {transcript_json}
-        
-        NSE Corporate Data:
-        {corporate_json}
-        
-        Generate a comprehensive corporate analysis report with these sections:
+        You are a financial analyst creating a **comprehensive corporate analysis report** on **{{company}}**, using data from multiple sources.
 
-        1. Executive Summary
-        2. Key Personnel
-        3. Business Overview
-        4. Review Of Document Analysis Results 
-        5. Major Announcements made over the last Year 
-        6. Summary of last 4 Conference Calls
-        7. Major Governance Concerns
-        
-        
-        Key Personnel should have the details of board members, various committees and their members from the NSE Corporate data.
-        Review Of Document Analysis Results should contain a comprehensive detail based on document analysis result which retrieves information from the ESG Report of the company.
-        Major Announcements made over the last year should contain the 10 most important announcements and details of it from the NSE Corporate Data.
-        Summary of last 4 conference calls should have a section elaborating each conference call and then an overall summary. 
+        **Date:** {{current_date}}
 
-        IMPORTANT: You MUST include information from ALL data sources provided. If corporate data shows Key_Personnel information, you MUST include it. If transcript data exists, you MUST analyze it in detail. DO NOT state "no data available" if the data is present in the input.
+        ### Data Sources:
+        - **Document Analysis Results (RAG):** {{rag_json}}
+        - **Conference Call Information (Transcripts):** {{transcript_json}}
+        - **NSE Corporate Data:** {{corporate_json}}
 
-        Format the report in Markdown. Make it detailed, insightful, and professional.
+        Your task is to generate a **detailed, professional report** in **Markdown format** that covers the following sections:
+
+        ### **1. Executive Summary**
+        - Provide a high-level overview of the company's financial health, governance, and major developments.
+        - Summarize key takeaways from document analysis, conference calls, and NSE corporate data.
+        - Highlight any critical risks or opportunities.
+
+        ### **2. Key Personnel**
+        - Extract and list board members and committee members from the **NSE Corporate Data**.
+        - Ensure all major committees (Audit, Risk Management, Nomination & Remuneration, Stakeholders, etc.) are covered.
+        - Mention any notable changes in leadership over the past year.
+
+        ### **3. Business Overview**
+        - Provide a **concise summary of the company’s business model**, major revenue sources, and strategic focus.
+        - Use relevant data from **document analysis (RAG) and NSE Corporate Data**.
+        - Include insights on market position, competitors, and recent expansion or restructuring efforts.
+
+        ### **4. Review of Document Analysis Results**
+        - Extract **insights from the ESG Report and any other relevant documents** analyzed in the RAG system.
+        - Highlight key ESG-related initiatives, regulatory compliance, risks, and performance indicators.
+        - Discuss any notable patterns, trends, or issues identified.
+
+        ### **5. Major Announcements Made Over the Last Year**
+        - Extract and summarize the **10 most significant announcements** from the NSE Corporate Data.
+        - For each announcement, provide:
+        - **Date**
+        - **Title**
+        - **Key details and implications**
+        - Highlight trends in corporate actions, such as mergers, acquisitions, regulatory filings, or major investments.
+
+        ### **6. Summary of Last 4 Conference Calls**
+        - **Each conference call must be analyzed separately**, covering:
+        - **Call Date**
+        - **Key topics discussed**
+        - **Management commentary on financials, strategy, risks, and market outlook**
+        - **Investor and analyst concerns raised**
+        - **Any major commitments or guidance provided**
+        - After individual summaries, include an **overall analysis of key trends**, such as shifts in management tone, strategic pivots, or changing investor sentiment.
+
+        ### **7. Major Governance Concerns**
+        - Identify **governance risks or red flags** based on:
+        - **Board composition and independence**
+        - **Committee effectiveness**
+        - **Any irregularities in corporate actions or compliance issues**
+        - **Concerns raised in document analysis (RAG) or transcripts**
+        - Discuss any **ongoing regulatory investigations, legal issues, or shareholder activism** that could impact governance.
+
+        **IMPORTANT:**
+        - **Incorporate all available data.** If a data source provides relevant information, **you must include it**.
+        - **Do not omit sections due to missing data**—summarize key takeaways even if details are limited.
+        - **Ensure the report is structured, clear, and professional**, making it suitable for decision-makers.
+
+        Generate the final output **in Markdown format**, ensuring it is **insightful, well-structured, and backed by data**.
         """
+
         
         print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Constructing messages for LLM")
         messages = [
