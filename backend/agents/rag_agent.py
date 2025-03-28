@@ -1,12 +1,102 @@
 import os
 import gc
 import tracemalloc
-from typing import Dict
+from typing import Dict, List
 from backend.utils.ocr_vector_store import OCRVectorStore
 from backend.utils.utils import log_memory_usage, logger
 from dotenv import load_dotenv
+import yaml
+import json
+from langchain_google_genai import ChatGoogleGenerativeAI
+from backend.utils.prompt_manager import PromptManager
 
 load_dotenv()
+
+# Get current directory and base paths using relative references
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+
+# Load LLM config
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("rag_agent", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.0}
+
+# Initialize prompt manager
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
+
+def summarize_query_results(company: str, query: str, results: List[Dict]) -> str:
+    """
+    Summarize the RAG results for a specific query.
+    
+    Args:
+        company: The company name
+        query: The query that was asked
+        results: The retrieval results from the vector store
+    
+    Returns:
+        A concise summary of the information
+    """
+    print(f"[RAG Agent] Summarizing results for query: {query}")
+    
+    if not results:
+        print(f"[RAG Agent] No results to summarize for query: {query}")
+        return "No relevant information found for this query."
+    
+    try:
+        # Initialize LLM using the agent config
+        llm = ChatGoogleGenerativeAI(
+            model=AGENT_CONFIG["model"],
+            temperature=AGENT_CONFIG["temperature"]
+        )
+        
+        # Extract text content from results
+        context_texts = []
+        for result in results:
+            if "text" in result:
+                context_texts.append(result["text"])
+            else:
+                # Handle unexpected result format
+                context_texts.append(str(result))
+        
+        # Join context texts with separators
+        context = "\n\n---\n\n".join(context_texts)
+        
+        # Prepare variables for prompt template
+        variables = {
+            "company": company,
+            "query": query,
+            "context": context
+        }
+        
+        # Get prompts from prompt manager
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "rag_agent", 
+            "summarize_results", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        summary = response.content.strip()
+        
+        print(f"[RAG Agent] Successfully summarized query results, summary length: {len(summary)} chars")
+        return summary
+        
+    except Exception as e:
+        print(f"[RAG Agent] Error summarizing query results: {e}")
+        return f"Error during summarization: {str(e)}"
 
 def rag_agent(state: Dict) -> Dict:
     print("[RAG Agent] Starting document analysis process...")
@@ -16,6 +106,7 @@ def rag_agent(state: Dict) -> Dict:
     # Extract configuration from state
     rag_pdf_path = state.get("rag_pdf_path")
     rag_queries = state.get("rag_queries", [])
+    company = state.get("company", "Unknown Company")
     is_file_embedded = state.get("is_file_embedded", False)
     vector_store_dir = "vector_stores"
     index_type = "Flat"
@@ -86,6 +177,8 @@ def rag_agent(state: Dict) -> Dict:
     
     # Process queries
     query_results = {}
+    query_summaries = {}
+    
     if rag_queries:
         print(f"[RAG Agent] Processing {len(rag_queries)} queries")
         
@@ -115,6 +208,12 @@ def rag_agent(state: Dict) -> Dict:
                 
                 query_results[query] = simplified_results
                 
+                # NEW: Generate summary for this query's results
+                query_summary = summarize_query_results(company, query, simplified_results)
+                query_summaries[query] = query_summary
+                
+                print(f"[RAG Agent] Query {i+1} complete - Results summarized")
+                
                 log_memory_usage(f"after_query_{i+1}")
                 gc.collect()
                 log_memory_usage(f"after_query_{i+1}_gc")
@@ -122,9 +221,11 @@ def rag_agent(state: Dict) -> Dict:
             except Exception as e:
                 print(f"[RAG Agent] Error processing query '{query}': {e}")
                 query_results[query] = [{"error": str(e)}]
+                query_summaries[query] = f"Error processing query: {str(e)}"
     
-    # Update state with results
+    # Update state with results and summaries
     state["rag_results"] = query_results
+    state["rag_summaries"] = query_summaries  # NEW: Add summarized results to state
     state["rag_status"] = "DONE"
     state["rag_vector_store_path"] = doc_vector_dir
     

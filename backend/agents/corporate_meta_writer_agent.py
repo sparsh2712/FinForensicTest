@@ -133,20 +133,416 @@ def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str,
         print(f"[Corporate Meta Writer Agent] Error selecting videos: {str(e)}")
         return quarterly_videos
 
-def generate_final_report(company: str, rag_results: Dict, transcript_results: List[Dict], 
+def generate_executive_summary(company: str, current_date: str, sections: Dict[str, str], llm) -> str:
+    """Generate the executive summary section of the report."""
+    print(f"[Corporate Meta Writer Agent] Generating Executive Summary section")
+    
+    try:
+        # Create a summary of available sections for the executive summary
+        sections_summary = {}
+        for section_name, content in sections.items():
+            # Extract first paragraph or two from each section (simplified)
+            paragraphs = content.split('\n\n')
+            if len(paragraphs) > 2:
+                summary = '\n\n'.join(paragraphs[:2])  # Take first two paragraphs
+            else:
+                summary = content
+            sections_summary[section_name] = summary[:1000]  # Limit size
+        
+        # Convert to JSON for the prompt
+        sections_json = json.dumps(sections_summary, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "current_date": current_date,
+            "sections_summary": sections_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "executive_summary_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        summary = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] Executive Summary generated: {len(summary)} chars")
+        return summary
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating Executive Summary: {e}")
+        return f"# Executive Summary\n\nThis report provides a comprehensive analysis of {company} based on available data sources including corporate filings, conference call transcripts, and document analysis. The report examines the company's governance structure, business operations, sustainability initiatives, and recent developments.\n\nGenerated on: {current_date}"
+
+def generate_key_personnel_section(company: str, corporate_results: Dict, llm) -> str:
+    """Generate the key personnel section of the report."""
+    print(f"[Corporate Meta Writer Agent] Generating Key Personnel section")
+    
+    if not corporate_results or "Key_Personnel" not in corporate_results:
+        print(f"[Corporate Meta Writer Agent] No key personnel data found")
+        return "# Key Personnel\n\nNo key personnel information available for this company."
+    
+    try:
+        # Extract just the Key_Personnel data
+        key_personnel_data = corporate_results.get("Key_Personnel", {})
+        
+        # Convert to JSON for the prompt
+        key_personnel_json = json.dumps(key_personnel_data, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "key_personnel_data": key_personnel_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "key_personnel_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        section_content = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] Key Personnel section generated: {len(section_content)} chars")
+        return section_content
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating Key Personnel section: {e}")
+        return "# Key Personnel\n\nUnable to generate key personnel information due to technical error."
+
+def generate_business_overview_section(company: str, rag_summaries: Dict, llm) -> str:
+    """Generate the business overview section using document analysis results."""
+    print(f"[Corporate Meta Writer Agent] Generating Business Overview section")
+    
+    if not rag_summaries:
+        print(f"[Corporate Meta Writer Agent] No RAG summary data found")
+        return "# Business Overview\n\nNo document analysis results available for business overview."
+    
+    try:
+        # Find business-related queries
+        business_queries = [q for q in rag_summaries.keys() 
+                          if any(term in q.lower() for term in 
+                                ["business", "operation", "market", "product", "strategy", "model"])]
+        
+        # If no specific business queries, use all available queries
+        if not business_queries:
+            business_queries = list(rag_summaries.keys())[:3]  # Use first 3 queries
+        
+        # Extract summaries for business-related queries
+        business_data = {query: rag_summaries[query] for query in business_queries if query in rag_summaries}
+        
+        # Convert to JSON for the prompt
+        business_json = json.dumps(business_data, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "business_data": business_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "business_overview_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        section_content = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] Business Overview section generated: {len(section_content)} chars")
+        return section_content
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating Business Overview section: {e}")
+        return "# Business Overview\n\nUnable to generate business overview information due to technical error."
+
+def generate_esg_section(company: str, rag_summaries: Dict, llm) -> str:
+    """Generate the ESG/sustainability section using document analysis results."""
+    print(f"[Corporate Meta Writer Agent] Generating ESG/Sustainability section")
+    
+    if not rag_summaries:
+        print(f"[Corporate Meta Writer Agent] No RAG summary data found for ESG")
+        return "# Sustainability & ESG\n\nNo document analysis results available for sustainability and ESG information."
+    
+    try:
+        # Find ESG-related queries
+        esg_queries = [q for q in rag_summaries.keys() 
+                     if any(term in q.lower() for term in 
+                           ["sustainability", "esg", "environmental", "social", "governance", 
+                            "climate", "carbon", "emission", "diversity", "ethical"])]
+        
+        # If no specific ESG queries, look for relevant terms in other query results
+        if not esg_queries:
+            for query, summary in rag_summaries.items():
+                if any(term in summary.lower() for term in 
+                      ["sustainability", "esg", "environmental", "social", "governance", 
+                       "climate", "carbon", "emission", "diversity", "ethical"]):
+                    esg_queries.append(query)
+        
+        # Still no ESG queries, use generic ones if available
+        if not esg_queries and rag_summaries:
+            esg_queries = list(rag_summaries.keys())[:2]  # Use first 2 queries as fallback
+        
+        # Extract summaries for ESG-related queries
+        esg_data = {query: rag_summaries[query] for query in esg_queries if query in rag_summaries}
+        
+        # Convert to JSON for the prompt
+        esg_json = json.dumps(esg_data, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "esg_data": esg_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "esg_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        section_content = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] ESG section generated: {len(section_content)} chars")
+        return section_content
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating ESG section: {e}")
+        return "# Sustainability & ESG\n\nUnable to generate sustainability and ESG information due to technical error."
+
+def generate_announcements_section(company: str, corporate_results: Dict, llm) -> str:
+    """Generate the major announcements section using corporate data."""
+    print(f"[Corporate Meta Writer Agent] Generating Major Announcements section")
+    
+    announcements_data = {}
+    
+    # Extract relevant data from corporate results
+    if corporate_results:
+        # Include all corporate data EXCEPT Key_Personnel
+        for key, value in corporate_results.items():
+            if key != "Key_Personnel":
+                announcements_data[key] = value
+    
+    if not announcements_data:
+        print(f"[Corporate Meta Writer Agent] No announcements data found")
+        return "# Major Announcements\n\nNo corporate announcements data available."
+    
+    try:
+        # Convert to JSON for the prompt
+        announcements_json = json.dumps(announcements_data, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "announcements_data": announcements_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "announcements_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        section_content = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] Announcements section generated: {len(section_content)} chars")
+        return section_content
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating Announcements section: {e}")
+        return "# Major Announcements\n\nUnable to generate corporate announcements information due to technical error."
+
+def generate_conference_calls_section(company: str, transcript_results: List[Dict], llm) -> str:
+    """Generate the conference calls section using transcript data."""
+    print(f"[Corporate Meta Writer Agent] Generating Conference Calls section")
+    
+    if not transcript_results:
+        print(f"[Corporate Meta Writer Agent] No transcript data found")
+        return "# Conference Calls\n\nNo conference call transcript data available."
+    
+    try:
+        # Extract just the needed information - use summaries instead of full transcripts
+        summarized_data = []
+        for result in transcript_results:
+            summarized_data.append({
+                "title": result.get("title", "Untitled Call"),
+                "id": result.get("id", ""),
+                # Use transcript_summary instead of full transcript
+                "summary": result.get("transcript_summary", "No summary available.")
+            })
+        
+        # Convert to JSON for the prompt
+        transcript_json = json.dumps(summarized_data, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "transcript_data": transcript_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "conference_calls_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        section_content = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] Conference Calls section generated: {len(section_content)} chars")
+        return section_content
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating Conference Calls section: {e}")
+        return "# Conference Calls\n\nUnable to generate conference call information due to technical error."
+
+def generate_governance_concerns_section(company: str, corporate_results: Dict, transcript_results: List[Dict], rag_summaries: Dict, llm) -> str:
+    """Generate the governance concerns section using data from all sources."""
+    print(f"[Corporate Meta Writer Agent] Generating Governance Concerns section")
+    
+    if not (corporate_results or transcript_results or rag_summaries):
+        print(f"[Corporate Meta Writer Agent] No data found for governance concerns")
+        return "# Major Governance Concerns\n\nNo data available to analyze governance concerns."
+    
+    try:
+        # Create a combined dataset with key information from all sources
+        combined_data = {
+            "corporate_governance": {},
+            "transcript_concerns": [],
+            "document_concerns": {}
+        }
+        
+        # Extract key governance data from corporate results
+        if corporate_results and "Key_Personnel" in corporate_results:
+            combined_data["corporate_governance"] = {
+                "board_structure": corporate_results["Key_Personnel"].get("board_of_directors", []),
+                "committees": corporate_results["Key_Personnel"].get("communities", {})
+            }
+        
+        # Extract governance mentions from transcript summaries
+        if transcript_results:
+            for result in transcript_results:
+                summary = result.get("transcript_summary", "")
+                if any(term in summary.lower() for term in ["governance", "board", "compliance", "ethics",
+                                                          "regulatory", "risk", "audit", "oversight"]):
+                    combined_data["transcript_concerns"].append({
+                        "title": result.get("title", "Untitled Call"),
+                        "governance_content": summary
+                    })
+        
+        # Extract governance data from RAG summaries
+        if rag_summaries:
+            governance_queries = {}
+            for query, summary in rag_summaries.items():
+                if any(term in query.lower() or term in summary.lower() 
+                      for term in ["governance", "board", "compliance", "ethics", "regulatory", 
+                                  "risk", "audit", "oversight", "committee"]):
+                    governance_queries[query] = summary
+            combined_data["document_concerns"] = governance_queries
+        
+        # Convert to JSON for the prompt
+        combined_json = json.dumps(combined_data, indent=2)
+        
+        # Prepare variables for prompt
+        variables = {
+            "company": company,
+            "governance_data": combined_json
+        }
+        
+        # Get prompts
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "governance_concerns_section", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        section_content = response.content.strip()
+        
+        print(f"[Corporate Meta Writer Agent] Governance Concerns section generated: {len(section_content)} chars")
+        return section_content
+        
+    except Exception as e:
+        print(f"[Corporate Meta Writer Agent] Error generating Governance Concerns section: {e}")
+        return "# Major Governance Concerns\n\nUnable to generate governance concerns information due to technical error."
+
+def generate_final_report(company: str, rag_results: Dict, rag_summaries: Dict, transcript_results: List[Dict], 
                           corporate_results: Dict, llm) -> str:
     """
-    Generate a comprehensive report based on all collected data - passing raw data directly to the LLM
+    Generate a comprehensive report based on all collected data using a section-by-section approach.
     """
     print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Starting for company: {company}")
     print(f"[Corporate Meta Writer Agent] DEBUG: Input data summary:")
     print(f"[Corporate Meta Writer Agent] DEBUG: - RAG results: {type(rag_results)}, is None: {rag_results is None}")
+    print(f"[Corporate Meta Writer Agent] DEBUG: - RAG summaries: {type(rag_summaries)}, is None: {rag_summaries is None}")
+    print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript results: {type(transcript_results)}, is None: {transcript_results is None}")
+    print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate results: {type(corporate_results)}, is None: {corporate_results is None}")
+    
     if rag_results:
         print(f"[Corporate Meta Writer Agent] DEBUG: - RAG results contains {len(rag_results)} queries")
-    print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript results: {type(transcript_results)}, is None: {transcript_results is None}")
+    if rag_summaries:
+        print(f"[Corporate Meta Writer Agent] DEBUG: - RAG summaries contains {len(rag_summaries)} queries")
     if transcript_results:
         print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript results contains {len(transcript_results)} transcripts")
-    print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate results: {type(corporate_results)}, is None: {corporate_results is None}")
     if corporate_results:
         print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate results contains {len(corporate_results)} entries")
     
@@ -160,93 +556,106 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
         
         with open(os.path.join(debug_dir, "rag_results.json"), "w") as file:
             json.dump(rag_results, file, indent=4)
+            
+        with open(os.path.join(debug_dir, "rag_summaries.json"), "w") as file:
+            json.dump(rag_summaries, file, indent=4)
 
         with open(os.path.join(debug_dir, "transcript_results.json"), "w") as file:
             json.dump(transcript_results, file, indent=4)
         
         print(f"[Corporate Meta Writer Agent] DEBUG: Saved raw data to JSON files for debugging")
         
-        # Generate the report
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Preparing prompt for LLM")
+        # Current date for report
         current_date = datetime.now().strftime("%Y-%m-%d")
         
-        # Prepare data for prompt with size limitations
-        max_rag_size = 50000
-        max_transcript_size = 50000
-        max_corporate_size = 70000
+        # STEP 1: Generate individual sections
+        report_sections = {}
         
-        # Convert raw data to JSON for prompt, applying size limits if needed
-        rag_json = json.dumps(rag_results, indent=2)
-        transcript_json = json.dumps(transcript_results, indent=2)
-        corporate_json = json.dumps(corporate_results, indent=2)
+        # Generate Key Personnel section
+        print(f"[Corporate Meta Writer Agent] STEP: Generating Key Personnel section")
+        key_personnel_section = generate_key_personnel_section(company, corporate_results, llm)
+        report_sections["key_personnel"] = key_personnel_section
         
-        if len(rag_json) > max_rag_size:
-            print(f"[Corporate Meta Writer Agent] WARNING: RAG data too large ({len(rag_json)} chars), truncating to {max_rag_size} chars")
-            rag_json = rag_json[:max_rag_size]
+        # Generate Business Overview section
+        print(f"[Corporate Meta Writer Agent] STEP: Generating Business Overview section")
+        business_overview_section = generate_business_overview_section(company, rag_summaries, llm)
+        report_sections["business_overview"] = business_overview_section
         
-        if len(transcript_json) > max_transcript_size:
-            print(f"[Corporate Meta Writer Agent] WARNING: Transcript data too large ({len(transcript_json)} chars), truncating to {max_transcript_size} chars")
-            transcript_json = transcript_json
-            
-        if len(corporate_json) > max_corporate_size:
-            print(f"[Corporate Meta Writer Agent] WARNING: Corporate data too large ({len(corporate_json)} chars), truncating to {max_corporate_size} chars")
-            corporate_json = corporate_json
+        # Generate ESG section
+        print(f"[Corporate Meta Writer Agent] STEP: Generating ESG section")
+        esg_section = generate_esg_section(company, rag_summaries, llm)
+        report_sections["esg"] = esg_section
         
-        print(f"[Corporate Meta Writer Agent] DEBUG: Data prepared for prompt:")
-        print(f"[Corporate Meta Writer Agent] DEBUG: - RAG data: {len(rag_json)} chars")
-        print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript data: {len(transcript_json)} chars")
-        print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate data: {len(corporate_json)} chars")
+        # Generate Announcements section
+        print(f"[Corporate Meta Writer Agent] STEP: Generating Announcements section")
+        announcements_section = generate_announcements_section(company, corporate_results, llm)
+        report_sections["announcements"] = announcements_section
         
-        # Use prompt templates for generate_final_report
-        variables = {
-            "company": company,
-            "current_date": current_date,
-            "rag_json": rag_json,
-            "transcript_json": transcript_json,
-            "corporate_json": corporate_json
-        }
+        # Generate Conference Calls section
+        print(f"[Corporate Meta Writer Agent] STEP: Generating Conference Calls section")
+        conference_calls_section = generate_conference_calls_section(company, transcript_results, llm)
+        report_sections["conference_calls"] = conference_calls_section
         
-        system_prompt, human_prompt = prompt_manager.get_prompt(
-            "corporate_meta_writer_agent", 
-            "generate_final_report", 
-            variables
+        # Generate Governance Concerns section
+        print(f"[Corporate Meta Writer Agent] STEP: Generating Governance Concerns section")
+        governance_concerns_section = generate_governance_concerns_section(
+            company, corporate_results, transcript_results, rag_summaries, llm
         )
+        report_sections["governance_concerns"] = governance_concerns_section
         
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Constructing messages for LLM")
-        messages = [
-            ("system", system_prompt),
-            ("human", human_prompt)
+        # Generate Executive Summary (last, after other sections are done)
+        print(f"[Corporate Meta Writer Agent] STEP: Generating Executive Summary")
+        executive_summary = generate_executive_summary(company, current_date, report_sections, llm)
+        report_sections["executive_summary"] = executive_summary
+        
+        # STEP 2: Combine all sections into final report
+        print(f"[Corporate Meta Writer Agent] STEP: Assembling final report")
+        
+        # Define section order
+        section_order = [
+            "executive_summary", 
+            "key_personnel", 
+            "business_overview", 
+            "esg", 
+            "announcements", 
+            "conference_calls", 
+            "governance_concerns"
         ]
         
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Invoking LLM")
-        response = llm.invoke(messages)
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - LLM response received")
+        # Combine sections in order
+        report_parts = [f"# {company} Analysis Report\n\nReport Date: {current_date}\n"]
         
-        # Check if response is None
-        if response is None:
-            print(f"[Corporate Meta Writer Agent] ERROR: LLM response is None")
-            raise ValueError("LLM response is None")
-            
-        # Check if response.content exists and is not None
-        if not hasattr(response, 'content') or response.content is None:
-            print(f"[Corporate Meta Writer Agent] ERROR: LLM response has no content attribute or content is None")
-            raise ValueError("LLM response has no content")
-            
-        report = response.content.strip()
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Report generated successfully with {len(report)} characters")
+        for section_name in section_order:
+            if section_name in report_sections and report_sections[section_name]:
+                # Get section content
+                section_content = report_sections[section_name]
+                
+                # Check if section already has a header
+                if not section_content.startswith('#'):
+                    # Add header with proper level
+                    section_title = section_name.replace('_', ' ').title()
+                    section_content = f"## {section_title}\n\n{section_content}"
+                
+                # Add to report
+                report_parts.append(section_content)
+        
+        # Join all parts with separators
+        final_report = "\n\n".join(report_parts)
+        
+        print(f"[Corporate Meta Writer Agent] STEP: Final report assembled with {len(final_report)} characters")
         
         # Check if expected sections are in the report
         expected_sections = ["Key Personnel", "Major Announcements", "Conference Calls", "Business Overview"]
         missing_sections = []
         for section in expected_sections:
-            if section.lower() not in report.lower() and section not in report:
+            if section.lower() not in final_report.lower() and section not in final_report:
                 missing_sections.append(section)
         
         if missing_sections:
             print(f"[Corporate Meta Writer Agent] WARNING: Report is missing these sections: {missing_sections}")
         
         print(f"[Corporate Meta Writer Agent] Successfully generated report for {company}")
-        return report
+        return final_report
         
     except Exception as e:
         print(f"[Corporate Meta Writer Agent] ERROR: Error generating report: {str(e)}")
@@ -343,7 +752,7 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
         # Update state for next step
         state["corporate_meta_step"] = "post_rag"
         
-        # Check if PDF is available for RAG analysis
+        # Check if PDF path exists for RAG analysis
         if pdf_path:
             # Update state for RAG agent
             state["rag_queries"] = queries
@@ -356,6 +765,7 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
             # Skip RAG analysis if no PDF
             print("[Corporate Meta Writer Agent] STEP 1: No PDF provided, skipping RAG analysis")
             state["rag_results"] = {}
+            state["rag_summaries"] = {}
             
             # Go directly to YouTube search
             return {**state, "goto": "corporate_meta_writer_agent"}
@@ -366,9 +776,15 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
         
         # Check RAG results
         rag_results = state.get("rag_results", {})
+        rag_summaries = state.get("rag_summaries", {})  # Get the new summaries
+        
         print(f"[Corporate Meta Writer Agent] DEBUG: RAG results received: {type(rag_results)}, is None: {rag_results is None}")
+        print(f"[Corporate Meta Writer Agent] DEBUG: RAG summaries received: {type(rag_summaries)}, is None: {rag_summaries is None}")
+        
         if rag_results:
             print(f"[Corporate Meta Writer Agent] DEBUG: RAG results contain {len(rag_results)} queries")
+        if rag_summaries:
+            print(f"[Corporate Meta Writer Agent] DEBUG: RAG summaries contain {len(rag_summaries)} summaries")
         
         # Create conference call search queries
         search_queries = [
@@ -465,7 +881,8 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
             for i, result in enumerate(transcript_results):
                 if "title" in result and "transcript" in result:
                     transcript = result.get("transcript", "")
-                    print(f"[Corporate Meta Writer Agent] DEBUG: Transcript {i+1} '{result.get('title', 'Unknown')}' length: {len(transcript) if transcript else 0}")
+                    summary = result.get("transcript_summary", "")
+                    print(f"[Corporate Meta Writer Agent] DEBUG: Transcript {i+1} '{result.get('title', 'Unknown')}' - full transcript length: {len(transcript) if transcript else 0}, summary length: {len(summary) if summary else 0}")
                 else:
                     print(f"[Corporate Meta Writer Agent] WARNING: Transcript {i+1} missing required fields: title present: {'title' in result}, transcript present: {'transcript' in result}")
         
@@ -480,13 +897,17 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
         
         # Extract all collected data
         rag_results = state.get("rag_results", {})
+        rag_summaries = state.get("rag_summaries", {})  # Get the summaries
         transcript_results = state.get("transcript_results", [])
         corporate_results = state.get("corporate_results", {})
         
         print(f"[Corporate Meta Writer Agent] DEBUG: Data summary before report generation:")
         print(f"[Corporate Meta Writer Agent] DEBUG: - RAG results: {type(rag_results)}, is None: {rag_results is None}")
+        print(f"[Corporate Meta Writer Agent] DEBUG: - RAG summaries: {type(rag_summaries)}, is None: {rag_summaries is None}")
         if rag_results:
             print(f"[Corporate Meta Writer Agent] DEBUG: - RAG results contain {len(rag_results)} queries")
+        if rag_summaries:
+            print(f"[Corporate Meta Writer Agent] DEBUG: - RAG summaries contain {len(rag_summaries)} summaries")
         print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript results: {type(transcript_results)}, is None: {transcript_results is None}")
         if transcript_results:
             print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript results contain {len(transcript_results)} transcripts")
@@ -494,11 +915,12 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
         if corporate_results:
             print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate results contain {len(corporate_results)} entries")
         
-        # Generate the final report
+        # Generate the final report using our new section-by-section approach
         print("[Corporate Meta Writer Agent] STEP 5: Calling generate_final_report function")
         final_report = generate_final_report(
             company, 
             rag_results,
+            rag_summaries,
             transcript_results,
             corporate_results,
             llm

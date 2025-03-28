@@ -549,21 +549,21 @@
     "BoardMeetings": [
         {
             "date": "27-Oct-2023",
-            "symbol": "Financial Results",
-            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, October 27, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter and half-year ended September 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter and half-year ended September 30, 2023 shall be made on the same day after the meeting.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_20102023181644_SEBoardMeetingNoticeQ3.pdf"
-        },
-        {
-            "date": "27-Oct-2023",
             "symbol": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Board Meeting to be held on 27-Oct-2023 to inter-alia consider and approve the Unaudited Financial results of the Company for the Quarterly ended September 2023 .",
             "description": "Board Meeting Intimation",
             "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_12112_963819_20102023062037_WEB.xml"
         },
         {
+            "date": "27-Oct-2023",
+            "symbol": "Financial Results",
+            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, October 27, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter and half-year ended September 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter and half-year ended September 30, 2023 shall be made on the same day after the meeting.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_20102023181644_SEBoardMeetingNoticeQ3.pdf"
+        },
+        {
             "date": "21-Jul-2023",
-            "symbol": "Dividend",
-            "description": "To recommend dividend on equity shares of the Company for the financial year ended March 31, 2023.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17072023204755_SE.pdf"
+            "symbol": "Financial Results",
+            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, July 21, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter ended June 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter ended June 30, 2023 shall be made on the same day after the meeting.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14072023205724_SEBoardMeetingNotice.pdf"
         },
         {
             "date": "21-Jul-2023",
@@ -573,9 +573,9 @@
         },
         {
             "date": "21-Jul-2023",
-            "symbol": "Financial Results",
-            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, July 21, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter ended June 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter ended June 30, 2023 shall be made on the same day after the meeting.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14072023205724_SEBoardMeetingNotice.pdf"
+            "symbol": "Dividend",
+            "description": "To recommend dividend on equity shares of the Company for the financial year ended March 31, 2023.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17072023204755_SE.pdf"
         },
         {
             "date": "21-Apr-2023",
@@ -591,15 +591,15 @@
         },
         {
             "date": "20-Jan-2023",
-            "symbol": "Financial Results",
-            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions ofthe Securities and Exchange Board of India (Listing Obligations and DisclosureRequirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board ofDirectors of the Company is scheduled to be held on Friday, January 20, 2023, inter alia,to consider and approve the standalone and consolidated unaudited financial results of theCompany for the quarter / nine months ended December 31, 2022.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13012023181632_BMIntimation13012023.pdf"
-        },
-        {
-            "date": "20-Jan-2023",
             "symbol": "Fund Raising",
             "description": "We wish to inform you that it is proposed to consider raising of funds by way of issuance of listed, secured / unsecured, redeemable non-convertible debentures on private placement basis, in one or more tranches / series, at the Board Meeting scheduled to be held on Friday, January 20, 2023.",
             "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17012023231349_SEIntimation17012023.pdf"
+        },
+        {
+            "date": "20-Jan-2023",
+            "symbol": "Financial Results",
+            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions ofthe Securities and Exchange Board of India (Listing Obligations and DisclosureRequirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board ofDirectors of the Company is scheduled to be held on Friday, January 20, 2023, inter alia,to consider and approve the standalone and consolidated unaudited financial results of theCompany for the quarter / nine months ended December 31, 2022.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13012023181632_BMIntimation13012023.pdf"
         }
     ],
     "CorporateActions": [

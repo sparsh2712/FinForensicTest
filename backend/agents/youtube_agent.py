@@ -11,7 +11,9 @@ from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, Tran
 from googleapiclient.discovery import build
 import os
 from dotenv import load_dotenv
+import yaml
 
+# Load environment variables
 load_dotenv()
 
 logger = logging.getLogger("youtube_agent")
@@ -20,6 +22,27 @@ RETRY_LIMIT = 3
 MULTIPLIER = 2
 MIN_WAIT = 0.5
 MAX_WAIT = 10
+
+# Load LLM config
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("youtube_agent", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.0}
+
+# Import LLM and prompt manager for summarization
+from langchain_google_genai import ChatGoogleGenerativeAI
+from backend.utils.prompt_manager import PromptManager
+
+# Initialize prompt manager
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
 
 class YoutubeTool:    
     def __init__(self, config):
@@ -230,10 +253,75 @@ class YoutubeTool:
             self.logger.error(f"API error searching videos: {e}")
             return []
 
+def summarize_transcript(company: str, transcript_data: Dict) -> Dict:
+    """
+    Summarize a transcript with focus on corporate governance aspects.
+    
+    Args:
+        company: The company name
+        transcript_data: Dictionary containing transcript information
+    
+    Returns:
+        Dictionary with original transcript and added summary
+    """
+    print(f"[YouTube Agent] Summarizing transcript for: {transcript_data.get('title', 'Unknown video')}")
+    
+    if not transcript_data.get("transcript"):
+        print(f"[YouTube Agent] No transcript content to summarize")
+        return {**transcript_data, "transcript_summary": "No transcript content available to summarize."}
+    
+    try:
+        # Initialize LLM using the agent config
+        llm = ChatGoogleGenerativeAI(
+            model=AGENT_CONFIG["model"],
+            temperature=AGENT_CONFIG["temperature"]
+        )
+        
+        # Prepare variables for prompt template
+        variables = {
+            "company": company,
+            "video_title": transcript_data.get("title", "Unknown"),
+            "transcript": transcript_data.get("transcript", "")[:50000]  # Limit transcript size if needed
+        }
+        
+        # Get prompts from prompt manager
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "youtube_agent", 
+            "transcript_summary", 
+            variables
+        )
+        
+        # Create messages for LLM
+        messages = [
+            ("system", system_prompt),
+            ("human", human_prompt)
+        ]
+        
+        # Get response from LLM
+        response = llm.invoke(messages)
+        summary = response.content.strip()
+        
+        print(f"[YouTube Agent] Successfully summarized transcript, summary length: {len(summary)} chars")
+        
+        # Return data with added summary
+        return {
+            **transcript_data, 
+            "transcript_summary": summary
+        }
+        
+    except Exception as e:
+        print(f"[YouTube Agent] Error summarizing transcript: {e}")
+        # Return original data with error message
+        return {
+            **transcript_data, 
+            "transcript_summary": f"Error during summarization: {str(e)}"
+        }
+
 def youtube_agent(state: Dict) -> Dict:
     print("[YouTube Agent] Starting YouTube processing...")
     
     youtube_agent_action = state.get("youtube_agent_action")
+    company = state.get("company", "Unknown Company")
     
     if not youtube_agent_action:
         print("[YouTube Agent] ERROR: No action specified")
@@ -326,13 +414,17 @@ def youtube_agent(state: Dict) -> Dict:
                     # Use the tool directly to get transcript
                     transcript = youtube_tool.get_transcript(video_id)
                     
-                    transcript_results.append({
+                    transcript_data = {
                         "title": video_title,
                         "id": video_id,
                         "transcript": transcript
-                    })
+                    }
                     
-                    print(f"[YouTube Agent] Successfully transcribed video: {video_title}")
+                    # NEW: Add transcript summarization with corporate governance focus
+                    transcript_data = summarize_transcript(company, transcript_data)
+                    transcript_results.append(transcript_data)
+                    
+                    print(f"[YouTube Agent] Successfully transcribed and summarized video: {video_title}")
                     
                     # Add a small delay between transcription requests
                     if i < len(video_ids) - 1:
@@ -344,13 +436,14 @@ def youtube_agent(state: Dict) -> Dict:
                         "title": video_title,
                         "id": video_id,
                         "transcript": "Error: Failed to retrieve transcript",
+                        "transcript_summary": "Error: Failed to retrieve and summarize transcript",
                         "error": str(e)
                     })
             
             state["transcript_results"] = transcript_results
             state["youtube_status"] = "DONE"
             
-            print(f"[YouTube Agent] Transcription complete. Processed {len(transcript_results)} videos.")
+            print(f"[YouTube Agent] Transcription and summarization complete. Processed {len(transcript_results)} videos.")
         
         # INVALID ACTION
         else:
