@@ -598,6 +598,15 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
             llm
         )
         
+        with open("corporate_data_temp.json", "w") as file:
+            json.dump(corporate_results, file, indent=4)
+        
+        with open("rag_results.json", "w") as file:
+            json.dump(rag_results, file, indent=4)
+
+        with open("transcript_results.json", "w") as file:
+            json.dump(transcript_results, file, indent=4)
+        
         print(f"[Corporate Meta Writer Agent] DEBUG: Final report received, length: {len(final_report) if final_report else 0}")
         
         # Update state with final report
