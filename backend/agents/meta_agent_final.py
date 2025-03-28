@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from backend.utils.prompt_manager import PromptManager
 
-prompt_manager = PromptManager("/home/satyam/Desktop/FinForensicTest/backend/prompts")
+prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
 
 def select_top_events(events: Dict, event_metadata: Dict, max_detailed_events: int = 6) -> Tuple[List[str], List[str]]:
     """

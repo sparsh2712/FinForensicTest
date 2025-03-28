@@ -224,7 +224,7 @@ def analyze_for_embedding(text, encoding_name="cl100k_base") -> Tuple[int, Dict[
         "Cohere embed-multilingual-v3.0": 512,
         "Azure OpenAI Embeddings": 8191,
         "Mistral embed": 8192,
-        "Vertex AI Embeddings": 3072,
+        "Vertex AI Embeddings": 768,
         "Anthropic Embed": 9000,   # Approximate
         "Gemini embedding": 8000,  # As of March 2025
     }

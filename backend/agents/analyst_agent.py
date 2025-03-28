@@ -106,7 +106,7 @@ processing_stats = ProcessingStats()
 progress_queue = queue.Queue()
 
 # llm_provider = LLMProviderManager()
-prompt_manager = PromptManager("/home/satyam/Desktop/FinForensicTest/backend/prompts")
+prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
 
 def fetch_article_content(url: str, max_retries: int = 3, timeout: int = 30) -> Tuple[Optional[str], Optional[dict]]:
     """
