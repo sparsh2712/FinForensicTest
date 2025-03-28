@@ -23,13 +23,13 @@ def load_preset_queries(preset_file: Optional[str] = None) -> List[str]:
         print(f"[Corporate Meta Writer Agent] Error loading preset queries: {e}")
         # Return some default queries as fallback
         return [
-            "What are the company’s key sustainability goals and targets?",
+            "What are the company's key sustainability goals and targets?",
             "How does the company measure and report its ESG performance?",
             "What initiatives has the company taken to reduce its environmental impact?",
             "How does the company manage risks related to climate change and resource scarcity?",
             "What policies does the company have in place for ethical governance and compliance?",
             "How does the company ensure diversity, equity, and inclusion in its workforce?",
-            "What are the company’s commitments to responsible sourcing and supply chain sustainability?",
+            "What are the company's commitments to responsible sourcing and supply chain sustainability?",
             "How does the company engage with stakeholders on ESG issues?",
             "What frameworks or standards does the company follow for ESG reporting?",
             "How does the company integrate ESG considerations into its long-term business strategy?"
@@ -133,7 +133,7 @@ def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str,
 def generate_final_report(company: str, rag_results: Dict, transcript_results: List[Dict], 
                           corporate_results: Dict, llm) -> str:
     """
-    Generate a comprehensive report based on all collected data
+    Generate a comprehensive report based on all collected data - passing raw data directly to the LLM
     """
     print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Starting for company: {company}")
     print(f"[Corporate Meta Writer Agent] DEBUG: Input data summary:")
@@ -148,173 +148,80 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
         print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate results contains {len(corporate_results)} entries")
     
     try:
-        # Prepare transcript summaries
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Preparing transcript summaries")
-        transcript_summaries = []
+        # Save raw data to JSON files for debugging
+        with open("corporate_data_temp.json", "w") as file:
+            json.dump(corporate_results, file, indent=4)
         
-        # Validate transcript_results
-        if transcript_results is None:
-            print(f"[Corporate Meta Writer Agent] WARNING: transcript_results is None, initializing as empty list")
-            transcript_results = []
-            
-        for i, result in enumerate(transcript_results):
-            print(f"[Corporate Meta Writer Agent] DEBUG: Processing transcript {i+1}/{len(transcript_results)}")
-            if "transcript" in result and "title" in result:
-                transcript = result["transcript"]
-                
-                # Check if transcript is None
-                if transcript is None:
-                    print(f"[Corporate Meta Writer Agent] WARNING: Transcript {i+1} is None for title: {result.get('title', 'Unknown')}")
-                    continue
-                    
-                print(f"[Corporate Meta Writer Agent] DEBUG: Transcript {i+1} length: {len(transcript) if transcript else 0}")
-                
-                # Truncate long transcripts for the prompt
-                if len(transcript) > 2000:
-                    transcript = transcript[:2000] + "... [truncated]"
-                
-                transcript_summaries.append({
-                    "title": result["title"],
-                    "transcript_summary": transcript
-                })
-            else:
-                print(f"[Corporate Meta Writer Agent] WARNING: Transcript {i+1} missing required fields: transcript present: {'transcript' in result}, title present: {'title' in result}")
+        with open("rag_results.json", "w") as file:
+            json.dump(rag_results, file, indent=4)
+
+        with open("transcript_results.json", "w") as file:
+            json.dump(transcript_results, file, indent=4)
         
-        print(f"[Corporate Meta Writer Agent] DEBUG: Created {len(transcript_summaries)} transcript summaries")
-        
-        # Prepare RAG results
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Preparing RAG results")
-        rag_findings = []
-        
-        # Validate rag_results
-        if rag_results is None:
-            print(f"[Corporate Meta Writer Agent] WARNING: rag_results is None, initializing as empty dict")
-            rag_results = {}
-            
-        for query, results in rag_results.items():
-            print(f"[Corporate Meta Writer Agent] DEBUG: Processing RAG query: {query}")
-            
-            # Check if results is None
-            if results is None:
-                print(f"[Corporate Meta Writer Agent] WARNING: Results for query '{query}' is None")
-                continue
-                
-            print(f"[Corporate Meta Writer Agent] DEBUG: Query has {len(results)} results")
-            
-            relevant_texts = []
-            # Take top 3 results per query
-            for i, result in enumerate(results[:3] if results else []):  
-                if result is None:
-                    print(f"[Corporate Meta Writer Agent] WARNING: Result {i+1} for query '{query}' is None")
-                    continue
-                    
-                text = result.get("text", "")
-                if text is None:
-                    print(f"[Corporate Meta Writer Agent] WARNING: Text for result {i+1} is None")
-                    text = ""
-                    
-                # Truncate long texts
-                relevant_texts.append(text[:500])
-            
-            rag_findings.append({
-                "query": query,
-                "findings": relevant_texts
-            })
-        
-        print(f"[Corporate Meta Writer Agent] DEBUG: Created {len(rag_findings)} RAG findings")
-        
-        # Summarize corporate results
-        print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Summarizing corporate results")
-        corporate_summary = {}
-        
-        # Validate corporate_results
-        if corporate_results is None:
-            print(f"[Corporate Meta Writer Agent] WARNING: corporate_results is None, initializing as empty dict")
-            corporate_results = {}
-            
-        for data_type, data in corporate_results.items():
-            print(f"[Corporate Meta Writer Agent] DEBUG: Processing corporate data type: {data_type}")
-            
-            # Check if data is None
-            if data is None:
-                print(f"[Corporate Meta Writer Agent] WARNING: Data for type '{data_type}' is None")
-                corporate_summary[data_type] = "No data available"
-                continue
-                
-            if isinstance(data, list):
-                print(f"[Corporate Meta Writer Agent] DEBUG: Data type '{data_type}' is a list with {len(data)} items")
-                if data:
-                    corporate_summary[data_type] = f"{len(data)} entries found"
-                else:
-                    corporate_summary[data_type] = "No entries found"
-            elif isinstance(data, dict):
-                print(f"[Corporate Meta Writer Agent] DEBUG: Data type '{data_type}' is a dict with {len(data)} items")
-                if data:
-                    corporate_summary[data_type] = f"{len(data)} entries found"
-                else:
-                    corporate_summary[data_type] = "Empty dictionary"
-            else:
-                print(f"[Corporate Meta Writer Agent] WARNING: Data type '{data_type}' has unexpected type: {type(data)}")
-                corporate_summary[data_type] = "No data available"
-        
-        print(f"[Corporate Meta Writer Agent] DEBUG: Created corporate summary with {len(corporate_summary)} entries")
+        print(f"[Corporate Meta Writer Agent] DEBUG: Saved raw data to JSON files for debugging")
         
         # Generate the report
         print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Preparing prompt for LLM")
         current_date = datetime.now().strftime("%Y-%m-%d")
         
-        # Validate input for JSON serialization
-        print(f"[Corporate Meta Writer Agent] DEBUG: Validating data for JSON serialization")
-        try:
-            json.dumps(rag_findings, indent=2)
-            print(f"[Corporate Meta Writer Agent] DEBUG: RAG findings successfully serialized to JSON")
-        except Exception as e:
-            print(f"[Corporate Meta Writer Agent] ERROR: Failed to serialize RAG findings to JSON: {str(e)}")
-            rag_findings = [{"query": "Error in data", "findings": ["Error serializing RAG data"]}]
+        # Prepare data for prompt with size limitations
+        max_rag_size = 50000
+        max_transcript_size = 50000
+        max_corporate_size = 70000
+        
+        # Convert raw data to JSON for prompt, applying size limits if needed
+        rag_json = json.dumps(rag_results, indent=2)
+        transcript_json = json.dumps(transcript_results, indent=2)
+        corporate_json = json.dumps(corporate_results, indent=2)
+        
+        if len(rag_json) > max_rag_size:
+            print(f"[Corporate Meta Writer Agent] WARNING: RAG data too large ({len(rag_json)} chars), truncating to {max_rag_size} chars")
+            rag_json = rag_json[:max_rag_size] + "... [truncated]"
+        
+        if len(transcript_json) > max_transcript_size:
+            print(f"[Corporate Meta Writer Agent] WARNING: Transcript data too large ({len(transcript_json)} chars), truncating to {max_transcript_size} chars")
+            transcript_json = transcript_json[:max_transcript_size] + "... [truncated]"
             
-        try:
-            json.dumps(transcript_summaries, indent=2)
-            print(f"[Corporate Meta Writer Agent] DEBUG: Transcript summaries successfully serialized to JSON")
-        except Exception as e:
-            print(f"[Corporate Meta Writer Agent] ERROR: Failed to serialize transcript summaries to JSON: {str(e)}")
-            transcript_summaries = [{"title": "Error", "transcript_summary": "Error serializing transcript data"}]
-            
-        try:
-            json.dumps(corporate_summary, indent=2)
-            print(f"[Corporate Meta Writer Agent] DEBUG: Corporate summary successfully serialized to JSON")
-        except Exception as e:
-            print(f"[Corporate Meta Writer Agent] ERROR: Failed to serialize corporate summary to JSON: {str(e)}")
-            corporate_summary = {"Error": "Failed to serialize corporate data"}
+        if len(corporate_json) > max_corporate_size:
+            print(f"[Corporate Meta Writer Agent] WARNING: Corporate data too large ({len(corporate_json)} chars), truncating to {max_corporate_size} chars")
+            corporate_json = corporate_json[:max_corporate_size] + "... [truncated]"
+        
+        print(f"[Corporate Meta Writer Agent] DEBUG: Data prepared for prompt:")
+        print(f"[Corporate Meta Writer Agent] DEBUG: - RAG data: {len(rag_json)} chars")
+        print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript data: {len(transcript_json)} chars")
+        print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate data: {len(corporate_json)} chars")
         
         prompt = f"""
         You are a financial analyst creating a comprehensive report about {company} based on multiple data sources.
         
         Today's date: {current_date}
         
-        Document Analysis Results:
-        {json.dumps(rag_findings, indent=2)}
+        Document Analysis Results (RAG):
+        {rag_json}
         
-        Conference Call Information:
-        {json.dumps(transcript_summaries, indent=2)}
+        Conference Call Information (Transcripts):
+        {transcript_json}
         
         NSE Corporate Data:
-        {json.dumps(corporate_summary, indent=2)}
+        {corporate_json}
         
         Generate a comprehensive corporate analysis report with these sections:
 
         1. Executive Summary
-        2. Key Personel
-        2. Business Overview
-        3. Review Of Document Analysis Results 
-        4. Major Announcements made over the last Year 
-        5. Summary of last 4 Conference Calls
-        6. Major Governance Concerns
+        2. Key Personnel
+        3. Business Overview
+        4. Review Of Document Analysis Results 
+        5. Major Announcements made over the last Year 
+        6. Summary of last 4 Conference Calls
+        7. Major Governance Concerns
         
         
-        Key personel should have the details of board memebers,various comitees and their members. (NSE Corporate data)
-        Review Of Document Analysis Results should contain a comprehensive detail based on document analysis result which retrieves information from the ESG Report of the company
-        Major Announcemenrs made over the last year should contain the 10 most important announcements and details of it. (NSE Corporate Data)
-        Summary of last 4 conference calls should have a section elabborating each conference call and then an overall summary. 
+        Key Personnel should have the details of board members, various committees and their members from the NSE Corporate data.
+        Review Of Document Analysis Results should contain a comprehensive detail based on document analysis result which retrieves information from the ESG Report of the company.
+        Major Announcements made over the last year should contain the 10 most important announcements and details of it from the NSE Corporate Data.
+        Summary of last 4 conference calls should have a section elaborating each conference call and then an overall summary. 
+
+        IMPORTANT: You MUST include information from ALL data sources provided. If corporate data shows Key_Personnel information, you MUST include it. If transcript data exists, you MUST analyze it in detail. DO NOT state "no data available" if the data is present in the input.
 
         Format the report in Markdown. Make it detailed, insightful, and professional.
         """
@@ -341,6 +248,16 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
             
         report = response.content.strip()
         print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Report generated successfully with {len(report)} characters")
+        
+        # Check if expected sections are in the report
+        expected_sections = ["Key Personnel", "Major Announcements", "Conference Calls", "Business Overview"]
+        missing_sections = []
+        for section in expected_sections:
+            if section.lower() not in report.lower() and section not in report:
+                missing_sections.append(section)
+        
+        if missing_sections:
+            print(f"[Corporate Meta Writer Agent] WARNING: Report is missing these sections: {missing_sections}")
         
         print(f"[Corporate Meta Writer Agent] Successfully generated report for {company}")
         return report
@@ -597,15 +514,6 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
             corporate_results,
             llm
         )
-        
-        with open("corporate_data_temp.json", "w") as file:
-            json.dump(corporate_results, file, indent=4)
-        
-        with open("rag_results.json", "w") as file:
-            json.dump(rag_results, file, indent=4)
-
-        with open("transcript_results.json", "w") as file:
-            json.dump(transcript_results, file, indent=4)
         
         print(f"[Corporate Meta Writer Agent] DEBUG: Final report received, length: {len(final_report) if final_report else 0}")
         
