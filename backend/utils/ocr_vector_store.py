@@ -13,7 +13,7 @@ load_dotenv()
 
 class OCRVectorStore:
     def __init__(self, index_type: str = "Flat", 
-                 chunk_size: int = 1000, 
+                 chunk_size: int = 10000, 
                  chunk_overlap: int = 200):
         logger.warning("INITIALIZING OCR VECTOR STORE")
         log_memory_usage("init_start")

@@ -8,8 +8,26 @@ from langgraph.graph import END
 from dotenv import load_dotenv
 load_dotenv()
 from backend.utils.prompt_manager import PromptManager
+import yaml
 
-prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
+# Get current directory and base paths using relative references
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+
+# Load LLM config
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("meta_agent_final", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.2}
+
+
+# Initialize prompt manager with path relative to current file
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
 
 def select_top_events(events: Dict, event_metadata: Dict, max_detailed_events: int = 6) -> Tuple[List[str], List[str]]:
     """
@@ -169,7 +187,8 @@ def meta_agent_final(state: Dict) -> Dict:
     report_sections = []
     
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.1)
+        # Use AGENT_CONFIG for LLM initialization
+        llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
         print("[Meta Agent Final] Initialized language model.")
         
         top_events, other_events = select_top_events(research_results, event_metadata, max_detailed_events=6)
@@ -244,7 +263,7 @@ def meta_agent_final(state: Dict) -> Dict:
         print("[Meta Agent Final] Report generation successfully completed.")
         
         try:
-            debug_dir = "debug/reports"
+            debug_dir = os.path.join(BASE_DIR, "debug", "reports")
             if not os.path.exists(debug_dir):
                 os.makedirs(debug_dir, exist_ok=True)
             

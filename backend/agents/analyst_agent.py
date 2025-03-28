@@ -12,12 +12,32 @@ import concurrent.futures
 from threading import Lock
 import traceback
 import queue
+import os
+import yaml
 
 # from backend.utils.llm_provider import LLMProviderManager
 from backend.utils.prompt_manager import PromptManager
 
 from dotenv import load_dotenv
 load_dotenv()
+
+# Get current directory and base paths using relative references
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+
+# Load LLM config
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("analyst_agent", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.2}
+
+# Initialize prompt manager with path relative to current file
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
 
 class ThreadSafeKnowledgeBase:
     def __init__(self):
@@ -104,9 +124,6 @@ class ProcessingStats:
 processing_stats = ProcessingStats()
 
 progress_queue = queue.Queue()
-
-# llm_provider = LLMProviderManager()
-prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
 
 def fetch_article_content(url: str, max_retries: int = 3, timeout: int = 30) -> Tuple[Optional[str], Optional[dict]]:
     """
@@ -195,7 +212,8 @@ def extract_forensic_insights(company: str, title: str, content: str, event_name
         return None
         
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+        # Use AGENT_CONFIG for LLM initialization
+        llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
         
         variables = {
             "company": company,
@@ -305,7 +323,8 @@ def synthesize_event_insights(company: str, event_name: str, insights_list: List
         
     progress_queue.put(f"Synthesizing {len(insights_list)} insights for event: {event_name}")  
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+        # Use AGENT_CONFIG for LLM initialization
+        llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
         
         simplified_insights = []
         for insight in insights_list:
@@ -365,7 +384,8 @@ def generate_company_analysis(company: str, events_synthesis: Dict, guidance: Di
     progress_queue.put(f"Generating comprehensive analysis for {company} based on {len(events_synthesis)} events")
     
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+        # Use AGENT_CONFIG for LLM initialization
+        llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
         
         simplified_events = {}
         for event_name, event_data in events_synthesis.items():

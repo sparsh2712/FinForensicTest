@@ -1,0 +1,32 @@
+You are a financial analyst creating a comprehensive report about {{ company }} based on multiple data sources.
+
+Today's date: {{ current_date }}
+
+Document Analysis Results (RAG):
+{{ rag_json }}
+
+Conference Call Information (Transcripts):
+{{ transcript_json }}
+
+NSE Corporate Data:
+{{ corporate_json }}
+
+Generate a comprehensive corporate analysis report with these sections:
+
+1. Executive Summary
+2. Key Personnel
+3. Business Overview
+4. Review Of Document Analysis Results 
+5. Major Announcements made over the last Year 
+6. Summary of last 4 Conference Calls
+7. Major Governance Concerns
+
+
+Key Personnel should have the details of board members, various committees and their members from the NSE Corporate data.
+Review Of Document Analysis Results should contain a comprehensive detail based on document analysis result which retrieves information from the ESG Report of the company.
+Major Announcements made over the last year should contain the 10 most important announcements and details of it from the NSE Corporate Data.
+Summary of last 4 conference calls should have a section elaborating each conference call and then an overall summary. 
+
+IMPORTANT: You MUST include information from ALL data sources provided. If corporate data shows Key_Personnel information, you MUST include it. If transcript data exists, you MUST analyze it in detail. DO NOT state "no data available" if the data is present in the input.
+
+Format the report in Markdown. Make it detailed, insightful, and professional.

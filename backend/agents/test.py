@@ -4,11 +4,16 @@ prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/pr
 
 variables = {
             "company": "company",
-            "title": "title",
-            "event_name": "event_name",
-            "content": "content"
+            "current_date": "current_date",
+            "rag_json": "rag_json",
+            "transcript_json": "transcript_json",
+            "corporate_json": "corporate_json"
         }
+        
+system_prompt, human_prompt = prompt_manager.get_prompt(
+    "corporate_meta_writer_agent", 
+    "generate_final_report", 
+    variables
+)
 
-system_prompt, human_prompt  = prompt_manager.get_prompt("analyst_agent", "forensic_insights_extract", variables)
-
-print(system_prompt)
+print(human_prompt)

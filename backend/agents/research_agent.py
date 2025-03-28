@@ -10,6 +10,7 @@ import os
 import logging
 from dotenv import load_dotenv
 from backend.utils.prompt_manager import PromptManager
+import yaml 
 
 load_dotenv()
 
@@ -17,8 +18,23 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 # Use environment variable or default path for prompts directory
-prompts_dir = os.environ.get("PROMPTS_DIR", None)
-prompt_manager = PromptManager(prompts_dir)
+# Get current directory and base paths using relative references
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+
+# Load LLM config
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("research_agent", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.3}
+
+# Initialize prompt manager with path relative to current file
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
 
 def is_quarterly_report_article(title: str, snippet: str = "") -> bool:
     """
@@ -177,7 +193,7 @@ def group_results(company: str, articles: List[Dict], industry: str = None) -> D
     regular_events = {}
     if other_articles:
         try:
-            llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+            llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
 
             simplified_articles = []
             for i, article in enumerate(other_articles):
@@ -325,7 +341,7 @@ def generate_queries(company: str, industry: str, research_plan: Dict, query_his
     Generate search queries based on a research plan given by the meta agent, research plans can be basic research guidelines or hyper specific questions.
     """
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.3)
+        llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
 
         variables = {
             "company": company,

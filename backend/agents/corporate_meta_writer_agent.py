@@ -7,14 +7,33 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 load_dotenv()
 
+# Get current directory and base paths using relative references
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+
+# Load LLM config
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("corporate_meta_writer_agent", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.2}
+
+from backend.utils.prompt_manager import PromptManager
+
+# Initialize prompt manager with path relative to current file
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
+
 def load_preset_queries(preset_file: Optional[str] = None) -> List[str]:
     """
     Load preset queries from a YAML file
     """
     if preset_file is None:
         # Use relative path by default
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        preset_file = os.path.join(base_dir, "assets", "preset_queries.yaml")
+        preset_file = os.path.join(BASE_DIR, "assets", "preset_queries.yaml")
     try:
         with open(preset_file, "r") as file:
             data = yaml.safe_load(file)
@@ -68,38 +87,22 @@ def select_relevant_videos(company: str, search_results: Dict, llm) -> Dict[str,
             print(f"[Corporate Meta Writer Agent] No videos found for {company}")
             return quarterly_videos
         
-        # Use LLM to select relevant videos - exactly one per quarter
-        prompt = f"""
-        You are tasked with identifying the MOST RELEVANT conference call or earnings call video for {company} for EACH QUARTER.
+        all_videos = json.dumps(all_videos, indent=2)
+        # Use prompt templates for select_relevant_videos
+        variables = {
+            "company": company,
+            "all_videos": all_videos
+        }
         
-        Here are YouTube search results for conference calls and earnings calls:
-        {json.dumps(all_videos, indent=2)}
-        
-        Select EXACTLY ONE video per quarter (Q1, Q2, Q3, Q4) that is the most relevant
-        official earnings call for {company}.
-        
-        Use these criteria in priority order:
-        1. Must be an EARNINGS CALL or CONFERENCE CALL (not interviews or analyses)
-        2. Must be clearly for the specific quarter (Q1, Q2, Q3, Q4)
-        3. From the MOST RECENT available fiscal year
-        4. Official company channel preferred
-        5. Complete calls preferred over highlights
-        
-        Return a JSON object with this structure:
-        {{
-          "Q1": [{{id: "video_id", title: "title"}}],
-          "Q2": [{{id: "video_id", title: "title"}}],
-          "Q3": [{{id: "video_id", title: "title"}}],
-          "Q4": [{{id: "video_id", title: "title"}}]
-        }}
-        
-        Include EXACTLY ONE video per quarter when available.
-        If no suitable video exists for a quarter, return an empty array for that quarter.
-        """
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "select_relevant_videos", 
+            variables
+        )
         
         messages = [
-            ("system", "You are an AI assistant that helps identify relevant financial videos for companies."),
-            ("human", prompt)
+            ("system", system_prompt),
+            ("human", human_prompt)
         ]
         
         response = llm.invoke(messages)
@@ -149,13 +152,16 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
     
     try:
         # Save raw data to JSON files for debugging
-        with open("corporate_data_temp.json", "w") as file:
+        debug_dir = os.path.join(BASE_DIR, "debug")
+        os.makedirs(debug_dir, exist_ok=True)
+        
+        with open(os.path.join(debug_dir, "corporate_data_temp.json"), "w") as file:
             json.dump(corporate_results, file, indent=4)
         
-        with open("rag_results.json", "w") as file:
+        with open(os.path.join(debug_dir, "rag_results.json"), "w") as file:
             json.dump(rag_results, file, indent=4)
 
-        with open("transcript_results.json", "w") as file:
+        with open(os.path.join(debug_dir, "transcript_results.json"), "w") as file:
             json.dump(transcript_results, file, indent=4)
         
         print(f"[Corporate Meta Writer Agent] DEBUG: Saved raw data to JSON files for debugging")
@@ -176,60 +182,40 @@ def generate_final_report(company: str, rag_results: Dict, transcript_results: L
         
         if len(rag_json) > max_rag_size:
             print(f"[Corporate Meta Writer Agent] WARNING: RAG data too large ({len(rag_json)} chars), truncating to {max_rag_size} chars")
-            rag_json = rag_json[:max_rag_size] + "... [truncated]"
+            rag_json = rag_json[:max_rag_size]
         
         if len(transcript_json) > max_transcript_size:
             print(f"[Corporate Meta Writer Agent] WARNING: Transcript data too large ({len(transcript_json)} chars), truncating to {max_transcript_size} chars")
-            transcript_json = transcript_json[:max_transcript_size] + "... [truncated]"
+            transcript_json = transcript_json
             
         if len(corporate_json) > max_corporate_size:
             print(f"[Corporate Meta Writer Agent] WARNING: Corporate data too large ({len(corporate_json)} chars), truncating to {max_corporate_size} chars")
-            corporate_json = corporate_json[:max_corporate_size] + "... [truncated]"
+            corporate_json = corporate_json
         
         print(f"[Corporate Meta Writer Agent] DEBUG: Data prepared for prompt:")
         print(f"[Corporate Meta Writer Agent] DEBUG: - RAG data: {len(rag_json)} chars")
         print(f"[Corporate Meta Writer Agent] DEBUG: - Transcript data: {len(transcript_json)} chars")
         print(f"[Corporate Meta Writer Agent] DEBUG: - Corporate data: {len(corporate_json)} chars")
         
-        prompt = f"""
-        You are a financial analyst creating a comprehensive report about {company} based on multiple data sources.
+        # Use prompt templates for generate_final_report
+        variables = {
+            "company": company,
+            "current_date": current_date,
+            "rag_json": rag_json,
+            "transcript_json": transcript_json,
+            "corporate_json": corporate_json
+        }
         
-        Today's date: {current_date}
-        
-        Document Analysis Results (RAG):
-        {rag_json}
-        
-        Conference Call Information (Transcripts):
-        {transcript_json}
-        
-        NSE Corporate Data:
-        {corporate_json}
-        
-        Generate a comprehensive corporate analysis report with these sections:
-
-        1. Executive Summary
-        2. Key Personnel
-        3. Business Overview
-        4. Review Of Document Analysis Results 
-        5. Major Announcements made over the last Year 
-        6. Summary of last 4 Conference Calls
-        7. Major Governance Concerns
-        
-        
-        Key Personnel should have the details of board members, various committees and their members from the NSE Corporate data.
-        Review Of Document Analysis Results should contain a comprehensive detail based on document analysis result which retrieves information from the ESG Report of the company.
-        Major Announcements made over the last year should contain the 10 most important announcements and details of it from the NSE Corporate Data.
-        Summary of last 4 conference calls should have a section elaborating each conference call and then an overall summary. 
-
-        IMPORTANT: You MUST include information from ALL data sources provided. If corporate data shows Key_Personnel information, you MUST include it. If transcript data exists, you MUST analyze it in detail. DO NOT state "no data available" if the data is present in the input.
-
-        Format the report in Markdown. Make it detailed, insightful, and professional.
-        """
+        system_prompt, human_prompt = prompt_manager.get_prompt(
+            "corporate_meta_writer_agent", 
+            "generate_final_report", 
+            variables
+        )
         
         print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Constructing messages for LLM")
         messages = [
-            ("system", "You are an expert financial analyst specializing in comprehensive corporate research."),
-            ("human", prompt)
+            ("system", system_prompt),
+            ("human", human_prompt)
         ]
         
         print(f"[Corporate Meta Writer Agent] STEP: Generate Final Report - Invoking LLM")
@@ -323,7 +309,10 @@ def corporate_meta_writer_agent(state: Dict) -> Dict:
     # Initialize LLM
     print("[Corporate Meta Writer Agent] MAIN: Initializing LLM")
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
+        llm = ChatGoogleGenerativeAI(
+            model=AGENT_CONFIG["model"], 
+            temperature=AGENT_CONFIG["temperature"]
+        )
         print("[Corporate Meta Writer Agent] DEBUG: LLM initialized successfully")
     except Exception as e:
         print(f"[Corporate Meta Writer Agent] ERROR: Failed to initialize LLM: {e}")

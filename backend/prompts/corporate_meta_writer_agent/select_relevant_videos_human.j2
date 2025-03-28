@@ -1,0 +1,25 @@
+You are tasked with identifying the MOST RELEVANT conference call or earnings call video for {{ company }} for EACH QUARTER.
+
+Here are YouTube search results for conference calls and earnings calls:
+{{ all_videos }}
+
+Select EXACTLY ONE video per quarter (Q1, Q2, Q3, Q4) that is the most relevant
+official earnings call for {{ company }}.
+
+Use these criteria in priority order:
+1. Must be an EARNINGS CALL or CONFERENCE CALL (not interviews or analyses)
+2. Must be clearly for the specific quarter (Q1, Q2, Q3, Q4)
+3. From the MOST RECENT available fiscal year
+4. Official company channel preferred
+5. Complete calls preferred over highlights
+
+Return a JSON object with this structure:
+{
+  "Q1": [{id: "video_id", title: "title"}],
+  "Q2": [{id: "video_id", title: "title"}],
+  "Q3": [{id: "video_id", title: "title"}],
+  "Q4": [{id: "video_id", title: "title"}]
+}
+
+Include EXACTLY ONE video per quarter when available.
+If no suitable video exists for a quarter, return an empty array for that quarter.

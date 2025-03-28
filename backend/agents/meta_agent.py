@@ -4,10 +4,27 @@ from typing import Dict, List, Union
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from backend.utils.prompt_manager import PromptManager
+import yaml
 
 load_dotenv()
 
-prompt_manager = PromptManager("/Users/sparsh/Desktop/FinForensicTest/backend/prompts")
+# Get current directory and base paths using relative references
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)  # Go up one level from /agents to /backend
+
+# Load LLM config
+LLM_CONFIG_PATH = os.path.join(BASE_DIR, "assets", "llm_config.yaml")
+try:
+    with open(LLM_CONFIG_PATH, 'r') as f:
+        LLM_CONFIG = yaml.safe_load(f)
+    # Get agent-specific config or fall back to default
+    AGENT_CONFIG = LLM_CONFIG.get("meta_agent", LLM_CONFIG.get("default", {}))
+except Exception as e:
+    print(f"Error loading LLM config: {e}, using defaults")
+    AGENT_CONFIG = {"model": "gemini-2.0-flash", "temperature": 0.0}
+
+# Initialize prompt manager with path relative to current file
+prompt_manager = PromptManager(os.path.join(BASE_DIR, "prompts"))
 
 def load_preliminary_research_guidelines(company: str, industry: str) -> List[str]:
     """
@@ -36,7 +53,7 @@ def evaluate_research_quality(company: str, industry: str, research_results: Dic
             "recommendations": {"default recommendation": "Continue with available research while addressing technical issues."}
         }
     
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
     variables = {
         "company": company,
         "industry": industry,
@@ -80,7 +97,7 @@ def identify_research_gaps(company: str, industry: str, event_name: str,
         A dictionary of gap topics and descriptions, or empty dict if no gaps
     """
     try:
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+        llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
         variables = {
             "company": company, 
             "industry": industry,
@@ -133,7 +150,7 @@ def create_research_plan(company: str, research_gaps: Union[List[Dict], Dict], p
     if not research_gaps:
         return {}
         
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
     
     variables = {
         "company": company,
@@ -182,7 +199,7 @@ def generate_analysis_guidance(company: str, research_results: Dict) -> Dict:
             "red_flags": ["Insufficient information available"]
         }
     
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
     variables = {
         "company": company,
         "research_results": research_results,
@@ -211,7 +228,7 @@ def evaluate_analysis_completeness(company: str, industry: str, research_results
     """
     Evaluate the completeness of the analysis and identify areas that need more research.
     """
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model=AGENT_CONFIG["model"], temperature=AGENT_CONFIG["temperature"])
     variables = {
         "company": company,
         "industry": industry,

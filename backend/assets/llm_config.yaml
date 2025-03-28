@@ -1,0 +1,39 @@
+# Simple LLM configuration file
+# Each agent specifies the model to use
+
+analyst_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.0
+
+corporate_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.0
+
+corporate_meta_writer_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.2
+
+meta_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.0
+
+meta_agent_final:
+  model: "gemini-2.0-flash"
+  temperature: 0.1
+
+rag_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.0
+
+research_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.3
+
+youtube_agent:
+  model: "gemini-2.0-flash"
+  temperature: 0.0
+
+# Default if not specified
+default:
+  model: "gemini-2.0-flash"
+  temperature: 0.0

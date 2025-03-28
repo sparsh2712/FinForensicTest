@@ -1,0 +1,842 @@
+{
+    "Announcements": [
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_31122023192614_SELetter_311223.pdf",
+            "description": "Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 is attached.",
+            "time": "31-Dec-2023 19:26:20"
+        },
+        {
+            "event_type": "Credit Rating",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_31122023134235_RELIANCE.pdf",
+            "description": "Re-affirmation of rating with respect to the bank loan facilities and Commercial Paper of the Company",
+            "time": "31-Dec-2023 13:42:42"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_29122023182712_LOSS_OF_SHARE_1005096_29122023062711_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "29-Dec-2023 18:27:19"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_29122023181329_LossOfCert29122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) received from the shareholder(s) of the Company onDecember 28, 2023 and December 29, 2023 aggregating to 10,706 (Ten Thousand SevenHundred and Six) shares. As required under SEBI Circular No. SEBI / HO / MIRSD /MIRSD_ RTAMB / P / CIR / 2022 / 8 dated January 25, 2022, the Company shall issue Letter of Confirmation  to the shareholders after compliance of required formalities.",
+            "time": "29-Dec-2023 18:13:36"
+        },
+        {
+            "event_type": "Trading Window-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_29122023170446_CLOSURE_TRADING_WINDOW_1004825_29122023050445_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Closure of Trading Window",
+            "time": "29-Dec-2023 17:04:58"
+        },
+        {
+            "event_type": "Trading Window",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_29122023165859_SEClosureofTradingWindow.pdf",
+            "description": "Reliance Industries Limited has informed the Exchange regarding the Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015",
+            "time": "29-Dec-2023 16:59:04"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_28122023185114_LOSS_OF_SHARE_1003828_28122023065113_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "28-Dec-2023 18:51:25"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_28122023184245_LossofCert27122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 5,119 (Five Thousand One Hundred andNineteen) shares received from the shareholder(s) of the Company on December 27,2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR/2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "28-Dec-2023 18:42:50"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_27122023181230_LOSS_OF_SHARE_1002721_27122023061229_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "27-Dec-2023 18:12:34"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_27122023180009_LossOfCert26122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) for 12,888 (Twelve Thousand Eight Hundred and Eighty-Eight) shares received from the shareholder(s) of the Company on December 26, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
+            "time": "27-Dec-2023 18:00:18"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_26122023182622_LOSS_OF_SHARE_1001956_26122023062621_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Issue of duplicate share certificates/Letter of Confirmation",
+            "time": "26-Dec-2023 18:26:29"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_22122023193541_LOSS_OF_SHARE_1000906_22122023073540_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "22-Dec-2023 19:35:48"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_21122023181206_LOSS_OF_SHARE_1000085_21122023061205_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "21-Dec-2023 18:12:18"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_20122023181348_LOSS_OF_SHARE_999523_20122023061347_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Loss of share certificates",
+            "time": "20-Dec-2023 18:13:52"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_19122023193146_LOSS_OF_SHARE_999048_19122023073145_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Issue of duplicate share certificates/Letter of Confirmation",
+            "time": "19-Dec-2023 19:31:54"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_19122023182943_LOSS_OF_SHARE_998972_19122023062942_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "19-Dec-2023 18:29:50"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17122023143708_RILSE_171223.pdf",
+            "description": "Disclosure under Regulation 30 of the Securities and Exchange Board of India(Listing Obligations and Disclosure Requirements) Regulations, 2015 is attached.",
+            "time": "17-Dec-2023 14:37:15"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_15122023190133_LOSS_OF_SHARE_997760_15122023070132_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "15-Dec-2023 19:01:38"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_15122023180114_LOSS_OF_SHARE_997657_15122023060113_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Issue of duplicate share certificates/Letter of Confirmation",
+            "time": "15-Dec-2023 18:01:21"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_15122023155447_SE_15122023.pdf",
+            "description": "We wish to inform that the Company has today, received the Second Tranche Amount of Rs. 50,000 per debenture from all the holders of 7.79% Secured, Redeemable, Non-Convertible Debentures - PPD Series P ( PPD Series P ) aggregating Rs. 10,000 crore and the paid-up value of PPD Series P has increased from Rs. 50,000 per debenture to Rs. 1,00,000 per debenture and consequently the said debentures have become fully paid-up.",
+            "time": "15-Dec-2023 15:54:54"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14122023231736_SE_14122023.pdf",
+            "description": "Moody s has reaffirmed the credit rating of  Baa2  with a  Stable  outlook issued by it, for the Senior Unsecured US$ Denominated Fixed Rate Notes of the Company",
+            "time": "14-Dec-2023 23:17:42"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_14122023183920_LOSS_OF_SHARE_997128_14122023063919_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "14-Dec-2023 18:39:26"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_14122023183147_LOSS_OF_SHARE_997119_14122023063146_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "14-Dec-2023 18:31:54"
+        },
+        {
+            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_14122023181335_LOSS_OF_SHARE_997094_14122023061335_WEB.xml",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
+            "time": "14-Dec-2023 18:13:42"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13122023183535_LossofCert12122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 23,820 (Twenty Three Thousand Eight Hundredand Twenty) shares received from the shareholder(s) of the Company on December 12,2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR/2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "13-Dec-2023 18:35:42"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13122023183342_IssuanceofCert13122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015 and in terms of SEBICircular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P / CIR / 2022 / 8 dated January 25,2022, we enclose the details of  Letter(s) of Confirmation  issued by the Company to itsshareholders, in lieu of share certificate(s) reported as lost by them.",
+            "time": "13-Dec-2023 18:33:48"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_12122023215554_LossofCert11122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 9,506 (Nine Thousand Five Hundred and Six)shares received from the shareholder(s) of the Company on December 11, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "12-Dec-2023 21:55:58"
+        },
+        {
+            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204255_REG30_Restructuring_996136_12122023084254_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "time": "12-Dec-2023 20:42:59"
+        },
+        {
+            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204234_REG30_Restructuring_996135_12122023084234_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "time": "12-Dec-2023 20:42:40"
+        },
+        {
+            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204213_REG30_Restructuring_996134_12122023084212_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "time": "12-Dec-2023 20:42:18"
+        },
+        {
+            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204143_REG30_Restructuring_996133_12122023084142_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "time": "12-Dec-2023 20:41:50"
+        },
+        {
+            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204114_REG30_Restructuring_996132_12122023084113_WEB.xml",
+            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
+            "time": "12-Dec-2023 20:41:20"
+        },
+        {
+            "event_type": "Acquisition",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_12122023181853_SE_12122023.pdf",
+            "description": "Update on Investment in each of the five Indian wholly-owned subsidiaries of Mercury Holdings SG Pte. Ltd., (held through Mercury India SG FDI Pte. Ltd.) which is a joint venture betweenBrookfield Infrastructure and Digital Realty",
+            "time": "12-Dec-2023 18:18:57"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_08122023194504_LossofCert08122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) received from the shareholder(s) of the Company onDecember 07, 2023 and December 08, 2023 aggregating to 13,700 (Thirteen Thousandand Seven Hundred) shares. As required under SEBI Circular No. SEBI / HO / MIRSD /MIRSD_ RTAMB / P / CIR / 2022 / 8 dated January 25, 2022, the Company shall issue Letter of Confirmation  to the shareholders after compliance of required formalities.",
+            "time": "08-Dec-2023 19:45:11"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_07122023184811_LossofCert06122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 11,645 (Eleven Thousand Six Hundred and Forty-Five) shares received from the shareholder(s) of the Company on December 06, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "07-Dec-2023 18:48:15"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_07122023175952_Reg30_071223.pdf",
+            "description": "Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Details of guarantees given by the Company to the lenders of Alok Industries Limited is attached.",
+            "time": "07-Dec-2023 18:00:04"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_06122023172842_LossofCert05122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 6,485 (Six Thousand Four Hundred and Eighty-Five) shares received from the shareholder(s) of the Company on December 05, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "06-Dec-2023 17:28:49"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_05122023182402_LossofCert04122023.pdf",
+            "description": "Reliance Industries Limited has informed the Exchange about Loss of Share Certificates",
+            "time": "05-Dec-2023 18:24:07"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_04122023182247_IssuanceofCert04122023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015 and in terms of SEBICircular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P / CIR / 2022 / 8 dated January 25,2022, we enclose the details of  Letter(s) of Confirmation  issued by the Company to itsshareholders, in lieu of share certificate(s) reported as lost by them.",
+            "time": "04-Dec-2023 18:22:58"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_01122023172148_SEIntimation_CallNotice_signed.pdf",
+            "description": "Disclosure under Regulations 30 and 51 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Notice for payment of the Second Tranche Amount of Rs. 50,000 per debenture by the holders of 7.79% Secured, Redeemable, Non-Convertible Debentures - PPD Series P is attached.",
+            "time": "01-Dec-2023 17:21:53"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_01122023165131_LossofCert30112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 3,277 (Three Thousand Two Hundred andSeventy-Seven) shares received from the shareholder(s) of the Company on December01, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P/CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  tothe shareholders after compliance of required formalities.",
+            "time": "01-Dec-2023 16:51:37"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_30112023185917_LossOfCert29112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) for 5,905 (Five Thousand Nine Hundred and Five) shares received from the shareholder(s) of the Company on November 29, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
+            "time": "30-Nov-2023 18:59:24"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_30112023175448_CLSA_Post.pdf",
+            "description": "This is further to the disclosure dated November 22, 2023 made by the Company. We wish toinform you that the Company executives participated in the Institutional Investors Meeting - CLSA India Forum on November 29 & 30, 2023 at Mumbai and no unpublished price sensitive information was shared / discussed in the said one-on-one meeting",
+            "time": "30-Nov-2023 17:54:54"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_29112023185237_LossofCert28112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 3,110 (Three Thousand One Hundred and Ten)shares received from the shareholder(s) of the Company on November 28, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "29-Nov-2023 18:52:46"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_28112023182530_IssuanceofCert28112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015 and in terms of SEBICircular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P / CIR / 2022 / 8 dated January 25,2022, we enclose the details of  Letter(s) of Confirmation  issued by the Company to itsshareholders, in lieu of share certificate(s) reported as lost by them.",
+            "time": "28-Nov-2023 18:25:35"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_24112023171042_LossOfCert24112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) received from the shareholder(s) of the Company on November 23, 2023 and November 24, 2023 aggregating to 5,864 (Five Thousand Eight Hundred and Sixty Four) shares. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_ RTAMB / P / CIR / 2022 / 8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
+            "time": "24-Nov-2023 17:10:49"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_23112023174254_LossOfCert22112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) for 7,658 (Seven Thousand Six Hundred and Fifty-Eight) shares received from the shareholder(s) of the Company on November 22, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
+            "time": "23-Nov-2023 17:43:05"
+        },
+        {
+            "event_type": "Loss of Share Certificates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_22112023183500_LossofCert21112023.pdf",
+            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 4,547 (Four Thousand Five Hundred and Forty-Seven) shares received from the shareholder(s) of the Company on November 21, 2023.As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR/2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
+            "time": "22-Nov-2023 18:35:10"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_22112023182541_Post_JM.pdf",
+            "description": "This is further to the disclosure dated November 16, 2023 made by the Company. We wish toinform you that the Company executives participated in the  Institutional Investors Meeting - JM Financial India Conference on November 22, 2023  at Mumbai and no unpublished price sensitive information was shared / discussed in the said one-on-one meeting",
+            "time": "22-Nov-2023 18:25:52"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_22112023181457_Pre_CLSA.pdf",
+            "description": "Reliance Industries Limited has informed the Exchange about Schedule of meet",
+            "time": "22-Nov-2023 18:15:05"
+        }
+    ],
+    "AnnXBRL": [
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_12752_969649_27102023094145_WEB.xml",
+            "time": "27-Oct-2023 21:41:46",
+            "appId": "12752",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Non - Executive Non -Independent Director",
+                        "auditorName": "Akash M. Ambani",
+                        "effectiveReginationDate": "27-Oct-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "Available on the website of the Company - www.ril.com",
+                        "discRelationBetDirector": "Son of Shri Mukesh D. Ambani, Chairman & Managing Director. Brother of Ms. Isha M. Ambani and Shri Anant M. Ambani.",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Non - Executive Non -Independent Director",
+                        "auditorName": "Anant M. Ambani",
+                        "effectiveReginationDate": "27-Oct-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "Available on the website of the Company - www.ril.com",
+                        "discRelationBetDirector": "Son of Shri Mukesh D. Ambani, Chairman & Managing Director. Brother of Ms. Isha M. Ambani and Shri Akash M. Ambani.",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Non - Executive Non -Independent Director",
+                        "auditorName": "Isha M. Ambani",
+                        "effectiveReginationDate": "27-Oct-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "Available on the website of the Company - www.ril.com",
+                        "discRelationBetDirector": "Daughter of Shri Mukesh D. Ambani, Chairman & Managing Director. Sister of Shri Akash M. Ambani and Shri Anant M. Ambani.",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    }
+                ]
+            }
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_10013_924121_29082023015812_WEB.xml",
+            "time": "29-Aug-2023 13:58:13",
+            "appId": "10013",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Resignation",
+                        "designation": "Non - Executive Non -Independent Director",
+                        "auditorName": "Nita M. Ambani",
+                        "effectiveReginationDate": "28-Aug-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Re-appointment",
+                        "designation": "Managing director",
+                        "auditorName": "Mukesh D. Ambani",
+                        "effectiveReginationDate": "19-Apr-2024 00:00:00",
+                        "appointmentTerm": "5",
+                        "profile": "",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Re-appointment",
+                        "designation": "Non - Executive Independent Director",
+                        "auditorName": "Arundhati Bhattacharya",
+                        "effectiveReginationDate": "17-Oct-2023 00:00:00",
+                        "appointmentTerm": "5",
+                        "profile": "",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    }
+                ]
+            }
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_4599_844260_17052023115242_WEB.xml",
+            "time": "17-May-2023 11:52:43",
+            "appId": "4599",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
+                    {
+                        "symbol": "RELIANCE",
+                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "reasonChange": "Tenure completion",
+                        "designation": "Executive director",
+                        "auditorName": "PawanKumarKapil",
+                        "effectiveReginationDate": "15-May-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    }
+                ]
+            }
+        }
+    ],
+    "AnnualReports": [
+        {
+            "from_year": "2023",
+            "to_year": "2024",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_24850_RELIANCE_2023_2024_07082024143222.pdf"
+        },
+        {
+            "from_year": "2022",
+            "to_year": "2023",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_22673_RELIANCE_2022_2023_06082023144106_08062023150000.zip"
+        },
+        {
+            "from_year": "2021",
+            "to_year": "2022",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_20656_RELIANCE_2021_2022_07082022233831.zip"
+        },
+        {
+            "from_year": "2020",
+            "to_year": "2021",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_18110_RELIANCE_2020_2021_02062021182738_02062021190007.zip"
+        },
+        {
+            "from_year": "2019",
+            "to_year": "2020",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_16311_RELIANCE_2019_2020_23062020175839_23062020180002.zip"
+        },
+        {
+            "from_year": "2018",
+            "to_year": "2019",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_14981_RELIANCE_2018_2019_19072019205801_19072019210006.zip"
+        },
+        {
+            "from_year": "2017",
+            "to_year": "2018",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_12473_RELIANCE_2017_2018_05072018164954.zip"
+        },
+        {
+            "from_year": "2016",
+            "to_year": "2017",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_10916_RELIANCE_2016_2017_01082017132601.zip"
+        },
+        {
+            "from_year": "2015",
+            "to_year": "2016",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_9570_RELIANCE_2015_2016_09092016095858.zip"
+        },
+        {
+            "from_year": "2014",
+            "to_year": "2015",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_6032_RELIANCE_2014_2015_25052015103822.zip"
+        },
+        {
+            "from_year": "2013",
+            "to_year": "2014",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_3303_RELIANCE_2013_2014_22052014100211.zip"
+        },
+        {
+            "from_year": "2012",
+            "to_year": "2013",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_19_RELIANCE_2012_2013_08052013171218.zip"
+        },
+        {
+            "from_year": "2011",
+            "to_year": "2012",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_RELIANCE_2011_2012_29062012101059.zip"
+        },
+        {
+            "from_year": "2010",
+            "to_year": "2011",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_RELIANCE_2010_2011_14072011112222.zip"
+        },
+        {
+            "from_year": "2009",
+            "to_year": "2010",
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_RELIANCE_2009_2010_20082010120000.zip"
+        }
+    ],
+    "BussinessSustainabilitiyReport": [
+        {
+            "from_year": 2023,
+            "to_year": 2024,
+            "attachment": "https://nsearchives.nseindia.com/corporate/kavinavora_07082024144352_SE_BRSR.pdf",
+            "submission_date": "07-Aug-2024"
+        }
+    ],
+    "BoardMeetings": [
+        {
+            "date": "27-Oct-2023",
+            "symbol": "Financial Results",
+            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, October 27, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter and half-year ended September 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter and half-year ended September 30, 2023 shall be made on the same day after the meeting.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_20102023181644_SEBoardMeetingNoticeQ3.pdf"
+        },
+        {
+            "date": "27-Oct-2023",
+            "symbol": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Board Meeting to be held on 27-Oct-2023 to inter-alia consider and approve the Unaudited Financial results of the Company for the Quarterly ended September 2023 .",
+            "description": "Board Meeting Intimation",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_12112_963819_20102023062037_WEB.xml"
+        },
+        {
+            "date": "21-Jul-2023",
+            "symbol": "Dividend",
+            "description": "To recommend dividend on equity shares of the Company for the financial year ended March 31, 2023.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17072023204755_SE.pdf"
+        },
+        {
+            "date": "21-Jul-2023",
+            "symbol": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Board Meeting to be held on 21-Jul-2023 to inter-alia consider and approve the Unaudited Financial results of the Company for the Quarterly ended June 2023 .",
+            "description": "Board Meeting Intimation",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_7049_885773_14072023090230_WEB.xml"
+        },
+        {
+            "date": "21-Jul-2023",
+            "symbol": "Financial Results",
+            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, July 21, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter ended June 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter ended June 30, 2023 shall be made on the same day after the meeting.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14072023205724_SEBoardMeetingNotice.pdf"
+        },
+        {
+            "date": "21-Apr-2023",
+            "symbol": "RELIANCE INDUSTRIES LIMITEDhas informed the Exchange about Board Meeting to be held on 21-Apr-2023to inter-alia consider and approve the Audited financial results of the Company for the Yearly ended March 2023 .",
+            "description": "Board Meeting Intimation",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_2810_819684_14042023062257.xml"
+        },
+        {
+            "date": "21-Apr-2023",
+            "symbol": "Financial Results",
+            "description": "To consider and approve the standalone and consolidated audited financial results of theCompany for the quarter / year ended March 31, 2023.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14042023181953_SEBoardMeetingNoticeQ1.pdf"
+        },
+        {
+            "date": "20-Jan-2023",
+            "symbol": "Financial Results",
+            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions ofthe Securities and Exchange Board of India (Listing Obligations and DisclosureRequirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board ofDirectors of the Company is scheduled to be held on Friday, January 20, 2023, inter alia,to consider and approve the standalone and consolidated unaudited financial results of theCompany for the quarter / nine months ended December 31, 2022.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13012023181632_BMIntimation13012023.pdf"
+        },
+        {
+            "date": "20-Jan-2023",
+            "symbol": "Fund Raising",
+            "description": "We wish to inform you that it is proposed to consider raising of funds by way of issuance of listed, secured / unsecured, redeemable non-convertible debentures on private placement basis, in one or more tranches / series, at the Board Meeting scheduled to be held on Friday, January 20, 2023.",
+            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17012023231349_SEIntimation17012023.pdf"
+        }
+    ],
+    "CorporateActions": [
+        {
+            "date": "20-Jul-2023",
+            "subject": "Demerger"
+        },
+        {
+            "date": "21-Aug-2023",
+            "subject": "Dividend - Rs 9 Per Share"
+        }
+    ],
+    "Key_Personnel": {
+        "board_of_directors": [
+            {
+                "director_name": "Mr.Mukesh Dhirubhai Ambani",
+                "din": "00001695",
+                "designation": "Chairperson Related To Promoters,Executive Director-MD",
+                "tenure": "-",
+                "membership": [
+                    "-"
+                ]
+            },
+            {
+                "director_name": "Mr.Nikhil Rasiklal Meswani",
+                "din": "00001620",
+                "designation": "Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "Stakeholders Relationship Committee"
+                ]
+            },
+            {
+                "director_name": "Mr.Hital Rasiklal Meswani",
+                "din": "00001623",
+                "designation": "Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "Stakeholders Relationship Committee",
+                    "RC"
+                ]
+            },
+            {
+                "director_name": "Mr.Madhusudana Sivaprasad Panda",
+                "din": "00012144",
+                "designation": "Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "Risk Management Committee"
+                ]
+            },
+            {
+                "director_name": "Mr.Raminder Singh Gujral",
+                "din": "07175393",
+                "designation": "Independent Director",
+                "tenure": "114.2",
+                "membership": [
+                    "Audit Committee",
+                    "RC",
+                    "Nomination & Remuneration Committee"
+                ]
+            },
+            {
+                "director_name": "Mr.Shumeet Banerji",
+                "din": "02787784",
+                "designation": "Independent Director",
+                "tenure": "89.11",
+                "membership": [
+                    "Risk Management Committee",
+                    "Nomination & Remuneration Committee"
+                ]
+            },
+            {
+                "director_name": "Mrs.Arundhati Bhattacharya",
+                "din": "02011213",
+                "designation": "Independent Director",
+                "tenure": "74.15",
+                "membership": [
+                    "Stakeholders Relationship Committee"
+                ]
+            },
+            {
+                "director_name": "Mr.His Excellency Yasir Othman H. Al Rumayyan",
+                "din": "09245977",
+                "designation": "Independent Director",
+                "tenure": "41.13",
+                "membership": [
+                    "-"
+                ]
+            },
+            {
+                "director_name": "Mr.Veerayya Chowdary Kosaraju",
+                "din": "08485334",
+                "designation": "Independent Director",
+                "tenure": "29.11",
+                "membership": [
+                    "Audit Committee",
+                    "Stakeholders Relationship Committee",
+                    "RC",
+                    "Nomination & Remuneration Committee"
+                ]
+            },
+            {
+                "director_name": "Mr.K V Kamath",
+                "din": "00043501",
+                "designation": "Independent Director",
+                "tenure": "23.12",
+                "membership": [
+                    "-"
+                ]
+            },
+            {
+                "director_name": "Mr.Akash M Ambani",
+                "din": "06984194",
+                "designation": "Non-Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "-"
+                ]
+            },
+            {
+                "director_name": "Ms.Isha M Ambani",
+                "din": "06984175",
+                "designation": "Non-Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "-"
+                ]
+            },
+            {
+                "director_name": "Mr.Anant Mukesh Ambani",
+                "din": "07945702",
+                "designation": "Non-Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "-"
+                ]
+            },
+            {
+                "director_name": "Mr.Haigreve Khaitan",
+                "din": "00005290",
+                "designation": "Independent Director",
+                "tenure": "9",
+                "membership": [
+                    "Audit Committee"
+                ]
+            }
+        ],
+        "communities": {
+            "Audit Committee": [
+                {
+                    "name": "Raminder Singh Gujral",
+                    "designation": "Independent Director",
+                    "community_designation": "Chairperson"
+                },
+                {
+                    "name": "Veerayya Chowdary Kosaraju",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Haigreve Khaitan",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                }
+            ],
+            "Stakeholders Committee": [
+                {
+                    "name": "Veerayya Chowdary Kosaraju",
+                    "designation": "Independent Director",
+                    "community_designation": "Chairperson"
+                },
+                {
+                    "name": "Arundhati Bhattacharya",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Nikhil Rasiklal Meswani",
+                    "designation": "Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Hital Rasiklal Meswani",
+                    "designation": "Executive Director",
+                    "community_designation": "Member"
+                }
+            ],
+            "Risk Management Committee": [
+                {
+                    "name": "Raminder Singh Gujral",
+                    "designation": "Independent Director",
+                    "community_designation": "Chairperson"
+                },
+                {
+                    "name": "Shumeet Banerji",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Veerayya Chowdary Kosaraju",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Hital Rasiklal Meswani",
+                    "designation": "Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Madhusudana Sivaprasad Panda",
+                    "designation": "Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Srikanth Venkatachari",
+                    "designation": "Chief Financial Officer",
+                    "community_designation": "Member"
+                }
+            ],
+            "Nomination and Remuneration Committee": [
+                {
+                    "name": "Shumeet Banerji",
+                    "designation": "Independent Director",
+                    "community_designation": "Chairperson"
+                },
+                {
+                    "name": "Raminder Singh Gujral",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Veerayya Chowdary Kosaraju",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                }
+            ]
+        }
+    }
+}

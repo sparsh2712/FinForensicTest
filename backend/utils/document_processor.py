@@ -12,7 +12,7 @@ load_dotenv()
 
 class DocumentProcessor:
     def __init__(self, ocr: OCR, embedding_provider: GeminiEmbeddingProvider, 
-                 chunk_size: int = 1000, 
+                 chunk_size: int = 10000, 
                  chunk_overlap: int = 200):
         self.ocr = ocr
         self.embedding_provider = embedding_provider
