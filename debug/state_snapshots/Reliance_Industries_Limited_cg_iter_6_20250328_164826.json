@@ -1,0 +1,52 @@
+{
+  "company": "Reliance Industries Limited",
+  "company_symbol": "RELIANCE",
+  "pdf_path": "/var/folders/wz/8qqsdrnd54s2dqh65rgcy1l40000gn/T/streamlit_temp_BRSR202223.pdf",
+  "is_file_embedded": true,
+  "corporate_meta_step": "get_corporate_data",
+  "final_report": "",
+  "report_sections": [],
+  "start_time": "2025-03-28T16:46:14.105432",
+  "iterations": 6,
+  "include_youtube_transcripts": true,
+  "rag_queries": [
+    "What are the company\u2019s key sustainability goals and targets?",
+    "How does the company measure and report its ESG performance?",
+    "What initiatives has the company taken to reduce its environmental impact?",
+    "How does the company manage risks related to climate change and resource scarcity?",
+    "What policies does the company have in place for ethical governance and compliance?",
+    "How does the company ensure diversity, equity, and inclusion in its workforce?",
+    "What are the company\u2019s commitments to responsible sourcing and supply chain sustainability?",
+    "How does the company engage with stakeholders on ESG issues?",
+    "What frameworks or standards does the company follow for ESG reporting?",
+    "How does the company integrate ESG considerations into its long-term business strategy?"
+  ],
+  "rag_pdf_path": "/var/folders/wz/8qqsdrnd54s2dqh65rgcy1l40000gn/T/streamlit_temp_BRSR202223.pdf",
+  "goto": "END",
+  "rag_results": "<Dict with 10 items>",
+  "rag_status": "DONE",
+  "rag_vector_store_path": "vector_stores/streamlit_temp_BRSR202223_pdf",
+  "youtube_agent_action": "search",
+  "search_queries": [
+    "conference call Reliance Industries Limited FY 25 Q3",
+    "conference call Reliance Industries Limited FY 25 Q2",
+    "conference call Reliance Industries Limited FY 25 Q1",
+    "conference call Reliance Industries Limited FY 24 Q4",
+    "earnings call Reliance Industries Limited FY 25 Q3",
+    "earnings call Reliance Industries Limited FY 25 Q2",
+    "earnings call Reliance Industries Limited FY 25 Q1",
+    "earnings call Reliance Industries Limited FY 24 Q4"
+  ],
+  "search_results": "<Dict with 8 items>",
+  "youtube_status": "DONE",
+  "selected_videos": {
+    "Q1": [],
+    "Q2": [],
+    "Q3": [],
+    "Q4": []
+  },
+  "transcript_results": [],
+  "corporate_results": "<Dict with 7 items>",
+  "corporate_status": "DONE",
+  "error": "Unknown workflow step: get_corporate_data"
+}

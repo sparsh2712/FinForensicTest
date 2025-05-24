@@ -1,0 +1,116 @@
+{
+  "company": "Manappuram Finance Limited",
+  "company_symbol": "MANAPPURAM",
+  "pdf_path": "/var/folders/wz/8qqsdrnd54s2dqh65rgcy1l40000gn/T/streamlit_temp_MANAPPURAM_22072024190041_BRSRBSE.pdf",
+  "is_file_embedded": true,
+  "corporate_meta_step": "generate_report",
+  "final_report": "# Manappuram Finance Limited Analysis Report\n\nReport Date: 2025-05-17\n\n\n## Executive Summary\n\n**Executive Summary: Manappuram Finance Limited (2025-05-17)**\n\nManappuram Finance Limited, a leading Indian NBFC primarily focused on gold loans, has strategically diversified its portfolio to include other lending products. The company increasingly emphasizes ethical practices and integrates ESG considerations into its long-term business strategy. A review of key personnel and governance structure aims to assess the independence, expertise, and overall effectiveness of the company's leadership.\n\nHowever, analysis reveals potential governance concerns that warrant further scrutiny. While the company demonstrates some positive aspects, a closer examination reveals areas that warrant further scrutiny. Recent major announcements and conference calls (analyzed based on limited summary data) provide insights into the company's strategic direction and performance. A comprehensive sustainability and... [truncated]",
+  "report_sections": [],
+  "start_time": "2025-05-17T15:56:42.092884",
+  "iterations": 6,
+  "include_youtube_transcripts": true,
+  "rag_queries": [
+    "What are the company\u2019s key sustainability goals and targets?",
+    "How does the company measure and report its ESG performance?",
+    "What initiatives has the company taken to reduce its environmental impact?",
+    "How does the company manage risks related to climate change and resource scarcity?",
+    "What policies does the company have in place for ethical governance and compliance?",
+    "How does the company ensure diversity, equity, and inclusion in its workforce?",
+    "What are the company\u2019s commitments to responsible sourcing and supply chain sustainability?",
+    "How does the company engage with stakeholders on ESG issues?",
+    "What frameworks or standards does the company follow for ESG reporting?",
+    "How does the company integrate ESG considerations into its long-term business strategy?"
+  ],
+  "rag_pdf_path": "/var/folders/wz/8qqsdrnd54s2dqh65rgcy1l40000gn/T/streamlit_temp_MANAPPURAM_22072024190041_BRSRBSE.pdf",
+  "goto": "END",
+  "rag_results": "<Dict with 10 items>",
+  "rag_summaries": "<Dict with 10 items>",
+  "rag_status": "DONE",
+  "rag_vector_store_path": "vector_stores/streamlit_temp_MANAPPURAM_22072024190041_BRSRBSE_pdf",
+  "youtube_agent_action": "transcribe",
+  "search_queries": [
+    "conference call Manappuram Finance Limited FY 25 Q3",
+    "conference call Manappuram Finance Limited FY 25 Q2",
+    "conference call Manappuram Finance Limited FY 25 Q1",
+    "conference call Manappuram Finance Limited FY 24 Q4",
+    "earnings call Manappuram Finance Limited FY 25 Q3",
+    "earnings call Manappuram Finance Limited FY 25 Q2",
+    "earnings call Manappuram Finance Limited FY 25 Q1",
+    "earnings call Manappuram Finance Limited FY 24 Q4"
+  ],
+  "search_results": "<Dict with 8 items>",
+  "youtube_status": "DONE",
+  "selected_videos": {
+    "Q1": [
+      {
+        "id": "WkSWmwVn0gk",
+        "title": "&quot;Manappuram Finance Q1 2025 Results: A Deep Dive into the Numbers&quot;"
+      }
+    ],
+    "Q2": [
+      {
+        "id": "pL6KSYoPnds",
+        "title": "Manappuram Finance Earnings Call - Q2 FY25"
+      }
+    ],
+    "Q3": [
+      {
+        "id": "Jf6QkCZJJ-g",
+        "title": "Manappuram Finance Q3FY25 Concall | Earnings Conference Call Q3 Results 2025 Latest Share News"
+      }
+    ],
+    "Q4": [
+      {
+        "id": "JIii2wCCiIU",
+        "title": "Manappuram Finance Earnings Conference Call for Q4 FY 2023-24 || Concall Manappuram Finance"
+      }
+    ]
+  },
+  "video_ids": [
+    {
+      "id": "WkSWmwVn0gk",
+      "title": "&quot;Manappuram Finance Q1 2025 Results: A Deep Dive into the Numbers&quot;"
+    },
+    {
+      "id": "pL6KSYoPnds",
+      "title": "Manappuram Finance Earnings Call - Q2 FY25"
+    },
+    {
+      "id": "Jf6QkCZJJ-g",
+      "title": "Manappuram Finance Q3FY25 Concall | Earnings Conference Call Q3 Results 2025 Latest Share News"
+    },
+    {
+      "id": "JIii2wCCiIU",
+      "title": "Manappuram Finance Earnings Conference Call for Q4 FY 2023-24 || Concall Manappuram Finance"
+    }
+  ],
+  "transcript_results": [
+    {
+      "title": "&quot;Manappuram Finance Q1 2025 Results: A Deep Dive into the Numbers&quot;",
+      "id": "WkSWmwVn0gk",
+      "transcript": "\u0939\u0947\u0932\u094b \u092b\u094d\u0930\u0947\u0902\u0921\u094d\u0938 \u0935\u0947\u0932\u0915\u092e \u091f\u0942 \u092e\u093e\u092f youtube3 20224 \u0915\u094b \u0921\u093f\u0915\u094d\u0932\u0947\u092f\u0930 \u0915\u093f\u090f \u0917\u090f \u0914\u0930 \u0938\u093e\u0925 \u092e\u0947\u0902 \u0915\u0902\u092a\u0928\u0940 \u0928\u0947 \u0905\u0902\u0924\u0930\u093f\u092e \u0921\u093f\u0935\u093f\u0921\u0947\u0902\u0921 \u092d\u0940 \u0921\u093f\u0915\u094d\u0932\u0947\u092f\u0930 \u0915\u093f\u092f\u093e \u0930\u0941\u092a\u0940 \u0935 \u092a\u0930 \u0907\u0915\u094d\u0935\u093f\u091f\u0940 \u0936\u0947\u092f\u0930 \u0924\u094b \u0906\u0907\u090f \u0926\u0947\u0916\u0924\u0947 \u0939\u0948\u0902 \u0915\u0948\u0938\u0947 \u0930\u0939\u0947 \u0915\u0902\u092a\u0928\u0940 \u0915\u0947 \u0930\u093f\u091c\u0932\u094d\u091f \u092c\u093e\u0924 \u0915\u0930\u0924\u0947 \u0939\u0948\u0902 \u0915\u0902\u092a\u0928\u0940 \u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u0924\u094b \u0915\u0902\u092a\u0928\u0940 \u090f\u0915 \u090f\u0928\u092c\u0940\u090f\u092b\u0938\u0940 \u0939\u0948 \u092f\u093e\u0928\u0940 \u0928\u0949\u0928 \u092c\u0948\u0902\u0915\u093f\u0902\u0917 \u092b\u093e\u0907\u0928\u0947\u0902\u0938 \u0915\u0902\u092a\u0928\u0940 \u0939\u0948 \u091c\u094b \u0915\u093f \u0917\u094b\u0932\u094d\u0921 \u0932\u094b\u0902\u0938 \u0914\u0930 \u092e\u0928\u0940 \u090f\u0915\u094d\u0938\u091a\u0947\u0902\u091c \u092b\u0948\u0938\u093f\u0932\u093f\u091f\u0940 \u091c\u0948\u0938\u0940 \u0938\u0930\u094d\u0935\u093f\u0938\u0947\u0938 \u092a\u094d\u0930\u094b\u0935\u093e\u0907\u0921 \u0915\u0930\u0924\u0940 \u0939\u0948 \u0915\u0902\u092a\u0928\u0940 \u0915\u0940 \u092e\u093e\u0930\u094d\u0915\u0947\u091f \u0915\u0948\u092a \u0915\u0940 \u092c\u093e\u0924 \u0915\u0930\u0947\u0902 \u0924\u094b \u0915\u0902\u092a\u0928\u0940 \u0915\u093e \u092e\u093e\u0930\u094d\u0915\u0947\u091f \u0915\u0948\u092a \u0939\u0948 7494 \u0915\u0930\u094b\u0921\u093c \u0915\u0930\u0902\u091f \u092a\u094d\u0930\u093e\u0907\u0938 \u0939\u0948 \u20b9 7 52 \u0935\u0940\u0915 \u0939\u093e\u0908 \u0930\u0939\u093e 2230 52 \u0935\u0940\u0915 \u0932\u094b \u0930\u0939\u093e \u20b91 25 \u0938\u094d\u091f\u0949\u0915 \u0915\u093e \u092a\u0940\u090f 7.78 \u092c\u0941\u0915 \u0935\u0948\u0932\u094d\u092f\u0942 136 \u0935\u0939\u0940 \u0921\u093f\u0935\u093f\u0921\u0947\u0902\u0921 \u092f\u0940\u0932\u094d\u0921 \u0930\u0939\u0940 1.72 \u0906\u0930\u0913 \u0938 \u0939\u0948 13.8 \u092a\u0930 \u0906\u0930\u0913 \u0939\u0948 20.6 \u0939\u0940 \u092b\u0947\u0938 \u0935\u0948\u0932\u094d\u092f\u0942 \u0939\u0948 \u0930\u091f \u0935 \u092c\u093e\u0924 \u0915\u0930\u0924\u0947 \u0939\u0948\u0902 \u0915\u0902\u092a\u0928\u0940 \u0915\u0947 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930\u0932\u0940 \u0930\u093f\u091c\u0932\u094d\u091f\u094d\u0938 \u0915\u0947 \u0924\u094b \u091c\u0942\u0928 2024 \u092e\u0947\u0902 \u0915\u0902\u092a\u0928\u0940 \u0915\u093e \u092b\u093e\u0907\u0928\u0947\u0902\u0938\u093f\u0902\u0917 \u092a\u094d\u0930\u0949\u092b\u093f\u091f \u0930\u0939\u093e 793 \u0915\u0930\u094b\u0921\u093c \u0930 \u090f\u091c \u0915\u0902\u092a\u0947\u092f\u0930 \u091f\u0942 808 \u0915\u0930\u094b\u0921\u093c \u0930 \u0932\u093e\u0938\u094d\u091f \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0935\u0939\u0940 \u0915\u0902\u092a\u0947\u092f\u0930 \u0915\u0930\u0947\u0902 \u091c\u0942\u0928 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0932\u093e\u0938\u094d\u091f \u0908\u092f\u0930 \u0924\u094b \u091c\u0942\u0928 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0932\u093e\u0938\u094d\u091f \u0908\u092f\u0930 \u0925\u093e 0 \u0915\u0930\u094b\u0921\u093c \u0930 \u0914\u0930 \u0906\u092a \u092c\u0922\u093c \u0915\u0947 \u0939\u094b \u0917\u092f\u093e 93 \u0915\u0930\u094b\u0921\u093c \u0930 \u0935\u0939\u0940 \u0907\u0938 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u092e\u0947\u0902 \u092a\u093f\u091b\u0932\u0947 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0915\u0947 \u092e\u0941\u0915\u093e\u092c\u0932\u0947 \u0915\u093e\u092b\u0940 \u0915\u092e\u0940 \u0906\u0908 \u0939\u0948 \u0905\u0930\u093e\u0909\u0902\u0921 12 \u092a\u0930 \u0905 \u092c\u093e\u0924 \u0915\u0930\u0924\u0947 \u0939\u0948\u0902 \u0928\u0947\u091f \u092a\u094d\u0930\u0949\u092b\u093f\u091f \u0915\u0940 \u0924\u094b \u0915\u0902\u092a\u0928\u0940 \u0915\u093e \u0928\u0947\u091f \u092a\u094d\u0930\u0949\u092b\u093f\u091f \u0915\u0902\u092a\u0947\u092f\u0930 \u091f\u0942 \u0932\u093e\u0938\u094d\u091f \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0921\u093f\u0915\u094d\u0930\u0940\u091c \u0939\u0941\u0906 \u0939\u0948 \u092b\u094d\u0930\u0949\u092e 563 \u0915\u0930\u094b\u0921\u093c \u0930\u092a \u0907\u0928 \u092e\u093e\u0930\u094d\u091a \u091f\u0942 \u091c\u0942\u0928 557 \u0915\u0930\u094b\u0921\u093c \u0930\u092a \u0935\u0939\u0940 \u0908\u092a\u0940\u090f\u0938 \u0915\u0940 \u092c\u093e\u0924 \u0915\u0930\u0947\u0902 \u0924\u094b \u0915\u0902\u092a\u0928\u0940 \u0915\u093e \u0908\u092a\u0940\u090f\u0938 \u092d\u0940 \u0921\u093f\u0915\u094d\u0930\u0940\u091c \u0939\u0941\u0906 \u092b\u094d\u0930\u0949\u092e 6.63 \u091f\u0942 6.55 \u0935 \u0936\u0947\u092f\u0930 \u0939\u094b\u0932\u094d\u0921\u093f\u0902\u0917 \u092a\u0948\u091f\u0930\u094d\u0928 \u0915\u0940 \u092c\u093e\u0924 \u0915\u0930\u0947\u0902 \u0924\u094b \u092a\u094d\u0930\u092e\u094b\u091f\u0930\u094d\u0938 \u0928\u0947 \u0905\u092a\u0928\u093e \u0938\u094d\u091f\u0947\u0915 \u0938\u094d\u0932\u093e\u0907\u091f\u0932\u0940 \u0907\u0902\u0915\u094d\u0930\u0940\u091c \u0915\u093f\u092f\u093e \u0939\u0948 \u092b\u094d\u0930\u0949\u092e 35.2 \u092a\u0930 \u0907\u0928 \u092e\u093e\u0930\u094d\u091a \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u091f\u0942 35.2 \u092a\u0930 \u0907\u0928 \u091c\u0942\u0928 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0935\u0939\u0940 \u090f\u092b \u0906\u0908 \u0915\u0940 \u092c\u093e\u0924 \u0915\u0930\u0947\u0902 \u0924\u094b \u090f\u092b \u0906\u0908 \u0928\u0947 \u092d\u0940 \u0905\u092a\u0928\u093e \u0938\u094d\u091f\u0947\u0915 \u0911\u0932\u092e\u094b\u0938\u094d\u091f 1 \u092a\u0930 \u0907\u0928\u0915\u094d\u0930\u0940\u0938 \u0915\u093f\u092f\u093e \u0939\u0948 \u092b\u094d\u0930\u0949\u092e 31.99 \u091f\u0942 33 \u092a\u0930 \u0926\u093f\u0938 \u0915\u094d\u0935\u093e\u0930\u094d\u091f\u0930 \u0935 \u0921\u0940\u0906\u0908 \u0915\u0940 \u092c\u093e\u0924 \u0915\u0930\u0947\u0902 \u0924\u094b \u0921\u0940\u0906\u0908 \u0928\u0947 \u0905\u092a\u0928\u093e \u0938\u094d \u0938\u094d\u0932\u093e\u0907\u091f\u0932\u0940 \u0915\u092e \u0915\u093f\u092f\u093e \u0939\u0948 \u092b\u094d\u0930\u0949\u092e 99.50 \u091f\u0942 9.34 \u092a\u0930 \u0935 \u092a\u092c\u094d\u0932\u093f\u0915 \u0939\u094b\u0932\u094d\u0921\u093f\u0902\u0917\u094d\u0938 \u0915\u0940 \u092c\u093e\u0924 \u0915\u0930\u0947\u0902 \u0924\u094b \u092a\u092c\u094d\u0932\u093f\u0915 \u0939\u094b\u0932\u094d\u0921\u093f\u0902\u0917 \u092d\u0940 \u0938\u094d\u0932\u093e\u0907\u091f\u0932\u0940 \u0915\u092e \u0939\u0941\u0908 \u0939\u0948 23.3 \u091f\u0942 22.42 \u0924\u094b \u0926\u094b\u0938\u094d\u0924\u094b\u0902 \u092f\u0939 \u0925\u093e \u092c\u094d\u0930\u0940\u092b \u090f\u0928\u093e\u0932\u093f\u0938\u093f\u0938 \u092e\u0902\u0926\u092a\u0941\u0930\u092e \u092b\u093e\u0907\u0928\u0947\u0902\u0938 \u0932\u093f\u092e\u093f\u091f\u0947\u0921 \u0915\u093e \u0905\u0917\u0930 \u0906\u092a\u0915\u094b \u092a\u0938\u0902\u0926 \u0906\u092f\u093e \u0924\u094b \u092a\u094d\u0932\u0940\u091c \u0932\u093e\u0907\u0915 \u0915\u0930\u0947\u0902 \u0914\u0930 \u092a\u094d\u0932\u0940\u091c \u0921\u0942 \u0938\u092c\u094d\u0938\u0915\u094d\u0930\u093e\u0907\u092c \u092e\u093e\u092f \u0905\u092a\u0921\u0947\u091f\u0947\u0921 \u0925\u0948\u0902\u0915 \u092f\u0942 \u0938\u094b \u092e\u091a",
+      "transcript_summary": "Based on the provided transcript of the Manappuram Finance Limited Q1 2025 results call, there is very limited information pertaining to corporate governance.\n\n**Summary of Governance Aspects:**\n\nThe transcript primarily focuses on financial performance, including profit, revenue, and EPS figures. The only governance-related information present is:\n\n*   **Shareholding Pattern:** The transcript mentions changes in shareholding patterns, specifically a slight increase in promoter stake (from 35.2% to 35.2%) and FII stake (from 31.99% to 33%), a slight decrease in DII stake (from 9.50% to 9.34%), and a slight decrease in public holding (from 23.3% to 22.42%). This provides some insight into investor confidence and ownership structure, which are indirect indicators of governance health.\n\n**Absence of Key Governance Information:**\n\nThe transcript lacks any discussion of the following crucial governance aspects:\n\n*   **Board decisions and changes:** No mention of board meetings, resolutions, or changes in board composition.\n*   **Leadership changes or succession planning:** No information on executive appointments, departures, or succession plans.\n*   **Governance structure modifications:** No discussion of changes to the company's governance framework or committee structures.\n*   **Regulatory compliance and legal issues:** No mention of compliance matters or legal challenges.\n*   **Risk management approaches:** No discussion of risk assessment, mitigation strategies, or risk oversight.\n*   **Ethics policies and corporate culture:** No information on the company's code of conduct, ethics training, or efforts to promote a strong corporate culture.\n*   **Stakeholder engagement practices:** No mention of how the company engages with its stakeholders (e.g., employees, customers, communities).\n*   **ESG (Environmental, Social, Governance) initiatives:** No discussion of environmental sustainability, social responsibility, or governance improvements.\n*   **Transparency and disclosure practices:** While the call itself is a form of disclosure, the transcript doesn't discuss any specific efforts to enhance transparency beyond the presentation of financial results.\n\n**Conclusion:**\n\nThe provided transcript offers minimal insight into the corporate governance practices of Manappuram Finance Limited. The focus is overwhelmingly on financial performance and shareholding patterns, with no substantive discussion of board activities, leadership, risk management, ethics, or ESG initiatives. A more detailed review of the company's annual reports, governance policies, and other disclosures would be necessary to gain a comprehensive understanding of its governance practices."
+    },
+    {
+      "title": "Manappuram Finance Earnings Call - Q2 FY25",
+      "id": "pL6KSYoPnds",
+      "transcript": "Failed to transcribe the video: no element found: line 1, column 0",
+      "transcript_summary": "Okay, I will analyze the provided transcript (which is currently empty) and provide a summary focusing solely on the specified corporate governance aspects.\n\n**Since the transcript is empty (\"Failed to transcribe the video: no element found: line 1, column 0\"), I cannot extract any information related to the requested governance aspects. Therefore, my summary is as follows:**\n\n**Summary of Manappuram Finance Earnings Call - Q2 FY25 (Based on Empty Transcript):**\n\nDue to the absence of transcript data, it is impossible to identify any discussion or information pertaining to the following corporate governance aspects during the Manappuram Finance Earnings Call - Q2 FY25:\n\n*   Board decisions and changes\n*   Leadership changes or succession planning\n*   Governance structure modifications\n*   Regulatory compliance and legal issues\n*   Risk management approaches\n*   Ethics policies and corporate culture\n*   Stakeholder engagement practices\n*   ESG (Environmental, Social, Governance) initiatives\n*   Transparency and disclosure practices\n\n**Conclusion:** The transcript is required to provide a meaningful analysis of the company's governance practices as discussed during the earnings call. Without the transcript, no insights can be derived."
+    },
+    {
+      "title": "Manappuram Finance Q3FY25 Concall | Earnings Conference Call Q3 Results 2025 Latest Share News",
+      "id": "Jf6QkCZJJ-g",
+      "transcript": "Failed to transcribe the video: no element found: line 1, column 0",
+      "transcript_summary": "Okay, I will analyze the (missing) transcript of the Manappuram Finance Limited Q3FY25 earnings call, focusing specifically on the corporate governance aspects you've outlined. Since the transcript is unavailable, I will provide a template response assuming a lack of information and then suggest how the analysis would proceed if the transcript were available.\n\n**Summary of Manappuram Finance Q3FY25 Earnings Call - Governance Aspects**\n\nBased on the *unavailable* transcript, it is **not possible** to provide a meaningful summary of the corporate governance aspects discussed during the Manappuram Finance Q3FY25 earnings call.  There is no information available regarding:\n\n*   **Board decisions and changes:** No information on new appointments, resignations, or changes in board committees.\n*   **Leadership changes or succession planning:** No mention of any leadership transitions or plans for future leadership.\n*   **Governance structure modifications:** No details on any changes to the company's governance framework.\n*   **Regulatory compliance and legal issues:** No discussion of any significant regulatory challenges or legal matters.\n*   **Risk management approaches:** No insights into the company's risk management strategies or any changes to these strategies.\n*   **Ethics policies and corporate culture:** No information on any initiatives related to ethics or corporate culture.\n*   **Stakeholder engagement practices:** No discussion of how the company engages with its stakeholders.\n*   **ESG (Environmental, Social, Governance) initiatives:** No mention of any new or ongoing ESG programs.\n*   **Transparency and disclosure practices:** No information on any changes to the company's disclosure practices.\n\n**How the Analysis Would Proceed with the Transcript:**\n\nIf the transcript were available, I would:\n\n1.  **Keyword Search:** Use keywords related to the governance aspects (e.g., \"board,\" \"governance,\" \"risk,\" \"compliance,\" \"ethics,\" \"ESG,\" \"stakeholder,\" \"audit committee,\" \"nomination committee,\" \"remuneration,\" \"succession,\" \"disclosure\").\n2.  **Identify Relevant Sections:** Pinpoint sections of the transcript where these keywords appear and carefully read the surrounding context.\n3.  **Extract Specific Information:** Extract specific details related to each of the nine governance aspects you've outlined. For example:\n    *   **Board Decisions:** Look for statements about board approvals of new policies, strategic decisions, or changes to board composition.\n    *   **Leadership Changes:** Identify any announcements about new appointments, retirements, or internal promotions.\n    *   **Risk Management:** Note any discussion of new risks identified, changes to risk mitigation strategies, or updates on risk appetite.\n    *   **ESG Initiatives:** Extract details about new ESG programs, targets, or performance metrics.\n4.  **Synthesize and Summarize:** Condense the extracted information into a concise and well-structured summary, focusing on the key governance-related takeaways from the call.\n5.  **Provide Context (If Possible):** If the transcript provides sufficient context, I would attempt to explain the *why* behind any changes or initiatives. For example, if a new board member was appointed, I would look for information about their background and how they are expected to contribute to the company's governance.\n\nWithout the transcript, I am unable to provide any specific insights into Manappuram Finance's corporate governance practices as discussed during the Q3FY25 earnings call."
+    },
+    {
+      "title": "Manappuram Finance Earnings Conference Call for Q4 FY 2023-24 || Concall Manappuram Finance",
+      "id": "JIii2wCCiIU",
+      "transcript": "Failed to transcribe the video: no element found: line 1, column 0",
+      "transcript_summary": "Okay, I understand. Since the provided transcript failed to transcribe, I am unable to provide a summary of the Manappuram Finance Limited earnings call focusing on corporate governance aspects.\n\n**However, if you can provide a valid transcript, I will analyze it and deliver a concise summary covering the following governance-related areas:**\n\n1.  **Board decisions and changes:** Any mentions of board meetings, new appointments, resignations, or changes in board composition.\n2.  **Leadership changes or succession planning:** Discussions about key management personnel changes, promotions, or future leadership plans.\n3.  **Governance structure modifications:** Any alterations to the company's governance framework, committees, or internal controls.\n4.  **Regulatory compliance and legal issues:** Mentions of compliance with regulations, legal challenges, or updates on legal matters.\n5.  **Risk management approaches:** Discussions about risk identification, assessment, and mitigation strategies.\n6.  **Ethics policies and corporate culture:** References to the company's code of conduct, ethical standards, or initiatives to promote a strong corporate culture.\n7.  **Stakeholder engagement practices:** How the company interacts with and addresses the concerns of its stakeholders (e.g., shareholders, employees, customers, communities).\n8.  **ESG (Environmental, Social, Governance) initiatives:** Discussions about environmental sustainability, social responsibility programs, or governance improvements.\n9.  **Transparency and disclosure practices:** Any comments on the company's commitment to transparency and the accuracy of its disclosures.\n\n**In the absence of a transcript, I can only state that I am unable to provide the requested analysis.** Please provide a valid transcript for a meaningful response."
+    }
+  ],
+  "corporate_results": "<Dict with 7 items>",
+  "corporate_status": "DONE",
+  "corporate_meta_status": "DONE"
+}

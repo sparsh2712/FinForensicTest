@@ -23,6 +23,7 @@ dependencies = [
     "markdownify>=1.0.0",
     "mistralai>=1.6.0",
     "pandas>=2.2.3",
+    "psutil>=7.0.0",
     "python-dotenv>=1.0.1",
     "requests>=2.32.3",
     "streamlit>=1.42.2",

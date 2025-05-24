@@ -2,326 +2,326 @@
     "Announcements": [
         {
             "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_31122023192614_SELetter_311223.pdf",
-            "description": "Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 is attached.",
-            "time": "31-Dec-2023 19:26:20"
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_31122023182103_ChhattisgarhPenality.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding 'Manappuram Finance Limited update on reg 30'.",
+            "time": "31-Dec-2023 18:21:08"
         },
         {
-            "event_type": "Credit Rating",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_31122023134235_RELIANCE.pdf",
-            "description": "Re-affirmation of rating with respect to the bank loan facilities and Commercial Paper of the Company",
-            "time": "31-Dec-2023 13:42:42"
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_31122023125057_MANAPPURAM.pdf",
+            "description": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations 2015",
+            "time": "31-Dec-2023 22:25:08"
         },
         {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_29122023182712_LOSS_OF_SHARE_1005096_29122023062711_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "29-Dec-2023 18:27:19"
+            "event_type": "Registrar & Share Transfer Agent Update",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_30122023102325_RTAintimationSE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Registrar & Share Transfer Agent Update",
+            "time": "30-Dec-2023 10:23:31"
         },
         {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_29122023181329_LossOfCert29122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) received from the shareholder(s) of the Company onDecember 28, 2023 and December 29, 2023 aggregating to 10,706 (Ten Thousand SevenHundred and Six) shares. As required under SEBI Circular No. SEBI / HO / MIRSD /MIRSD_ RTAMB / P / CIR / 2022 / 8 dated January 25, 2022, the Company shall issue Letter of Confirmation  to the shareholders after compliance of required formalities.",
-            "time": "29-Dec-2023 18:13:36"
+            "event_type": "Shareholders meeting",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_28122023203202_PBSEintimation.pdf",
+            "description": "Manappuram Finance Limited has submitted the Exchange a copy Srutinizers report of  Postal Ballot. Further, the company has informed the Exchange regarding voting results.",
+            "time": "28-Dec-2023 20:32:07"
         },
         {
             "event_type": "Trading Window-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_29122023170446_CLOSURE_TRADING_WINDOW_1004825_29122023050445_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Closure of Trading Window",
-            "time": "29-Dec-2023 17:04:58"
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/MANAPPURAM_27122023143347_CLOSURE_TRADING_WINDOW_1002330_27122023023347_WEB.xml",
+            "description": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Closure of Trading Window",
+            "time": "27-Dec-2023 14:33:53"
         },
         {
             "event_type": "Trading Window",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_29122023165859_SEClosureofTradingWindow.pdf",
-            "description": "Reliance Industries Limited has informed the Exchange regarding the Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015",
-            "time": "29-Dec-2023 16:59:04"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_28122023185114_LOSS_OF_SHARE_1003828_28122023065113_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "28-Dec-2023 18:51:25"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_28122023184245_LossofCert27122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 5,119 (Five Thousand One Hundred andNineteen) shares received from the shareholder(s) of the Company on December 27,2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR/2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "28-Dec-2023 18:42:50"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_27122023181230_LOSS_OF_SHARE_1002721_27122023061229_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "27-Dec-2023 18:12:34"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_27122023180009_LossOfCert26122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) for 12,888 (Twelve Thousand Eight Hundred and Eighty-Eight) shares received from the shareholder(s) of the Company on December 26, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
-            "time": "27-Dec-2023 18:00:18"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_26122023182622_LOSS_OF_SHARE_1001956_26122023062621_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Issue of duplicate share certificates/Letter of Confirmation",
-            "time": "26-Dec-2023 18:26:29"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_22122023193541_LOSS_OF_SHARE_1000906_22122023073540_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "22-Dec-2023 19:35:48"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_21122023181206_LOSS_OF_SHARE_1000085_21122023061205_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "21-Dec-2023 18:12:18"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_20122023181348_LOSS_OF_SHARE_999523_20122023061347_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Loss of share certificates",
-            "time": "20-Dec-2023 18:13:52"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_19122023193146_LOSS_OF_SHARE_999048_19122023073145_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Issue of duplicate share certificates/Letter of Confirmation",
-            "time": "19-Dec-2023 19:31:54"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_19122023182943_LOSS_OF_SHARE_998972_19122023062942_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "19-Dec-2023 18:29:50"
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27122023142730_windowclosureintimation.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding the Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015",
+            "time": "27-Dec-2023 14:27:36"
         },
         {
             "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17122023143708_RILSE_171223.pdf",
-            "description": "Disclosure under Regulation 30 of the Securities and Exchange Board of India(Listing Obligations and Disclosure Requirements) Regulations, 2015 is attached.",
-            "time": "17-Dec-2023 14:37:15"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_15122023190133_LOSS_OF_SHARE_997760_15122023070132_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "15-Dec-2023 19:01:38"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_15122023180114_LOSS_OF_SHARE_997657_15122023060113_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Issue of duplicate share certificates/Letter of Confirmation",
-            "time": "15-Dec-2023 18:01:21"
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_23122023095303_gstpenalty.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding ''.",
+            "time": "23-Dec-2023 09:53:08"
         },
         {
             "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_15122023155447_SE_15122023.pdf",
-            "description": "We wish to inform that the Company has today, received the Second Tranche Amount of Rs. 50,000 per debenture from all the holders of 7.79% Secured, Redeemable, Non-Convertible Debentures - PPD Series P ( PPD Series P ) aggregating Rs. 10,000 crore and the paid-up value of PPD Series P has increased from Rs. 50,000 per debenture to Rs. 1,00,000 per debenture and consequently the said debentures have become fully paid-up.",
-            "time": "15-Dec-2023 15:54:54"
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_19122023200757_Document1.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding 'Analyst Day Presentation'.",
+            "time": "19-Dec-2023 20:08:03"
         },
         {
-            "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14122023231736_SE_14122023.pdf",
-            "description": "Moody s has reaffirmed the credit rating of  Baa2  with a  Stable  outlook issued by it, for the Senior Unsecured US$ Denominated Fixed Rate Notes of the Company",
-            "time": "14-Dec-2023 23:17:42"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_14122023183920_LOSS_OF_SHARE_997128_14122023063919_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "14-Dec-2023 18:39:26"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_14122023183147_LOSS_OF_SHARE_997119_14122023063146_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "14-Dec-2023 18:31:54"
-        },
-        {
-            "event_type": "Loss/Duplicate-Share Certificate-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_14122023181335_LOSS_OF_SHARE_997094_14122023061335_WEB.xml",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of share certificates",
-            "time": "14-Dec-2023 18:13:42"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13122023183535_LossofCert12122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 23,820 (Twenty Three Thousand Eight Hundredand Twenty) shares received from the shareholder(s) of the Company on December 12,2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR/2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "13-Dec-2023 18:35:42"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13122023183342_IssuanceofCert13122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015 and in terms of SEBICircular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P / CIR / 2022 / 8 dated January 25,2022, we enclose the details of  Letter(s) of Confirmation  issued by the Company to itsshareholders, in lieu of share certificate(s) reported as lost by them.",
-            "time": "13-Dec-2023 18:33:48"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_12122023215554_LossofCert11122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 9,506 (Nine Thousand Five Hundred and Six)shares received from the shareholder(s) of the Company on December 11, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "12-Dec-2023 21:55:58"
-        },
-        {
-            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204255_REG30_Restructuring_996136_12122023084254_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "time": "12-Dec-2023 20:42:59"
-        },
-        {
-            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204234_REG30_Restructuring_996135_12122023084234_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "time": "12-Dec-2023 20:42:40"
-        },
-        {
-            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204213_REG30_Restructuring_996134_12122023084212_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "time": "12-Dec-2023 20:42:18"
-        },
-        {
-            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204143_REG30_Restructuring_996133_12122023084142_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "time": "12-Dec-2023 20:41:50"
-        },
-        {
-            "event_type": "Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/RELIANCE_12122023204114_REG30_Restructuring_996132_12122023084113_WEB.xml",
-            "description": "RELIANCE INDUSTRIES LIMITED has informed the Exchange regarding Update-Acquisition/Scheme/Sale/Disposal-XBRL",
-            "time": "12-Dec-2023 20:41:20"
-        },
-        {
-            "event_type": "Acquisition",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_12122023181853_SE_12122023.pdf",
-            "description": "Update on Investment in each of the five Indian wholly-owned subsidiaries of Mercury Holdings SG Pte. Ltd., (held through Mercury India SG FDI Pte. Ltd.) which is a joint venture betweenBrookfield Infrastructure and Digital Realty",
-            "time": "12-Dec-2023 18:18:57"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_08122023194504_LossofCert08122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) received from the shareholder(s) of the Company onDecember 07, 2023 and December 08, 2023 aggregating to 13,700 (Thirteen Thousandand Seven Hundred) shares. As required under SEBI Circular No. SEBI / HO / MIRSD /MIRSD_ RTAMB / P / CIR / 2022 / 8 dated January 25, 2022, the Company shall issue Letter of Confirmation  to the shareholders after compliance of required formalities.",
-            "time": "08-Dec-2023 19:45:11"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_07122023184811_LossofCert06122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 11,645 (Eleven Thousand Six Hundred and Forty-Five) shares received from the shareholder(s) of the Company on December 06, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "07-Dec-2023 18:48:15"
-        },
-        {
-            "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_07122023175952_Reg30_071223.pdf",
-            "description": "Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Details of guarantees given by the Company to the lenders of Alok Industries Limited is attached.",
-            "time": "07-Dec-2023 18:00:04"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_06122023172842_LossofCert05122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 6,485 (Six Thousand Four Hundred and Eighty-Five) shares received from the shareholder(s) of the Company on December 05, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "06-Dec-2023 17:28:49"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_05122023182402_LossofCert04122023.pdf",
-            "description": "Reliance Industries Limited has informed the Exchange about Loss of Share Certificates",
-            "time": "05-Dec-2023 18:24:07"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_04122023182247_IssuanceofCert04122023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015 and in terms of SEBICircular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P / CIR / 2022 / 8 dated January 25,2022, we enclose the details of  Letter(s) of Confirmation  issued by the Company to itsshareholders, in lieu of share certificate(s) reported as lost by them.",
-            "time": "04-Dec-2023 18:22:58"
-        },
-        {
-            "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_01122023172148_SEIntimation_CallNotice_signed.pdf",
-            "description": "Disclosure under Regulations 30 and 51 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Notice for payment of the Second Tranche Amount of Rs. 50,000 per debenture by the holders of 7.79% Secured, Redeemable, Non-Convertible Debentures - PPD Series P is attached.",
-            "time": "01-Dec-2023 17:21:53"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_01122023165131_LossofCert30112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 3,277 (Three Thousand Two Hundred andSeventy-Seven) shares received from the shareholder(s) of the Company on December01, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P/CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  tothe shareholders after compliance of required formalities.",
-            "time": "01-Dec-2023 16:51:37"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_30112023185917_LossOfCert29112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) for 5,905 (Five Thousand Nine Hundred and Five) shares received from the shareholder(s) of the Company on November 29, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
-            "time": "30-Nov-2023 18:59:24"
-        },
-        {
-            "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_30112023175448_CLSA_Post.pdf",
-            "description": "This is further to the disclosure dated November 22, 2023 made by the Company. We wish toinform you that the Company executives participated in the Institutional Investors Meeting - CLSA India Forum on November 29 & 30, 2023 at Mumbai and no unpublished price sensitive information was shared / discussed in the said one-on-one meeting",
-            "time": "30-Nov-2023 17:54:54"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_29112023185237_LossofCert28112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 3,110 (Three Thousand One Hundred and Ten)shares received from the shareholder(s) of the Company on November 28, 2023. Asrequired under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "29-Nov-2023 18:52:46"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_28112023182530_IssuanceofCert28112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015 and in terms of SEBICircular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P / CIR / 2022 / 8 dated January 25,2022, we enclose the details of  Letter(s) of Confirmation  issued by the Company to itsshareholders, in lieu of share certificate(s) reported as lost by them.",
-            "time": "28-Nov-2023 18:25:35"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_24112023171042_LossOfCert24112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) received from the shareholder(s) of the Company on November 23, 2023 and November 24, 2023 aggregating to 5,864 (Five Thousand Eight Hundred and Sixty Four) shares. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_ RTAMB / P / CIR / 2022 / 8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
-            "time": "24-Nov-2023 17:10:49"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_23112023174254_LossOfCert22112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we enclose the information regarding loss of share certificate(s) for 7,658 (Seven Thousand Six Hundred and Fifty-Eight) shares received from the shareholder(s) of the Company on November 22, 2023. As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR /2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to the shareholders after compliance of required formalities.",
-            "time": "23-Nov-2023 17:43:05"
-        },
-        {
-            "event_type": "Loss of Share Certificates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_22112023183500_LossofCert21112023.pdf",
-            "description": "Pursuant to Regulation 39(3) of the Securities and Exchange Board of India (ListingObligations and Disclosure Requirements) Regulations, 2015, we enclose the informationregarding loss of share certificate(s) for 4,547 (Four Thousand Five Hundred and Forty-Seven) shares received from the shareholder(s) of the Company on November 21, 2023.As required under SEBI Circular No. SEBI / HO / MIRSD / MIRSD_RTAMB / P /CIR/2022/8 dated January 25, 2022, the Company shall issue  Letter of Confirmation  to theshareholders after compliance of required formalities.",
-            "time": "22-Nov-2023 18:35:10"
-        },
-        {
-            "event_type": "Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_22112023182541_Post_JM.pdf",
-            "description": "This is further to the disclosure dated November 16, 2023 made by the Company. We wish toinform you that the Company executives participated in the  Institutional Investors Meeting - JM Financial India Conference on November 22, 2023  at Mumbai and no unpublished price sensitive information was shared / discussed in the said one-on-one meeting",
-            "time": "22-Nov-2023 18:25:52"
+            "event_type": "Copy of Newspaper Publication",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_14122023120921_SENEWSPAPER.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Copy of Newspaper Publication",
+            "time": "14-Dec-2023 12:09:29"
         },
         {
             "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_22112023181457_Pre_CLSA.pdf",
-            "description": "Reliance Industries Limited has informed the Exchange about Schedule of meet",
-            "time": "22-Nov-2023 18:15:05"
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_09122023133221_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "09-Dec-2023 13:32:27"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_09122023090255_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "09-Dec-2023 10:28:13"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_09122023085741_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "09-Dec-2023 11:40:44"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_09122023085212_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "09-Dec-2023 10:27:55"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_05122023141438_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "05-Dec-2023 14:14:56"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_05122023141437_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "05-Dec-2023 14:14:49"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_05122023141437_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "05-Dec-2023 14:14:41"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_05122023121538_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "05-Dec-2023 12:16:15"
+        },
+        {
+            "event_type": "Copy of Newspaper Publication",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_29112023160852_SEIntimation.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Copy of Newspaper Publication",
+            "time": "29-Nov-2023 16:08:58"
+        },
+        {
+            "event_type": "Notice Of Shareholders Meetings-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/MANAPPURAM_29112023121439_NOTICE_OF_SHAREHOLDERS_MEETINGS_992225_29112023121438_WEB.xml",
+            "description": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Notice of Shareholders Meeting for Postal Ballot",
+            "time": "29-Nov-2023 12:14:49"
+        },
+        {
+            "event_type": "Shareholders meeting",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_28112023170931_SEIntimation.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding Notice of Postal Ballot",
+            "time": "28-Nov-2023 17:09:38"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172218_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:23:16"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172217_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:23:09"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172220_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:23:36"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172218_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:23:22"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172214_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:22:34"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172219_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:23:29"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172217_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:23:02"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172216_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:22:56"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172215_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:22:41"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_27112023172216_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "27-Nov-2023 17:22:48"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_25112023155132_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "25-Nov-2023 15:51:44"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_25112023155132_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "25-Nov-2023 15:51:37"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_24112023093635_Draft.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "24-Nov-2023 09:36:45"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_20112023163506_rbipenaltySE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding 'Imposition of penalty'.",
+            "time": "20-Nov-2023 16:35:11"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_17112023144018_concallSE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Transcript",
+            "time": "17-Nov-2023 14:40:27"
+        },
+        {
+            "event_type": "Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_17112023141617_Impositionofpenalty.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding 'Monetary penalty imposed by RBI'.",
+            "time": "17-Nov-2023 14:16:25"
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/MANAPPURAM_15112023172636_CIM_14598_988885_15112023052636_WEB.xml",
+            "description": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "time": "15-Nov-2023 17:26:42"
+        },
+        {
+            "event_type": "Change in Management",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_15112023172432_lettertoSErevised.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about change in Management",
+            "time": "15-Nov-2023 17:24:45"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_14112023181126_SEintimationICsigned.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Schedule of meet and Presentation",
+            "time": "14-Nov-2023 18:11:30"
+        },
+        {
+            "event_type": "Copy of Newspaper Publication",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_14112023113931_newspaperSE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Copy of Newspaper Publication",
+            "time": "14-Nov-2023 11:39:37"
+        },
+        {
+            "event_type": "Analysts/Institutional Investor Meet/Con. Call Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_14112023110013_SEconcallrecording.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Link of Recording",
+            "time": "14-Nov-2023 11:00:19"
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/MANAPPURAM_14112023104001_CIM_14554_987793_14112023104000_WEB.xml",
+            "description": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "time": "14-Nov-2023 10:40:08"
+        },
+        {
+            "event_type": "Change in Management",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_14112023101144_lettertoSE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about change in Management",
+            "time": "14-Nov-2023 10:11:49"
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/MANAPPURAM_13112023164913_CIM_14541_987642_13112023044912_WEB.xml",
+            "description": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "time": "13-Nov-2023 16:49:25"
+        },
+        {
+            "event_type": "Appointment",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_13112023164609_AppointmentofDirectorSE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding Appointment of Mr Sankaran Nair Rajagopal  as Non- Executive Independent Director of the company w.e.f. January 01, 2024.",
+            "time": "13-Nov-2023 16:46:18"
+        },
+        {
+            "event_type": "Appointment",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_13112023164609_AppointmentofDirectorSE.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange regarding Appointment of Ms Pratima Ram  as Non- Executive Independent Director of the company w.e.f. April 01, 2024.",
+            "time": "13-Nov-2023 16:46:25"
+        },
+        {
+            "event_type": "Outcome of Board Meeting-XBRL",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/MANAPPURAM_13112023153227_OUTCOME_987591_13112023033226_WEB.xml",
+            "description": "MANAPPURAM FINANCE LIMITED has informed the Exchange regarding Outcome of Board Meeting held on 13-Nov-2023 for Dividend",
+            "time": "13-Nov-2023 15:32:34"
+        },
+        {
+            "event_type": "Dividend Updates",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_13112023152254_outcomefinalse.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange about Dividend Updates",
+            "time": "13-Nov-2023 15:23:00"
+        },
+        {
+            "event_type": "Record Date",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_13112023152059_outcomefinalse.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange that Record date for the purpose of Dividend  is 24-Nov-2023.",
+            "time": "13-Nov-2023 15:21:10"
+        },
+        {
+            "event_type": "Dividend",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_13112023151909_outcomefinalse.pdf",
+            "description": "Manappuram Finance Limited has informed the Exchange that Board of Directors at its meeting held on November 13, 2023, declared Interim Dividend of 0.85 per equity share.",
+            "time": "13-Nov-2023 15:19:22"
         }
     ],
     "AnnXBRL": [
         {
             "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_12752_969649_27102023094145_WEB.xml",
-            "time": "27-Oct-2023 21:41:46",
-            "appId": "12752",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_14598_988885_15112023052636_WEB.xml",
+            "time": "15-Nov-2023 17:26:37",
+            "appId": "14598",
             "details": {
                 "ann_director_details": [],
                 "ann_auditor": [],
                 "ann_independent_director": [],
                 "ann_change": [
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
                         "reasonChange": "Appointment",
-                        "designation": "Non - Executive Non -Independent Director",
-                        "auditorName": "Akash M. Ambani",
-                        "effectiveReginationDate": "27-Oct-2023 00:00:00",
-                        "appointmentTerm": null,
-                        "profile": "Available on the website of the Company - www.ril.com",
-                        "discRelationBetDirector": "Son of Shri Mukesh D. Ambani, Chairman & Managing Director. Brother of Ms. Isha M. Ambani and Shri Anant M. Ambani.",
+                        "designation": "Others",
+                        "auditorName": "Digbijay Bandyopadhyay",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "Mr. Digbijay Bandyopadhyay has taken post graduate from Institute of Chartered Accountants of India. Currently he is the Vice President of Commercial Vehicle Finance Department. Considering the Nature of Work , he is including in the Senior Mgt Personnel List.",
+                        "discRelationBetDirector": "NA",
                         "confCompSebiLetter": null,
                         "resignationReason": "",
                         "auditorResignedEntity": null,
@@ -330,15 +330,15 @@
                         "txadRemark": ""
                     },
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
                         "reasonChange": "Appointment",
-                        "designation": "Non - Executive Non -Independent Director",
-                        "auditorName": "Anant M. Ambani",
-                        "effectiveReginationDate": "27-Oct-2023 00:00:00",
-                        "appointmentTerm": null,
-                        "profile": "Available on the website of the Company - www.ril.com",
-                        "discRelationBetDirector": "Son of Shri Mukesh D. Ambani, Chairman & Managing Director. Brother of Ms. Isha M. Ambani and Shri Akash M. Ambani.",
+                        "designation": "Others",
+                        "auditorName": "Hemant Patil",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is BUSINESS HEAD - CAR LOAN.Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
                         "confCompSebiLetter": null,
                         "resignationReason": "",
                         "auditorResignedEntity": null,
@@ -347,15 +347,134 @@
                         "txadRemark": ""
                     },
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
                         "reasonChange": "Appointment",
-                        "designation": "Non - Executive Non -Independent Director",
-                        "auditorName": "Isha M. Ambani",
-                        "effectiveReginationDate": "27-Oct-2023 00:00:00",
+                        "designation": "Others",
+                        "auditorName": "Ajay Bhalchandra Shelke",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is Business Head of Two Wheeler Finance. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "No",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "Sathyanarayan K Rao",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the BUSINESS HEAD FARM EQUIPMENT.Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "VIJAYAKUMAR.K.B.",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the head of MSME.Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "RATHEESH.P.M",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the head of Micro Home Finance. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "VIPIN T S",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the head of Business Head of Secured  Personal Loan. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "SATHEESH KUMAR M",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the HEAD DIGITAL PERSONAL LOAN. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "KAMAL. P.PARMAR",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "Mr.Kamal Parmar has taken his post graduate in MBA from Andhra University. Currently he is the Senior Vice President of Commercial Vehicle Finance Department. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Removal",
+                        "designation": "Others",
+                        "auditorName": "Mr. Sreejesh",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
                         "appointmentTerm": null,
-                        "profile": "Available on the website of the Company - www.ril.com",
-                        "discRelationBetDirector": "Daughter of Shri Mukesh D. Ambani, Chairman & Managing Director. Sister of Shri Akash M. Ambani and Shri Anant M. Ambani.",
+                        "profile": "",
+                        "discRelationBetDirector": null,
                         "confCompSebiLetter": null,
                         "resignationReason": "",
                         "auditorResignedEntity": null,
@@ -368,21 +487,174 @@
         },
         {
             "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_10013_924121_29082023015812_WEB.xml",
-            "time": "29-Aug-2023 13:58:13",
-            "appId": "10013",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_14554_987793_14112023104000_WEB.xml",
+            "time": "14-Nov-2023 10:40:02",
+            "appId": "14554",
             "details": {
                 "ann_director_details": [],
                 "ann_auditor": [],
                 "ann_independent_director": [],
                 "ann_change": [
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
-                        "reasonChange": "Resignation",
-                        "designation": "Non - Executive Non -Independent Director",
-                        "auditorName": "Nita M. Ambani",
-                        "effectiveReginationDate": "28-Aug-2023 00:00:00",
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "Digbijay Bandyopadhyay",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the business Head of CV. Considering the Nature of Work , he is including in the Senior Mgt Personnel List.",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "Hemant Patil",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is BUSINESS HEAD - CAR LOAN.Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "Ajay Bhalchandra Shelke",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is Business Head of Two Wheeler Finance. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "No",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "Sathyanarayan K Rao",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the BUSINESS HEAD FARM EQUIPMENT.Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "VIJAYAKUMAR.K.B.",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the head of MSME.Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "RATHEESH.P.M",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the head of Micro Home Finance. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "VIPIN T S",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the head of Business Head of Secured  Personal Loan. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "SATHEESH KUMAR M",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the HEAD DIGITAL PERSONAL LOAN. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Others",
+                        "auditorName": "KAMAL. P.PARMAR",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
+                        "appointmentTerm": "0",
+                        "profile": "He is the Business Head of Commercial Vehicle Finance. Considering the Nature of Work , he is including in the Senior Mgt Personnel List",
+                        "discRelationBetDirector": "NA",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Removal",
+                        "designation": "Others",
+                        "auditorName": "Mr. Sreejesh",
+                        "effectiveReginationDate": "13-Nov-2023 00:00:00",
                         "appointmentTerm": null,
                         "profile": "",
                         "discRelationBetDirector": null,
@@ -392,17 +664,30 @@
                         "currentDesignation": null,
                         "newDesignation": null,
                         "txadRemark": ""
-                    },
+                    }
+                ]
+            }
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_14541_987642_13112023044912_WEB.xml",
+            "time": "13-Nov-2023 16:49:14",
+            "appId": "14541",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
-                        "reasonChange": "Re-appointment",
-                        "designation": "Managing director",
-                        "auditorName": "Mukesh D. Ambani",
-                        "effectiveReginationDate": "19-Apr-2024 00:00:00",
-                        "appointmentTerm": "5",
-                        "profile": "",
-                        "discRelationBetDirector": null,
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Non - Executive Independent Director",
+                        "auditorName": "Sankaran Nair Rajagopal",
+                        "effectiveReginationDate": "01-Jan-2024 00:00:00",
+                        "appointmentTerm": "3",
+                        "profile": "Dr. Rajagopal had a career of about 33 years  in RBI having occupied senior positions including that of Regional Director for Maharashtra & Goa. As part of his assignments, he had been associated with a series of regulatory initiatives and has also been the General Manger at RBI, Bangalore with DBS oversight. Prior to joining RBI, he had been with Bank of India and SBI for short periods.   While in RBI he had  worked in Executive positions  in areas such as supervision & regulation of commercial banks & urban co-operative banks, financial stability analysis, payment system operations, foreign exchange, financial inclusion, currency management, human resources management and training (as teaching faculty) and has also served as nominee Director of RBI in Global Trust bank (during amalgamation with OBC) and Bank of Maharashtra.  Post retirement (in 2019) he was  engaged by Axis bank as Advisor for three years and is now serving as a Senior Advisor (External Consultant)  with  J. Sagar  & Associates , a leading Law Firm  on part-time basis.  Dr. Rajagopal has Board experience as RBI's nominee Director in erstwhile Global Trust Bank during the process of Amalgamation with OBC and also as a RBI's nominee on the Board of Bank of Maharashtra. Currently he is on the Board of  InCred financial Services, a new-generation NBFC  based in Mumbai since April 2023.",
+                        "discRelationBetDirector": "NIL",
                         "confCompSebiLetter": null,
                         "resignationReason": "",
                         "auditorResignedEntity": null,
@@ -411,13 +696,90 @@
                         "txadRemark": ""
                     },
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
                         "reasonChange": "Re-appointment",
                         "designation": "Non - Executive Independent Director",
-                        "auditorName": "Arundhati Bhattacharya",
-                        "effectiveReginationDate": "17-Oct-2023 00:00:00",
+                        "auditorName": "Pratima Ram",
+                        "effectiveReginationDate": "01-Apr-2024 00:00:00",
                         "appointmentTerm": "5",
+                        "profile": "Ms. Pratima Ram is an experienced banker with three decades in Corporate, International, Investment & Retail Banking. She has worked in India, USA and South Africa. Pratima held the position of Country Head & Chief General Manager of the United States Operations of State Bank of India, in New York, and prior to this she was the CEO of the South African operations of the Bank based at Johannesburg. At SBI Capital Markets, she assisted companies in raising funds through capital market instruments and led the Corporate Advisory, M&A, & Project Appraisal business. She also led the training initiatives of SBI as head of the SBI Academy. On leaving the public sector, she joined private sector in the infrastructure and Oil & Gas space as Group President Finance at Punj Lloyd Group having diversified operations then in more than 15 countries. Pratima was CEO and Whole Time Director of India Infoline Finance Ltd, IIFL, a large Non-Banking Finance company focused on lending to small businesses, Real Estate and Health Care sectors. She also held the CEO position at India Infoline Housing Finance Ltd. She is an independent Director on Boards of corporates in the electrical , auto, textiles, energy, and mining industry. She is on the boards of Minda Corporation Ltd, GPS Renewables Pvt Ltd, Cadila Pharmaceuticals Pvt Ltd, Avaali Solutions Pvt Ltd, Minda Instruments Limited, Subex Account Aggregator Services Pvt Ltd, Benefitsklub Technologies Private Limited & Manappuram Home Finance Limited. She also mentors startups in IT, renewable energy and agriculture sectors. She earlier held Board position in SBI California Ltd, USA and India Infoline Finance Ltd, Mumbai. In Bangalore, she is on the Perspective Planning Committee of Bangalore International Centre, an initiative of TERI, set up on the lines of India International Centre. She was member of the Executive Committee of Bangalore International Centre and was on the Management Committee of Bangalore Chambers of Industry and Commerce and on their sub Committees on Banking & Finance. She has been associated with CII for their programmes for Small & Medium industry. When in USA, she was associated with the activities of US-India Business Council & Asia Society and was an elected member of the executive committee of the Institute of International Bankers, USA. She takes keen interest in mentoring and advising medium size corporate, using her expertise gained in Corporate Banking & Advisory, Forex management and Risk management as well as experience gained in public & private sector industry. She is also deeply involved in improvement of rural school education in North Karnataka. Pratima graduated from University of Virginia, USA and Bangalore University.",
+                        "discRelationBetDirector": "NIL",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    }
+                ]
+            }
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_9701_920521_18082023033719_WEB.xml",
+            "time": "18-Aug-2023 15:37:20",
+            "appId": "9701",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Re-appointment",
+                        "designation": "Managing director",
+                        "auditorName": "V P Nandakumar",
+                        "effectiveReginationDate": "01-Apr-2024 00:00:00",
+                        "appointmentTerm": "5",
+                        "profile": "Mr. V.P. Nandakumar is a post graduate in science with additional qualifications in Banking & Foreign Trade. Immediately after completion of his education, he joined the erstwhile Nedungadi Bank Limited. In 1986, he resigned from the Bank to take over the family business, upon the demise of his father, V.C. Padmanabhan. In 1992, he promoted Manappuram Finance Ltd. and has been a director of the company since then.",
+                        "discRelationBetDirector": "Mr. V P Nandakumar is not related to any Director of the Company except with Dr. Sumitha Nandan, Executive director of the Company. Dr. Sumitha Nandan is the daughter of Mr. V P Nandakumar.",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    }
+                ]
+            }
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_9278_913276_10082023044825_WEB.xml",
+            "time": "10-Aug-2023 16:48:26",
+            "appId": "9278",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Appointment",
+                        "designation": "Non - Executive Independent Director",
+                        "auditorName": "SUSEELKUMAR",
+                        "effectiveReginationDate": "01-Nov-2023 00:00:00",
+                        "appointmentTerm": "3",
+                        "profile": "T.C. Suseel, Kumar has retired as Managing Director of Life Insurance  Corporation of India in January 2021",
+                        "discRelationBetDirector": "Mr Suseel Kumar (DIN: 06453310) is not related to any Director of the Company",
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Cessation",
+                        "designation": "Manager",
+                        "auditorName": "Sashidhara",
+                        "effectiveReginationDate": "28-Oct-2023 00:00:00",
+                        "appointmentTerm": null,
                         "profile": "",
                         "discRelationBetDirector": null,
                         "confCompSebiLetter": null,
@@ -432,21 +794,85 @@
         },
         {
             "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_4599_844260_17052023115242_WEB.xml",
-            "time": "17-May-2023 11:52:43",
-            "appId": "4599",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_7492_898685_23072023041718_WEB.xml",
+            "time": "23-Jul-2023 16:17:20",
+            "appId": "7492",
             "details": {
                 "ann_director_details": [],
                 "ann_auditor": [],
                 "ann_independent_director": [],
                 "ann_change": [
                     {
-                        "symbol": "RELIANCE",
-                        "companyName": "RELIANCE INDUSTRIES LIMITED",
-                        "reasonChange": "Tenure completion",
-                        "designation": "Executive director",
-                        "auditorName": "PawanKumarKapil",
-                        "effectiveReginationDate": "15-May-2023 00:00:00",
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Change in designation",
+                        "designation": "Others",
+                        "auditorName": "SreejeshSR",
+                        "effectiveReginationDate": "24-Jul-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "Mr.Sreejesh SR  Aged 38 Years is a Post graduate (MBA) and currently is the Senior Assistant General Manager -Commercial Vehicle Finance Division, of Manappuram Finance Limited. Mr. Sreejesh has  joined the company as Junior Asst in 2007 and has worked in several branches including branches outside Kerala. Besides he has also worked in important departments in responsible capacities and is currently the Senior Assistant General Manager in the Commercial Vehicles Division. The performance of Mr. Sreejesh has always been quite good and he has been receiving regular promotions in the Company. He has good understanding of the operations of most of the segments and verticals. He has also undergone series of training also at periodical intervals to equip and update him to face the challenges in the business. Mr. Sreejesh has long experience in hands on operations in all the segments of businesses. Management believes that his experience and his overall performance so far makes him a good candidate to be considered for the Head of operations.",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": "SeniorAssistantGeneralManagerCommercialVehicleFinanceDivision",
+                        "newDesignation": "Headoperation",
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Resignation",
+                        "designation": "Others",
+                        "auditorName": "Shyju",
+                        "effectiveReginationDate": "24-Jul-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": null,
+                        "newDesignation": null,
+                        "txadRemark": ""
+                    },
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Change in designation",
+                        "designation": "Others",
+                        "auditorName": "BineshPP",
+                        "effectiveReginationDate": "24-Jul-2023 00:00:00",
+                        "appointmentTerm": null,
+                        "profile": "Mr. Binesh P P  Aged 41 Years, is a commerce graduate with an MBA degree. He is currently GM and Head of Operations  and is already designated as an SMP being the Head of operations. The appointment will therefore be a change of portfolio from Operations  Head to  HR Head  ( with no change in grade) .Mr. Binesh has joined the company as Junior Asst in 2006 and has worked in diverse roles in branches outside Kerala,  in various departments and verticals and currently occupies the position of  General Manager operations which is a designated SMP role. Mr. Binesh has been delivering consistently good performance in all the roles he has been with the Company. He has also been exposed to periodical training in various fields. Mr.Binesh has extensive experience in frontline operations in GL and other verticals. All these roles involved significant understanding of management of the work force at different roles. Management believes that the experience that he brings to the table will help in his new role as the Head of HR.",
+                        "discRelationBetDirector": null,
+                        "confCompSebiLetter": null,
+                        "resignationReason": "",
+                        "auditorResignedEntity": null,
+                        "currentDesignation": "HeadOperation",
+                        "newDesignation": "HeadHR",
+                        "txadRemark": ""
+                    }
+                ]
+            }
+        },
+        {
+            "event_type": "Change in Directors/ Key Managerial Personnel/ Auditor/ Compliance Officer/ Share Transfer Agent",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/CIM_2612_809048_05042023110411_WEB.xml",
+            "time": "05-Apr-2023 11:04:12",
+            "appId": "2612",
+            "details": {
+                "ann_director_details": [],
+                "ann_auditor": [],
+                "ann_independent_director": [],
+                "ann_change": [
+                    {
+                        "symbol": "MANAPPURAM",
+                        "companyName": "MANAPPURAM FINANCE LIMITED",
+                        "reasonChange": "Resignation",
+                        "designation": "Non - Executive Non -Independent Director",
+                        "auditorName": "GAUTAMRAVINARAYAN",
+                        "effectiveReginationDate": "04-Apr-2023 00:00:00",
                         "appointmentTerm": null,
                         "profile": "",
                         "discRelationBetDirector": null,
@@ -465,177 +891,160 @@
         {
             "from_year": "2023",
             "to_year": "2024",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_24850_RELIANCE_2023_2024_07082024143222.pdf"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_26262_MANAPPURAM_2023_2024_26092024182242.pdf"
         },
         {
             "from_year": "2022",
             "to_year": "2023",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_22673_RELIANCE_2022_2023_06082023144106_08062023150000.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_22512_MANAPPURAM_2022_2023_26072023164955_07262023170000.zip"
         },
         {
             "from_year": "2021",
             "to_year": "2022",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_20656_RELIANCE_2021_2022_07082022233831.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_20540_MANAPPURAM_2021_2022_30072022173727_07302022180004.zip"
         },
         {
             "from_year": "2020",
             "to_year": "2021",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_18110_RELIANCE_2020_2021_02062021182738_02062021190007.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_18744_MANAPPURAM_2020_2021_16082021184148_16082021190003.zip"
         },
         {
             "from_year": "2019",
             "to_year": "2020",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_16311_RELIANCE_2019_2020_23062020175839_23062020180002.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_16670_MANAPPURAM_2019_2020_06082020102001_06082020110002.zip"
         },
         {
             "from_year": "2018",
             "to_year": "2019",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_14981_RELIANCE_2018_2019_19072019205801_19072019210006.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_15103_MANAPPURAM_2018_2019_02082019181507_02082019190007.zip"
         },
         {
             "from_year": "2017",
             "to_year": "2018",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_12473_RELIANCE_2017_2018_05072018164954.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_13293_MANAPPURAM_2017_2018_04092018085210.zip"
         },
         {
             "from_year": "2016",
             "to_year": "2017",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_10916_RELIANCE_2016_2017_01082017132601.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_11179_MANAPPURAM_2016_2017_23082017105356.zip"
         },
         {
             "from_year": "2015",
             "to_year": "2016",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_9570_RELIANCE_2015_2016_09092016095858.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_9301_MANAPPURAM_2015_2016_10082016162853.zip"
         },
         {
             "from_year": "2014",
             "to_year": "2015",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_6032_RELIANCE_2014_2015_25052015103822.zip"
-        },
-        {
-            "from_year": "2013",
-            "to_year": "2014",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_3303_RELIANCE_2013_2014_22052014100211.zip"
-        },
-        {
-            "from_year": "2012",
-            "to_year": "2013",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_19_RELIANCE_2012_2013_08052013171218.zip"
-        },
-        {
-            "from_year": "2011",
-            "to_year": "2012",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_RELIANCE_2011_2012_29062012101059.zip"
-        },
-        {
-            "from_year": "2010",
-            "to_year": "2011",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_RELIANCE_2010_2011_14072011112222.zip"
-        },
-        {
-            "from_year": "2009",
-            "to_year": "2010",
-            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_RELIANCE_2009_2010_20082010120000.zip"
+            "attachment": "https://nsearchives.nseindia.com/annual_reports/AR_6439_MANAPPURAM_2014_2015_10072015145623.zip"
         }
     ],
     "BussinessSustainabilitiyReport": [
         {
             "from_year": 2023,
             "to_year": 2024,
-            "attachment": "https://nsearchives.nseindia.com/corporate/kavinavora_07082024144352_SE_BRSR.pdf",
-            "submission_date": "07-Aug-2024"
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_22072024190041_BRSRBSE.pdf",
+            "submission_date": "22-Jul-2024"
         }
     ],
     "BoardMeetings": [
         {
-            "date": "27-Oct-2023",
-            "symbol": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Board Meeting to be held on 27-Oct-2023 to inter-alia consider and approve the Unaudited Financial results of the Company for the Quarterly ended September 2023 .",
+            "date": "13-Nov-2023",
+            "symbol": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Board Meeting to be held on 13-Nov-2023 to consider and approve the Half Yearly Unaudited Financial results of the Company for the period ended September 2023 and Dividend/Other business.",
             "description": "Board Meeting Intimation",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_12112_963819_20102023062037_WEB.xml"
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_12827_970479_30102023094215_WEB.xml"
         },
         {
-            "date": "27-Oct-2023",
-            "symbol": "Financial Results",
-            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, October 27, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter and half-year ended September 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter and half-year ended September 30, 2023 shall be made on the same day after the meeting.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_20102023181644_SEBoardMeetingNoticeQ3.pdf"
+            "date": "10-Nov-2023",
+            "symbol": "Financial Results/Dividend",
+            "description": "MANAPPURAM : 13-Nov-2023 :  The Company has informed the Exchange that a Board meeting to be held on November 10, 2023 has been re-scheduled. Further, the Company has informed the Exchange that the meeting of the Board of Directors of the Company will be held on November 13, 2023, To consider and approve the financial results for the period ended September 30, 2023 and dividend",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_30102023092531_RevisedBoardMeeting.pdf"
         },
         {
-            "date": "21-Jul-2023",
-            "symbol": "Financial Results",
-            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board of Directors of the Company is scheduled to be held on Friday, July 21, 2023, inter alia, to consider and approve the standalone and consolidated unaudited financial results of the Company for the quarter ended June 30, 2023.A presentation to analysts and media on financial results of the Company for the quarter ended June 30, 2023 shall be made on the same day after the meeting.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14072023205724_SEBoardMeetingNotice.pdf"
+            "date": "10-Nov-2023",
+            "symbol": "Financial Results/Dividend/Other business matters",
+            "description": "To consider and approve the financial results for the period ended September 30, 2023, dividend and other business matters",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_25092023162829_boradmeetingintimationSep.pdf"
         },
         {
-            "date": "21-Jul-2023",
-            "symbol": "RELIANCE INDUSTRIES LIMITED has informed the Exchange about Board Meeting to be held on 21-Jul-2023 to inter-alia consider and approve the Unaudited Financial results of the Company for the Quarterly ended June 2023 .",
+            "date": "10-Nov-2023",
+            "symbol": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Board Meeting to be held on 10-Nov-2023 to consider and approve the Quarterly Unaudited Financial results of the Company for the period ended September 2023 and Dividend/Other business.",
             "description": "Board Meeting Intimation",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_7049_885773_14072023090230_WEB.xml"
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_10705_934086_25092023043109_WEB.xml"
         },
         {
-            "date": "21-Jul-2023",
-            "symbol": "Dividend",
-            "description": "To recommend dividend on equity shares of the Company for the financial year ended March 31, 2023.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17072023204755_SE.pdf"
-        },
-        {
-            "date": "21-Apr-2023",
-            "symbol": "RELIANCE INDUSTRIES LIMITEDhas informed the Exchange about Board Meeting to be held on 21-Apr-2023to inter-alia consider and approve the Audited financial results of the Company for the Yearly ended March 2023 .",
+            "date": "10-Aug-2023",
+            "symbol": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Board Meeting to be held on 10-Aug-2023 to consider and approve the Quarterly Unaudited Financial results of the Company for the period ended June 2023 and Dividend.",
             "description": "Board Meeting Intimation",
-            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_2810_819684_14042023062257.xml"
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_7508_898829_24072023021412_WEB.xml"
         },
         {
-            "date": "21-Apr-2023",
-            "symbol": "Financial Results",
-            "description": "To consider and approve the standalone and consolidated audited financial results of theCompany for the quarter / year ended March 31, 2023.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_14042023181953_SEBoardMeetingNoticeQ1.pdf"
+            "date": "10-Aug-2023",
+            "symbol": "Financial Results/Dividend",
+            "description": "To consider and approve the unaudited consolidated and standalone financial results for the period ended Jun 30, 2023 and interim dividend",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_24072023102636_BMintimation.pdf"
         },
         {
-            "date": "20-Jan-2023",
-            "symbol": "Fund Raising",
-            "description": "We wish to inform you that it is proposed to consider raising of funds by way of issuance of listed, secured / unsecured, redeemable non-convertible debentures on private placement basis, in one or more tranches / series, at the Board Meeting scheduled to be held on Friday, January 20, 2023.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_17012023231349_SEIntimation17012023.pdf"
+            "date": "20-Jun-2023",
+            "symbol": "Other business matters",
+            "description": "To consider other business matters",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_15062023172700_priorintimation.pdf"
         },
         {
-            "date": "20-Jan-2023",
-            "symbol": "Financial Results",
-            "description": "We wish to inform you that pursuant to Regulation 29 and other applicable provisions ofthe Securities and Exchange Board of India (Listing Obligations and DisclosureRequirements) Regulations, 2015 ( Listing Regulations ), a meeting of the Board ofDirectors of the Company is scheduled to be held on Friday, January 20, 2023, inter alia,to consider and approve the standalone and consolidated unaudited financial results of theCompany for the quarter / nine months ended December 31, 2022.",
-            "attachment": "https://nsearchives.nseindia.com/corporate/RELIANCE_13012023181632_BMIntimation13012023.pdf"
+            "date": "20-Jun-2023",
+            "symbol": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Board Meeting to be held on 20-Jun-2023 to consider Other business.",
+            "description": "Board Meeting Intimation",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_6287_865499_16062023090939_WEB.xml"
+        },
+        {
+            "date": "12-May-2023",
+            "symbol": "Financial Results/Dividend/Other business matters",
+            "description": "To consider and approve the financial results for the period ended March 31, 2023, dividend and other business matters",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_24042023150841_boradmeetingintimation.pdf"
+        },
+        {
+            "date": "12-May-2023",
+            "symbol": "MANAPPURAM FINANCE LIMITED has informed the Exchange about Board Meeting to be held on 12-May-2023 to consider financial statements for the period ended March 2023, Dividend/Financial results/Other business.",
+            "description": "Board Meeting Intimation",
+            "attachment": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_3130_832402_25042023111615_WEB.xml"
+        },
+        {
+            "date": "24-Mar-2023",
+            "symbol": "Fund Raising/Other business matters",
+            "description": "To consider Fund Raising and other business matters",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_17032023093211_finalpriorSE.pdf"
+        },
+        {
+            "date": "03-Feb-2023",
+            "symbol": "Financial Results/Dividend/Other business matters",
+            "description": "To consider and approve the financial results for the period ended December 31, 2022, dividend and other business matters",
+            "attachment": "https://nsearchives.nseindia.com/corporate/MANAPPURAM_17012023171857_BMINTIMATION.pdf"
         }
     ],
     "CorporateActions": [
         {
-            "date": "20-Jul-2023",
-            "subject": "Demerger"
+            "date": "15-Feb-2023",
+            "subject": "Interim Dividend - Re 0.75 Per Share"
         },
         {
-            "date": "21-Aug-2023",
-            "subject": "Dividend - Rs 9 Per Share"
+            "date": "24-May-2023",
+            "subject": "Interim Dividend - Re 0.75 Per Share"
+        },
+        {
+            "date": "23-Aug-2023",
+            "subject": "Interim Dividend - Rs 0.80 Per Share"
+        },
+        {
+            "date": "24-Nov-2023",
+            "subject": "Interim Dividend - Re 0.85 Per Share"
         }
     ],
     "Key_Personnel": {
         "board_of_directors": [
             {
-                "director_name": "Mr.Mukesh Dhirubhai Ambani",
-                "din": "00001695",
-                "designation": "Chairperson Related To Promoters,Executive Director-MD",
-                "tenure": "-",
-                "membership": [
-                    "-"
-                ]
-            },
-            {
-                "director_name": "Mr.Nikhil Rasiklal Meswani",
-                "din": "00001620",
-                "designation": "Executive Director",
-                "tenure": "-",
-                "membership": [
-                    "Stakeholders Relationship Committee"
-                ]
-            },
-            {
-                "director_name": "Mr.Hital Rasiklal Meswani",
-                "din": "00001623",
-                "designation": "Executive Director",
+                "director_name": "Mr.V P Nandakumar",
+                "din": "00044512",
+                "designation": "Executive Director-CEO-MD",
                 "tenure": "-",
                 "membership": [
                     "Stakeholders Relationship Committee",
@@ -643,19 +1052,20 @@
                 ]
             },
             {
-                "director_name": "Mr.Madhusudana Sivaprasad Panda",
-                "din": "00012144",
-                "designation": "Executive Director",
-                "tenure": "-",
+                "director_name": "Mr.Abhijit Sen",
+                "din": "00002593",
+                "designation": "Independent Director",
+                "tenure": "64",
                 "membership": [
-                    "Risk Management Committee"
+                    "Audit Committee",
+                    "RC"
                 ]
             },
             {
-                "director_name": "Mr.Raminder Singh Gujral",
-                "din": "07175393",
+                "director_name": "Mr.Harshan Kollara",
+                "din": "01519810",
                 "designation": "Independent Director",
-                "tenure": "114.2",
+                "tenure": "52",
                 "membership": [
                     "Audit Committee",
                     "RC",
@@ -663,176 +1073,186 @@
                 ]
             },
             {
-                "director_name": "Mr.Shumeet Banerji",
-                "din": "02787784",
-                "designation": "Independent Director",
-                "tenure": "89.11",
+                "director_name": "Mr.Shailesh Jayantilal Mehta",
+                "din": "01633893",
+                "designation": "Independent Director,Chairperson & Non-Executive Director",
+                "tenure": "52",
                 "membership": [
-                    "Risk Management Committee",
+                    "Audit Committee",
+                    "RC",
                     "Nomination & Remuneration Committee"
                 ]
             },
             {
-                "director_name": "Mrs.Arundhati Bhattacharya",
-                "din": "02011213",
+                "director_name": "Mrs.Pratima Ram",
+                "din": "03518633",
                 "designation": "Independent Director",
-                "tenure": "74.15",
+                "tenure": "27",
                 "membership": [
+                    "Audit Committee",
+                    "Stakeholders Relationship Committee",
+                    "RC"
+                ]
+            },
+            {
+                "director_name": "Mrs.V P Seemandini",
+                "din": "07850522",
+                "designation": "Independent Director",
+                "tenure": "24",
+                "membership": [
+                    "Nomination & Remuneration Committee"
+                ]
+            },
+            {
+                "director_name": "Mrs.Sumitha Nandan",
+                "din": "03625120",
+                "designation": "Executive Director",
+                "tenure": "-",
+                "membership": [
+                    "Audit Committee"
+                ]
+            },
+            {
+                "director_name": "Mr.T C Suseel Kumar",
+                "din": "06453310",
+                "designation": "Independent Director",
+                "tenure": "14",
+                "membership": [
+                    "Audit Committee",
                     "Stakeholders Relationship Committee"
                 ]
             },
             {
-                "director_name": "Mr.His Excellency Yasir Othman H. Al Rumayyan",
-                "din": "09245977",
+                "director_name": "Mr.Sankaran Nair Rajagopal",
+                "din": "10087762",
                 "designation": "Independent Director",
-                "tenure": "41.13",
+                "tenure": "12",
                 "membership": [
-                    "-"
-                ]
-            },
-            {
-                "director_name": "Mr.Veerayya Chowdary Kosaraju",
-                "din": "08485334",
-                "designation": "Independent Director",
-                "tenure": "29.11",
-                "membership": [
-                    "Audit Committee",
                     "Stakeholders Relationship Committee",
                     "RC",
                     "Nomination & Remuneration Committee"
                 ]
             },
             {
-                "director_name": "Mr.K V Kamath",
-                "din": "00043501",
+                "director_name": "Mr.Edodiyil Kunhiraman Bharat Bhushan",
+                "din": "01124966",
                 "designation": "Independent Director",
-                "tenure": "23.12",
+                "tenure": "10",
                 "membership": [
-                    "-"
-                ]
-            },
-            {
-                "director_name": "Mr.Akash M Ambani",
-                "din": "06984194",
-                "designation": "Non-Executive Director",
-                "tenure": "-",
-                "membership": [
-                    "-"
-                ]
-            },
-            {
-                "director_name": "Ms.Isha M Ambani",
-                "din": "06984175",
-                "designation": "Non-Executive Director",
-                "tenure": "-",
-                "membership": [
-                    "-"
-                ]
-            },
-            {
-                "director_name": "Mr.Anant Mukesh Ambani",
-                "din": "07945702",
-                "designation": "Non-Executive Director",
-                "tenure": "-",
-                "membership": [
-                    "-"
-                ]
-            },
-            {
-                "director_name": "Mr.Haigreve Khaitan",
-                "din": "00005290",
-                "designation": "Independent Director",
-                "tenure": "9",
-                "membership": [
-                    "Audit Committee"
+                    "Stakeholders Relationship Committee"
                 ]
             }
         ],
         "communities": {
             "Audit Committee": [
                 {
-                    "name": "Raminder Singh Gujral",
+                    "name": "Abhijit Sen",
                     "designation": "Independent Director",
                     "community_designation": "Chairperson"
                 },
                 {
-                    "name": "Veerayya Chowdary Kosaraju",
+                    "name": "Shailesh Jayantilal Mehta",
+                    "designation": "Independent Director,Chairperson & Non-Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Harshan Kollara",
                     "designation": "Independent Director",
                     "community_designation": "Member"
                 },
                 {
-                    "name": "Haigreve Khaitan",
+                    "name": "Pratima Ram",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Sumitha Nandan",
+                    "designation": "Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "T C Suseel Kumar",
                     "designation": "Independent Director",
                     "community_designation": "Member"
                 }
             ],
             "Stakeholders Committee": [
                 {
-                    "name": "Veerayya Chowdary Kosaraju",
+                    "name": "T C Suseel Kumar",
                     "designation": "Independent Director",
                     "community_designation": "Chairperson"
                 },
                 {
-                    "name": "Arundhati Bhattacharya",
+                    "name": "V P Nandakumar",
+                    "designation": "Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Sankaran Nair Rajagopal",
                     "designation": "Independent Director",
                     "community_designation": "Member"
                 },
                 {
-                    "name": "Nikhil Rasiklal Meswani",
-                    "designation": "Executive Director",
+                    "name": "Edodiyil Kunhiraman Bharat Bhushan",
+                    "designation": "Independent Director",
                     "community_designation": "Member"
                 },
                 {
-                    "name": "Hital Rasiklal Meswani",
-                    "designation": "Executive Director",
+                    "name": "Pratima Ram",
+                    "designation": "Independent Director",
                     "community_designation": "Member"
                 }
             ],
             "Risk Management Committee": [
                 {
-                    "name": "Raminder Singh Gujral",
+                    "name": "Abhijit Sen",
                     "designation": "Independent Director",
                     "community_designation": "Chairperson"
                 },
                 {
-                    "name": "Shumeet Banerji",
-                    "designation": "Independent Director",
-                    "community_designation": "Member"
-                },
-                {
-                    "name": "Veerayya Chowdary Kosaraju",
-                    "designation": "Independent Director",
-                    "community_designation": "Member"
-                },
-                {
-                    "name": "Hital Rasiklal Meswani",
+                    "name": "V P Nandakumar",
                     "designation": "Executive Director",
                     "community_designation": "Member"
                 },
                 {
-                    "name": "Madhusudana Sivaprasad Panda",
-                    "designation": "Executive Director",
+                    "name": "Shailesh Jayantilal Mehta",
+                    "designation": "Independent Director,Chairperson & Non-Executive Director",
                     "community_designation": "Member"
                 },
                 {
-                    "name": "Srikanth Venkatachari",
-                    "designation": "Chief Financial Officer",
+                    "name": "Harshan Kollara",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Pratima Ram",
+                    "designation": "Independent Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "Sankaran Nair Rajagopal",
+                    "designation": "Independent Director",
                     "community_designation": "Member"
                 }
             ],
             "Nomination and Remuneration Committee": [
                 {
-                    "name": "Shumeet Banerji",
+                    "name": "Harshan Kollara",
                     "designation": "Independent Director",
                     "community_designation": "Chairperson"
                 },
                 {
-                    "name": "Raminder Singh Gujral",
+                    "name": "Shailesh Jayantilal Mehta",
+                    "designation": "Independent Director,Chairperson & Non-Executive Director",
+                    "community_designation": "Member"
+                },
+                {
+                    "name": "V P Seemandini",
                     "designation": "Independent Director",
                     "community_designation": "Member"
                 },
                 {
-                    "name": "Veerayya Chowdary Kosaraju",
+                    "name": "Sankaran Nair Rajagopal",
                     "designation": "Independent Director",
                     "community_designation": "Member"
                 }
